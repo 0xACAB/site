@@ -1,0 +1,12 @@
+{
+  "sections": [
+    {
+      "name": "sphere",
+      "title": "Сцена со сферой"
+    },
+    {
+      "name": "triangle",
+      "title": "Сцена с треугольником"
+    }
+  ]
+}

@@ -2,11 +2,12 @@
 import { useRef } from 'react';
 import MainHero from '@/components/MainHero';
 import Header from '@/components/Header';
-import Product from '@/components/Product';
-import Features from '@/components/Features';
-import Pricing from '@/components/Pricing';
 import About from '@/components/About';
 import config from '@/config/index.json';
+import Product from '@/components/Product';
+import Features from '@/components/Features';
+import Experiments from '@/components/Experiments';
+import Pricing from '@/components/Pricing';
 
 export default function DesktopPage({mobile}) {
     const { navigation } = config;
@@ -18,13 +19,13 @@ export default function DesktopPage({mobile}) {
         <div className={`bg-background grid gap-y-0 overflow-hidden`}>
             <div className={`relative bg-background flex items-center flex-col`}>
                 <div className="max-w-7xl mx-auto">
-                    {/*test*/}
                     <Header refs={refs} />
                     <MainHero mobile={mobile} />
                 </div>
             </div>
             <Product ref={refs.production} />
             <Features ref={refs.features} />
+            <Experiments />
             <Pricing ref={refs.pricing} />
             <About ref={refs.about} />
         </div>

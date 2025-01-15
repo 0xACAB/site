@@ -7,6 +7,7 @@ import config from '@/config/index.json';
 import Product from '@/components/Product';
 import Features from '@/components/Features';
 import Pricing from '@/components/Pricing';
+import Experiments from '@/components/Experiments';
 
 export default function MobilePage({mobile}) {
     const { navigation } = config;
@@ -24,6 +25,7 @@ export default function MobilePage({mobile}) {
             </div>
             <Product ref={refs.production} />
             <Features ref={refs.features} />
+            <Experiments />
             <Pricing ref={refs.pricing} />
             <About ref={refs.about} />
         </div>

@@ -12,7 +12,6 @@
       "name": "Особенности",
       "href": "features"
     },
-
     {
       "name": "Цены",
       "href": "pricing"
@@ -23,7 +22,7 @@
     }
   ],
   "mainHero": {
-    "title": "Целевая страница",
+    "title": "Десктопная версия целевой страницы",
     "mobileTitle": "Мобильная версия целевой страницы",
     "subtitle": "Landing page",
     "description": "Веб-страница, основной задачей которой является сбор контактных данных целевой аудитории",
@@ -66,6 +65,30 @@
         "name": "Next.js",
         "description": "Next.js is a framework for server-rendered React applications using Next.js.",
         "icon": "/assets/images/nextjs.svg"
+      },
+      {
+        "name": "Typescript",
+        "description": "TypeScript is a programming language developed and maintained by Microsoft.",
+        "icon": "/assets/images/ts.png"
+      }
+    ]
+  },
+  "experiments": {
+    "title": "Эксперименты",
+    "subtitle": "WebGL и WebGPU",
+    "description": "Экспериментируем со следующими технологиями",
+    "items": [
+      {
+        "name": "WebGL",
+        "description": "WebGL (Web-based Graphics Library) — кроссплатформенный API для отображения 3D-графики в браузере, разрабатываемый некоммерческой организацией Khronos Group.",
+        "icon": "/assets/images/WebGL_Logo.svg",
+        "href": "/webgl"
+      },
+      {
+        "name": "WebGPU",
+        "description": "WebGPU — это рабочее имя будущего веб-стандарта и JavaScript API для аппаратно-ускоренной графики и вычислений, нацеленное предоставить «новейшую 3D графику и вычислительные возможности». Разработан рабочей группой W3C «GPU for the Web» совместно с инженерами из Apple, Mozilla, Microsoft, Google и других компаний",
+        "icon": "/assets/images/webgpu.svg",
+        "href": "/webgpu"
       }
     ]
   },

@@ -1,9 +1,9 @@
-import Test1 from './Test1';
-import Test2 from './Test2';
+import Sphere from './Scenes/RayCasting/Sphere/Sphere';
+import Triangle from './Scenes/RayCasting/Triangle/Triangle';
 
 const sectionsMap = {
-	test1: Test1,
-	test2: Test2,
+	sphere: Sphere,
+	triangle: Triangle,
 	test3: null,
 };
 
