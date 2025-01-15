@@ -7,8 +7,8 @@ import vert from './shaders/vert.glsl';
 import frag from './shaders/frag.glsl';
 import uniforms from './uniforms';
 
-import Pixelating from '@/components/Pixelating/Pixelating';
-import Slider from '@/components/Pixelating/Slider';
+import Pixelating from './../../../Pixelating/Pixelating';
+import Slider from './../../../Pixelating/Slider';
 
 export default function Test() {
 	const statsRef = useRef<HTMLDivElement>(null);
