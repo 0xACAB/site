@@ -1,0 +1,123 @@
+{
+  "company": {
+    "name": "@xTranscendence",
+    "logo": "/assets/images/logo.png"
+  },
+  "navigation": [
+    {
+      "name": "Продукт",
+      "href": "production"
+    },
+    {
+      "name": "Особенности",
+      "href": "features"
+    },
+
+    {
+      "name": "Цены",
+      "href": "pricing"
+    },
+    {
+      "name": "О нас",
+      "href": "about"
+    }
+  ],
+  "mainHero": {
+    "title": "Целевая страница",
+    "mobileTitle": "Мобильная версия целевой страницы",
+    "subtitle": "Landing page",
+    "description": "Веб-страница, основной задачей которой является сбор контактных данных целевой аудитории",
+    "primaryAction": {
+      "text": "Начать целевое действие",
+      "href": "#"
+    }
+  },
+  "product": {
+    "title": "Некоторый продукт",
+    "items": [
+      {
+        "title": "Эффективность",
+        "description": "Целевые страницы используются и для дифференциации интернет-аудитории. На основе данных о поведении посетителей целевых страниц выстраиваются маркетинговые кампании. В зависимости от интересов, уровня образования посетителя, даже времени суток или года каждому типу посетителей может предлагаться свой вариант целевой страницы, ориентированный на желания и потребности конкретной целевой группы.",
+        "img": "/assets/images/product1.jpg"
+      },
+      {
+        "title": "Конверсия целевой страницы",
+        "description": "Показатель эффективности целевой страницы называется конверсия. Это число, показывающее отношение количества пользователей, совершивших целевое действие, к количеству заходов на целевую страницу и умноженное на 100 %. Чем выше показатель конверсии, тем лучше целевая страница.\n\nДля увеличения конверсии целевых страниц используются инструменты A/B-тестирования (сплит-тестирования). Задача тестирования заключается в том, чтобы выявить дизайн с максимальной конверсией.",
+        "img": "/assets/images/product2.jpg"
+      }
+    ]
+  },
+  "features": {
+    "title": "Особенности",
+    "subtitle": "Технологический процесс",
+    "description": "Эта страница была создана с использованием следующих технологий",
+    "items": [
+      {
+        "name": "React.js",
+        "description": "React is a free and open-source front-end JavaScript library for building user interfaces or UI components.",
+        "icon": "/assets/images/react.png"
+      },
+      {
+        "name": "Tailwind",
+        "description": "Tailwind CSS is a highly customizable, low-level CSS framework for quickly creating beautiful designs without any annoying opinionated stylesheet nonsense.",
+        "icon": "/assets/images/tailwindcss.svg"
+      },
+      {
+        "name": "Next.js",
+        "description": "Next.js is a framework for server-rendered React applications using Next.js.",
+        "icon": "/assets/images/nextjs.svg"
+      }
+    ]
+  },
+  "pricing": {
+    "title": "Блок с вариантами продукта",
+    "items": [
+      {
+        "name": "Первый вариант",
+        "price": "Цена1",
+        "priceDetails": "",
+        "features": [
+          "Информация"
+        ]
+      },
+      {
+        "name": "Второй вариант",
+        "price": "Цена2",
+        "priceDetails": "",
+
+        "features": [
+          "Информация"
+        ]
+      },
+      {
+        "name": "Третий вариант",
+        "price": "Цена3",
+        "priceDetails": "",
+        "features": [
+          "Информация"
+        ]
+      }
+    ]
+  },
+  "about": {
+    "sections": [
+      {
+        "name": "Помощь",
+        "href": "#"
+      },
+      {
+        "name": "Пользовательское соглашение",
+        "href": "#"
+      },
+      {
+        "name": "Обратная связь",
+        "href": "#"
+      }
+    ],
+    "socialMedia": {
+      "github": "https://github.com/0xACAB",
+      "linkedin": "https://www.linkedin.com/in/xtranscendence/",
+      "telegram": "https://t.me/xTranscendence"
+    }
+  }
+}

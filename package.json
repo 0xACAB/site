@@ -1,0 +1,24 @@
+{
+  "name": "landing_template",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "15.1.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "styled-components": "^6.1.13",
+    "three": "^0.172.0",
+    "ua-parser-js": "^2.0.0-beta.3"
+  },
+  "devDependencies": {
+    "postcss": "^8",
+    "raw-loader": "^4.0.2",
+    "tailwindcss": "^3.4.1"
+  }
+}
