@@ -19,9 +19,7 @@ export default function DesktopPage({ mobile }) {
 	return (
 		<div className={`flex flex-row`}>
 			{opened &&
-				<div className={`w-[200px]`}
-					/*style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}*/
-				>
+				<div>
 					{navigation.map((item) => {
 						const ref = refs[item.href];
 						return (
@@ -36,7 +34,7 @@ export default function DesktopPage({ mobile }) {
 						);
 					})}
 				</div>}
-			<div className={`flex flex-col gap-y-0 overflow-hidden ${opened ? 'w-5/6' : 'w-full'}`}>
+			<div className={`flex flex-col gap-y-0 overflow-hidden w-full`}>
 				<BurgerMenu opened={opened} mobile={mobile} onClick={() => setOpened((opened) => !opened)} />
 				<div className="grid place-items-stretch ">
 					<div style={{ gridArea: '1 / 1' }}>
