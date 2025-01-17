@@ -3,7 +3,7 @@ import config from '../config/index.json';
 export default function MainHero({ mobile }) {
     const { mainHero } = config;
     return (
-        <main className="mt-10 mx-auto max-w-5xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-16 lg:px-8 xl:mt-16">
+        <main className="mt-10 mx-auto max-w-5xl px-4 sm:mt-12 sm:px-6 lg:px-8">
             <div className="sm:text-center">
                 <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
                     <span className="block clear-both">{mobile ? mainHero.mobileTitle : mainHero.title}</span>{' '}

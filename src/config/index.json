@@ -1,7 +1,8 @@
 {
   "company": {
     "name": "@xTranscendence",
-    "logo": "/assets/images/logo.png"
+    "logo1": "/assets/images/logo.png",
+    "logo2": "/assets/images/logo.svg"
   },
   "navigation": [
     {
@@ -13,11 +14,11 @@
       "href": "features"
     },
     {
-      "name": "Цены",
-      "href": "pricing"
+      "name": "Эксперименты",
+      "href": "experiments"
     },
     {
-      "name": "О нас",
+      "name": "Обратная связь",
       "href": "about"
     }
   ],
@@ -53,22 +54,22 @@
     "items": [
       {
         "name": "React.js",
-        "description": "React is a free and open-source front-end JavaScript library for building user interfaces or UI components.",
+        "description": "JavaScript-библиотека с открытым исходным кодом для разработки пользовательских интерфейсов.",
         "icon": "/assets/images/react.png"
       },
       {
         "name": "Tailwind",
-        "description": "Tailwind CSS is a highly customizable, low-level CSS framework for quickly creating beautiful designs without any annoying opinionated stylesheet nonsense.",
+        "description": " CSS-фреймворк с открытым исходным кодом, созданный Адамом Уэтеном и поддерживаемый Tailwind Labs. Особенность этой библиотеки в том, что, она не предопределяет CSS-классы отдельных элементов. Вместо этого она предоставляет служебные классы, которые можно объединять для стилизации каждого элемента.",
         "icon": "/assets/images/tailwindcss.svg"
       },
       {
         "name": "Next.js",
-        "description": "Next.js is a framework for server-rendered React applications using Next.js.",
+        "description": "Открытый JavaScript фреймворк, созданный поверх React.js для создания веб-приложений компанией Vercel (ранее ZEIT). Фреймворк был предназначен для решения проблемы React.js, связанной с отрисовкой приложения на стороне сервера - SSR, также дополняет React.js удобными решениями по навигации (routing) между страницами с помощью файлового подхода (file-system based router). Работает на сервере и в браузере.",
         "icon": "/assets/images/nextjs.svg"
       },
       {
         "name": "Typescript",
-        "description": "TypeScript is a programming language developed and maintained by Microsoft.",
+        "description": "Язык программирования, представленный Microsoft в 2012 году и позиционируемый как средство разработки веб-приложений, расширяющее возможности JavaScript",
         "icon": "/assets/images/ts.png"
       }
     ]
@@ -76,7 +77,7 @@
   "experiments": {
     "title": "Эксперименты",
     "subtitle": "WebGL и WebGPU",
-    "description": "Экспериментируем со следующими технологиями",
+    "description": "",
     "items": [
       {
         "name": "WebGL",
@@ -92,51 +93,7 @@
       }
     ]
   },
-  "pricing": {
-    "title": "Блок с вариантами продукта",
-    "items": [
-      {
-        "name": "Первый вариант",
-        "price": "Цена1",
-        "priceDetails": "",
-        "features": [
-          "Информация"
-        ]
-      },
-      {
-        "name": "Второй вариант",
-        "price": "Цена2",
-        "priceDetails": "",
-
-        "features": [
-          "Информация"
-        ]
-      },
-      {
-        "name": "Третий вариант",
-        "price": "Цена3",
-        "priceDetails": "",
-        "features": [
-          "Информация"
-        ]
-      }
-    ]
-  },
   "about": {
-    "sections": [
-      {
-        "name": "Помощь",
-        "href": "#"
-      },
-      {
-        "name": "Пользовательское соглашение",
-        "href": "#"
-      },
-      {
-        "name": "Обратная связь",
-        "href": "#"
-      }
-    ],
     "socialMedia": {
       "github": "https://github.com/0xACAB",
       "linkedin": "https://www.linkedin.com/in/xtranscendence/",

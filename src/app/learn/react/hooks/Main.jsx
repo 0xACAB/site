@@ -5,7 +5,7 @@ import Section from './Section';
 
 export default function Main() {
 	const { sections } = config;
-	const [section, setSection] = useState('useEffect');
+	const [section, setSection] = useState('useMemo');
 	return (
 		<div className={`flex flex-col w-full items-center`}>
 			<div className={`flex flex-col w-1/2 items-center min-w-[400px]`}>

@@ -5,7 +5,7 @@ export default function Features({ ref }) {
 	const { experiments } = config;
 	const { title, subtitle, description, items: featuresList } = experiments;
 	return (
-		<div className={`py-12 bg-background`} id="features" ref={ref}>
+		<div className={`py-12`} id="features" ref={ref}>
 			<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="lg:text-center">
 					<h2
@@ -19,9 +19,6 @@ export default function Features({ ref }) {
 					<p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
 						{description}
 					</p>
-					<p className="mt-4 max-w-2xl text-sm text-gray-700 lg:mx-auto">
-						(чтобы посмотреть эксперименты кликни на нужную технологию)
-					</p>
 				</div>
 
 				<div className="mt-10">
@@ -30,7 +27,7 @@ export default function Features({ ref }) {
 							<div key={feature.name} className="relative">
 								<dt>
 									<div
-										className={`absolute flex items-center justify-center h-12 w-12 rounded-md bg-background text-tertiary border-primary border-4`}
+										className={`absolute flex items-center justify-center h-12 w-12 rounded-md text-tertiary border-primary border-4`}
 									>
 										<img
 											className={`inline-block h-6 w-6 rounded-full`}

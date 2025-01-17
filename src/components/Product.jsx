@@ -6,7 +6,7 @@ export default function Product({ ref }) {
 	const [firstItem, secondItem] = product.items;
 
 	return (
-		<section className={`bg-background py-8`} id="production" ref={ref}>
+		<section className={`py-8`} id="production" ref={ref}>
 			<div className={`container max-w-4xl mx-auto m-8`}>
 				<h1
 					className={`w-full my-2 text-5xl font-bold leading-tight text-center text-primary`}
@@ -38,7 +38,7 @@ export default function Product({ ref }) {
 					<div className={`flex flex-row justify-center items-center w-full sm:w-1/2 p-6`}>
 						<img
 							className="h-6/6"
-							src={company?.logo}
+							src={company?.logo1}
 							alt={firstItem?.title}
 						/>
 					</div>
@@ -47,7 +47,8 @@ export default function Product({ ref }) {
 					<div className={`flex flex-row justify-center items-center w-full sm:w-1/2 p-6`}>
 						<img
 							className="h-6/6"
-							src={company?.logo}
+							src={company?.logo2}
+							style={{transform: 'scale(1,-1)'}}
 							alt={secondItem?.title}
 						/>
 					</div>

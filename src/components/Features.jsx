@@ -4,7 +4,7 @@ export default function Features({ ref }) {
 	const { features } = config;
 	const { title, subtitle, description, items: featuresList } = features;
 	return (
-		<div className={`py-12 bg-background`} id="features" ref={ref}>
+		<div className={`py-12`} id="features" ref={ref}>
 			<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="lg:text-center">
 					<h2
@@ -26,7 +26,7 @@ export default function Features({ ref }) {
 							<div key={feature.name} className="relative">
 								<dt>
 									<div
-										className={`absolute flex items-center justify-center h-12 w-12 rounded-md bg-background text-tertiary border-primary border-4`}
+										className={`absolute flex items-center justify-center h-12 w-12 rounded-md text-tertiary border-primary border-4`}
 									>
 										<img
 											className={`inline-block h-6 w-6 rounded-full`}
