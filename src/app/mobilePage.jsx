@@ -18,22 +18,25 @@ export default function MobilePage({ mobile }) {
 	const [opened, setOpened] = useState(false);
 	return (
 		<>
-			<div className={`absolute w-full bg-white`}>
-				<BurgerMenu opened={opened} onClick={() => setOpened((opened) => !opened)} />
-
-				{opened && navigation.map((item) => {
-					const ref = refs[item.href];
-					return (
-						<ScrollLink
-							key={item.href}
-							mobile={mobile}
-							refElement={ref}
-							onClick={() => setOpened(false)}
-						>
-							<div>{item.name}</div>
-						</ScrollLink>
-					);
-				})}
+			<div className={`absolute w-full`}>
+				<div className={`flex flex-col w-full bg-white`}>
+					<BurgerMenu opened={opened} mobile={mobile} onClick={() => setOpened((opened) => !opened)} />
+					<div>
+						{opened && navigation.map((item) => {
+							const ref = refs[item.href];
+							return (
+								<ScrollLink
+									key={item.href}
+									mobile={mobile}
+									refElement={ref}
+									onClick={() => setOpened(false)}
+								>
+									<div>{item.name}</div>
+								</ScrollLink>
+							);
+						})}
+					</div>
+				</div>
 			</div>
 
 			<div className={`flex flex-col gap-y-0 overflow-hidden w-full`}>

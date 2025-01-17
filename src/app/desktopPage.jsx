@@ -17,26 +17,27 @@ export default function DesktopPage({ mobile }) {
 	});
 	const [opened, setOpened] = useState(false);
 	return (
-		<>
-			<div className={`absolute w-full bg-white`}>
-				<BurgerMenu opened={opened} onClick={() => setOpened((opened) => !opened)} />
-
-				{opened && navigation.map((item) => {
-					const ref = refs[item.href];
-					return (
-						<ScrollLink
-							key={item.href}
-							mobile={mobile}
-							refElement={ref}
-							onClick={() => setOpened(false)}
-						>
-							<div>{item.name}</div>
-						</ScrollLink>
-					);
-				})}
-			</div>
-
-			<div className={`flex flex-col gap-y-0 overflow-hidden w-full`}>
+		<div className={`flex flex-row`}>
+			{opened &&
+				<div className={`w-[200px]`}
+					/*style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}*/
+				>
+					{navigation.map((item) => {
+						const ref = refs[item.href];
+						return (
+							<ScrollLink
+								key={item.href}
+								mobile={mobile}
+								refElement={ref}
+								onClick={() => setOpened(false)}
+							>
+								<div>{item.name}</div>
+							</ScrollLink>
+						);
+					})}
+				</div>}
+			<div className={`flex flex-col gap-y-0 overflow-hidden ${opened ? 'w-5/6' : 'w-full'}`}>
+				<BurgerMenu opened={opened} mobile={mobile} onClick={() => setOpened((opened) => !opened)} />
 				<div className="grid place-items-stretch ">
 					<div style={{ gridArea: '1 / 1' }}>
 						<MainHero mobile={mobile} />
@@ -59,6 +60,6 @@ export default function DesktopPage({ mobile }) {
 					</div>}
 				</div>
 			</div>
-		</>
+		</div>
 	);
 };
