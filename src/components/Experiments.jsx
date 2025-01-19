@@ -1,7 +1,7 @@
 import config from '../config/index.json';
 import Link from 'next/link';
 
-export default function Features({ ref }) {
+export default function Experiments({ ref }) {
 	const { experiments } = config;
 	const { title, subtitle, description, items: featuresList } = experiments;
 	return (
@@ -21,35 +21,43 @@ export default function Features({ ref }) {
 					</p>
 				</div>
 
-				<div className="mt-10">
-					<dl className="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
+				<div className="grid grid-rows-3 ">
+					<div className="grid grid-cols-2 justify-items-center">
 						{featuresList.map((feature) => (
-							<div key={feature.name} className="relative">
-								<dt>
-									<div
-										className={`absolute flex items-center justify-center h-12 w-12 rounded-md text-tertiary border-primary border-4`}
-									>
-										<img
-											className={`inline-block h-6 w-6 rounded-full`}
-											src={feature.icon}
-											alt={feature.name}
-										/>
-									</div>
-									<Link
-										className={`hover:text-primary text-base cursor-pointer leading-4 text-gray-800 dark:text-gray-400 dark:hover:text-white`}
-										href={feature.href}
-									>
-										<p className="ml-16 text-lg leading-6 font-medium">
-											{feature.name}
-										</p>
-									</Link>
-								</dt>
-								<dd className="mt-2 ml-16 text-base text-gray-500">
-									{feature.description}
-								</dd>
+							<div className="w-1/2 justify-self-center self-center">
+								<img
+									className={`w-32`}
+									src={feature.icon}
+									alt={feature.name}
+								/>
 							</div>
 						))}
-					</dl>
+					</div>
+					<div className="grid grid-cols-2 justify-items-center">
+						{featuresList.map((feature) => (
+							<div key={feature.name} className="align-center">
+								<div className="w-full">
+									<div>{feature.description} </div>
+								</div>
+							</div>
+						))}
+					</div>
+					<div className="grid grid-cols-2 justify-items-center">
+						{featuresList.map((feature) => (
+							<div className="w-1/2 justify-self-center">
+								<Link
+									className={`cursor-pointer text-center`}
+									href={feature.href}
+								>
+									Смотреть демо
+									<img
+										className="w-1/2 h-auto"
+										src={feature.img}
+										alt={'test1'} />
+								</Link>
+							</div>
+						))}
+					</div>
 				</div>
 			</div>
 		</div>

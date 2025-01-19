@@ -1,13 +1,9 @@
 'use client';
 import { useRef, useState } from 'react';
-import MainHero from '@/components/MainHero';
-import About from '@/components/About';
 import config from '@/config/index.json';
-import Product from '@/components/Product';
-import Features from '@/components/Features';
-import Experiments from '@/components/Experiments';
-import BurgerMenu from '@/components/BurgerMenu';
 import ScrollLink from '@/components/ScrollLink';
+import BurgerMenu from '@/components/BurgerMenu';
+import Main from '@/components/Main';
 
 export default function MobilePage({ mobile }) {
 	const { navigation } = config;
@@ -39,29 +35,7 @@ export default function MobilePage({ mobile }) {
 				</div>
 			</div>
 
-			<div className={`flex flex-col gap-y-0 overflow-hidden w-full`}>
-				<div className="grid place-items-stretch ">
-					<div style={{ gridArea: '1 / 1' }}>
-						<MainHero mobile={mobile} />
-						<Product ref={refs.production} />
-						<Features ref={refs.features} />
-						<Experiments ref={refs.experiments} />
-						<About ref={refs.about} />
-					</div>
-					{opened && <div style={{ gridArea: '1 / 1' }}>
-						<div
-							onClick={() => {
-								if (opened) {
-									setOpened((opened) => !opened);
-								}
-							}}
-							className={`w-full h-full`}
-							style={{ backgroundColor: opened ? 'rgba(0,0,0,0.33)' : 'rgba(0,0,0,0)' }}
-						>
-						</div>
-					</div>}
-				</div>
-			</div>
+			<Main opened={opened} setOpened={setOpened} refs={refs} />
 		</>
 	);
 };
