@@ -5,7 +5,7 @@ export default function Experiments({ ref }) {
 	const { experiments } = config;
 	const { title, subtitle, description, items: featuresList } = experiments;
 	return (
-		<div className={`py-12`} id="features" ref={ref}>
+		<div className={`py-6`} id="features" ref={ref}>
 			<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="lg:text-center">
 					<h2
@@ -24,7 +24,9 @@ export default function Experiments({ ref }) {
 				<div className="grid grid-rows-3 ">
 					<div className="grid grid-cols-2 justify-items-center">
 						{featuresList.map((feature) => (
-							<div className="w-1/2 justify-self-center self-center">
+							<div
+								key={feature.name}
+								className="w-1/2 justify-self-center self-center">
 								<img
 									className={`w-32`}
 									src={feature.icon}
@@ -44,14 +46,18 @@ export default function Experiments({ ref }) {
 					</div>
 					<div className="grid grid-cols-2 justify-items-center">
 						{featuresList.map((feature) => (
-							<div className="w-1/2 justify-self-center">
+							<div
+								key={feature.name}
+								className="w-5/6 justify-self-center">
 								<Link
 									className={`cursor-pointer text-center`}
 									href={feature.href}
 								>
+									<div>
 									Смотреть демо
+									</div>
 									<img
-										className="w-1/2 h-auto"
+										className="w-full"
 										src={feature.img}
 										alt={'test1'} />
 								</Link>

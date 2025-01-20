@@ -4,7 +4,7 @@ export default function About({ ref }) {
 	const { socialMedia } = config.about;
 
 	return (
-		<div id="about" className="mx-auto container xl:px-20 lg:px-12 sm:px-6 px-4 py-12" ref={ref}>
+		<div id="about" className="mx-auto container xl:px-20 lg:px-12 sm:px-6 px-4 py-6" ref={ref}>
 			<div className="flex flex-col items-center justify-center">
 				<div className="flex flex-wrap items-center justify-center">
 					<span
