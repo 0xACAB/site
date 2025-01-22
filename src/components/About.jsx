@@ -8,11 +8,11 @@ export default function About({ ref }) {
 			<div className="flex flex-col items-center justify-center">
 				<div className="flex flex-wrap items-center justify-center">
 					<span
-						className="hover:text-primary text-base cursor-pointer leading-4 text-gray-800 dark:text-gray-400 dark:hover:text-white">
-						Обратная связь:
+						className="text-gray-800">
+						Обратная связь
 					</span>
 				</div>
-				<div className="flex items-center gap-x-8 mt-6 h-8">
+				<div className="flex items-center gap-x-8 mt-2 h-8">
 					<a aria-label="github" href={socialMedia.github} target="_blank" rel="noreferrer">
 						<svg
 							className="fill-current text-gray-800 dark:text-white hover:text-primary"

@@ -5,7 +5,7 @@ export default function Experiments({ ref }) {
 	const { experiments } = config;
 	const { title, subtitle, description, items: featuresList } = experiments;
 	return (
-		<div className={`py-6`} id="features" ref={ref}>
+		<div className={`pt-6`} id="features" ref={ref}>
 			<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="lg:text-center">
 					<h2
