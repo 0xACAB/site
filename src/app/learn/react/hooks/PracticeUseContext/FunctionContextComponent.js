@@ -1,4 +1,4 @@
-import {useThemeUpdate, useTheme} from './ThemeContext';
+import { useThemeUpdate, useTheme } from './ThemeContext';
 
 export default function PracticeUseContext() {
 	const darkTheme = useTheme();

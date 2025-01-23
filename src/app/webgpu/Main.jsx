@@ -9,15 +9,22 @@ export default function Main({ mobile }) {
 	const [opened, setOpened] = useState(false);
 
 	return (
-		<div className={`flex flex-col w-full items-center`}>
-			<div className={`flex flex-col w-1/2 items-center min-w-[600px]`}>
-				<header className={`flex flex-col w-full items-center`}>
-					<div className={`cursor-pointer w-[50px]`}
-					     onClick={() => setOpened((opened) => !opened)}>
-						<img alt="logo" className="w-full h-auto"
-						     src={opened ? '/assets/images/close.svg' : '/assets/images/burger_menu.svg'} />
+		<div className={`flex flex-col w-full`}>
+			<div className={`flex flex-col w-full`}>
+				<header className={`flex flex-col w-full`}>
+					<div className={'flex flex-row w-full justify-between'}>
+						<div className={`flex flex-col w-1/3`}></div>
+						<div className={`flex flex-col w-1/3 items-center text-nowrap`}>
+							<span>{mobile ? 'Мобильная' : 'Десктопная'} версия.</span>
+							<span>Эксперименты c WebGPU</span>
+						</div>
+						<div className={` w-1/3 grid justify-items-stretch`}
+						     onClick={() => setOpened((opened) => !opened)}>
+							<img alt="logo" className="w-16 h-auto cursor-pointer justify-self-end"
+							     src={opened ? '/assets/images/close.svg' : '/assets/images/burger_menu.svg'} />
+						</div>
 					</div>
-					{opened && <div className={`w-full border-b-4 text-center absolute bg-white cursor-pointer top-[50px]`}>
+					{opened && <div className={`w-full border-b-4 text-center absolute bg-white top-16`}>
 						{
 							sections.map(({ name, title }, index) => (
 								<div
@@ -33,13 +40,10 @@ export default function Main({ mobile }) {
 							))
 						}
 					</div>}
-					<span>{mobile ? 'Мобильная' : 'Десктопная'} версия.</span>
-					<span>Эксперименты c WebGPU</span>
 				</header>
 				<div
-					className={`flex flex-row items-left w-full divide-x-2 border-t-2 border-x-2 border-b-2`}>
-
-					<div className={`w-full flex items-center flex-col overflow-hidden min-w-[512px]`}>
+					className={`flex flex-row w-full divide-x-2 border-t-2 border-x-2 border-b-2`}>
+					<div className={`w-full flex items-center flex-col overflow-hidden`}>
 						<Section mobile={mobile} section={section} />
 					</div>
 				</div>

@@ -25,16 +25,15 @@ export default function Intro({ ref }) {
 				<Divider />
 
 
-				<div className={`flex flex-wrap flex-col sm:flex-row`}>
-
-					<div className={`flex flex-row justify-center w-full sm:w-1/2 p-6 h-64`}>
+				<div className={`flex flex-wrap flex-col sm:flex-row justify-center`}>
+					<div className={`flex flex-row justify-center w-full sm:w-2/5 p-6 h-64`}>
 						<img
 							className="h-full"
 							src={firstItem?.img}
 							alt={firstItem?.title}
 						/>
 					</div>
-					<div className={`sm:w-1/2 p-6 mt-0`}>
+					<div className={`sm:w-2/5 p-6 mt-0`}>
 						<h3
 							className={`text-3xl text-gray-800 font-bold leading-none mb-3`}
 						>
@@ -44,8 +43,8 @@ export default function Intro({ ref }) {
 					</div>
 				</div>
 
-				<div className={`flex flex-wrap flex-col-reverse sm:flex-row`}>
-					<div className={`sm:w-1/2 p-6 mt-0`}>
+				<div className={`flex flex-wrap flex-col-reverse sm:flex-row justify-center`}>
+					<div className={`sm:w-2/5 p-6 mt-0`}>
 						<h3
 							className={`text-3xl text-gray-800 font-bold leading-none mb-3`}
 						>
@@ -53,7 +52,7 @@ export default function Intro({ ref }) {
 						</h3>
 						<p className={`text-gray-600 mb-8`}>{secondItem?.description}</p>
 					</div>
-					<div className={`flex flex-row justify-center w-full sm:w-1/2 p-6 h-64`}>
+					<div className={`flex flex-row justify-center w-full sm:w-2/5 p-6 h-64`}>
 						<img
 							className="h-full"
 							src={secondItem?.img}
