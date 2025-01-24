@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import Stats from 'three/addons/libs/stats.module.js';
 
 import vert from './shaders/vert.glsl';
 import frag from './shaders/frag.glsl';
@@ -9,7 +10,8 @@ import uniforms from './uniforms';
 import Pixelating from './../../../Pixelating/Pixelating';
 import Slider from './../../../Pixelating/Slider';
 
-export default function Scene() {
+export default function Extended() {
+	const statsRef = useRef<HTMLDivElement>(null);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const pixelatingCanvasRef = useRef<HTMLCanvasElement>(null);
 	const resolutions = [
@@ -27,6 +29,11 @@ export default function Scene() {
 	let pixelating: Pixelating;
 	useEffect(() => {
 		if (canvasRef.current && pixelatingCanvasRef.current) {
+			//Create Stats for fps info
+			const stats = new Stats();
+			if (statsRef.current) {
+				statsRef.current.appendChild(stats.dom);
+			}
 
 			//Create controller for plane CanvasTexture
 			pixelating = new Pixelating(
@@ -40,8 +47,18 @@ export default function Scene() {
 			material = new THREE.MeshBasicMaterial();
 			material.map = new THREE.CanvasTexture(pixelating.canvas);
 			material.map.magFilter = THREE.NearestFilter;
+			material.side = THREE.DoubleSide;
+			material.transparent = true;
+			material.opacity = 0.4;
 
 			const plane = new THREE.Mesh(geometry, material);
+
+			const lineMaterial2 = new THREE.LineBasicMaterial({ color: 0x00FF00 });
+			const lineGeometry2 = new THREE.BufferGeometry();
+			const line2 = new THREE.Line(lineGeometry2, lineMaterial2);
+			const pointsL2: Array<THREE.Vector3> = [
+				new THREE.Vector3(0, 0, 1),
+			];
 
 			const canvas = canvasRef.current;
 			const width = canvas.width;
@@ -51,8 +68,18 @@ export default function Scene() {
 				= new THREE.PerspectiveCamera(90, width / height, 0.1, 1000);
 			camera.position.z = 2.0;
 
+			//aspect ratio should be 1:1 now
+			const cameraPerspective
+				= new THREE.PerspectiveCamera(90, width / height, 1, 1000);
+			const helper = new THREE.CameraHelper(cameraPerspective);
+
+			const group = new THREE.Group();
+			group.add(plane);
+			group.add(line2);
+
 			const scene = new THREE.Scene();
-			scene.add(plane);
+			scene.add(group);
+			scene.add(helper);
 
 			const pointer = new THREE.Vector2(-999, -999);
 			const rayCaster = new THREE.Raycaster();
@@ -72,6 +99,18 @@ export default function Scene() {
 						Math.floor((uv.x - 0.5) * width),
 						Math.floor((uv.y - 0.5) * height),
 					];
+
+					const xFloored = Math.floor((uv.x - 0.5) * width) / width;
+					const yFloored = Math.floor((uv.y - 0.5) * height) / height;
+					const xHalfPixel = 1 / width * 0.5;
+					const yHalfPixel = 1 / height * 0.5;
+
+					pointsL2[1] = new THREE.Vector3(
+						3 * (xFloored + xHalfPixel) * plane.geometry.parameters.width,
+						3 * (yFloored + yHalfPixel) * plane.geometry.parameters.height,
+						-2,
+					);
+					lineGeometry2.setFromPoints(pointsL2);
 				}
 
 			};
@@ -83,12 +122,21 @@ export default function Scene() {
 			const animate = (time: number) => {
 				//convert to seconds
 				time *= 0.001;
+				group.rotation.y -= 0.005;
+
+				cameraPerspective.position.x = -Math.cos(group.rotation.y + Math.PI / 2);
+				cameraPerspective.position.z = Math.sin(group.rotation.y + Math.PI / 2);
+				cameraPerspective.lookAt(plane.position);
+				cameraPerspective.updateProjectionMatrix();
+
 				if (pixelating && material.map) {
 					material.map.needsUpdate = true;
 					pixelating.render(time);
 				}
 				renderer.render(scene, camera);
+				stats.update();
 			};
+
 			renderer.setAnimationLoop(animate);
 
 			return () => {
@@ -111,6 +159,7 @@ export default function Scene() {
 	};
 	return (
 		<>
+			<div ref={statsRef}></div>
 			<canvas id="canvas" className={`pixelated`} width={512} height={512} ref={canvasRef}></canvas>
 			<canvas id="canvas" className={`hidden`} ref={pixelatingCanvasRef}></canvas>
 			<Slider onChange={onChange} resolutions={resolutions} defaultResolution={currentResolutionIndex} />
