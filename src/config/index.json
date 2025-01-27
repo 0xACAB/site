@@ -101,7 +101,7 @@
         "description": "WebGL (Web-based Graphics Library) — кроссплатформенный API для отображения 3D-графики в браузере, разрабатываемый некоммерческой организацией Khronos Group.",
         "icon": "/assets/images/WebGL_Logo.svg",
         "href": "/webgl",
-        "img": "/assets/images/triangle_webgl.png"
+        "img": "/assets/images/extended_webgl.png"
       },
       {
         "name": "WebGPU",

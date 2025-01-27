@@ -34,7 +34,10 @@ export default function Main({ mobile }) {
 									key={index}>
 								<span
 									className={`mt-2 text-gray-500 hover:text-gray-900 hover:border-b-2 border-black-700 hover:border-red-700 cursor-pointer`}
-									onClick={() => setSection(name)}
+									onClick={() => {
+										setOpened(false);
+										setSection(name)
+									}}
 								>
 									{title}
 								</span>
