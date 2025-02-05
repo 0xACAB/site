@@ -1,8 +1,12 @@
 {
   "sections": [
     {
-      "name": "practice",
+      "name": "practice1",
       "title": "Практика 1"
+    },
+    {
+      "name": "practice2",
+      "title": "Практика 2"
     }
   ]
 }

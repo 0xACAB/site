@@ -1,16 +1,13 @@
-import Practice from './Practice';
-import {store} from './store';
+import Practice1 from './Practice1/Practice1';
+import Practice2 from './Practice2/Practice2';
+
 const sectionsMap = {
-	practice: Practice,
+	practice1: Practice1,
+	practice2: Practice2,
 	test: null,
 };
-import { Provider } from 'react-redux';
 
 export default function Section({ section }) {
 	const Result = sectionsMap[section];
-	return (
-		<Provider store={store}>
-			{Result ? <Result /> : null}
-		</Provider>
-	)
+	return (Result ? <Result /> : null);
 }

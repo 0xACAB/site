@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { addCustomerAction } from './store/customerReducer';
 import { removeCustomerAction } from './store/customerReducer';
-import { fetchCustomers } from '@/app/learn/redux/asyncAction/customers';
+import { fetchCustomers } from './asyncAction/customers';
 
-export default function Practice() {
+export default function App() {
 	const dispatch = useDispatch();
 	const cash = useSelector((state) => state.cash.cash);
 	const customers = useSelector((state) => state.customers.customers);
@@ -29,7 +29,7 @@ export default function Practice() {
 
 	return (
 		<div>
-			<div>This is Redux practice</div>
+			<div>This is Redux practice 1</div>
 			<div style={{ fontSize: '5rem' }}>{cash}</div>
 			<div>
 				<button
@@ -52,7 +52,7 @@ export default function Practice() {
 				</button>
 				<button
 					style={{ all: 'revert' }}
-					onClick={() =>dispatch(fetchCustomers())}
+					onClick={() => dispatch(fetchCustomers())}
 				>
 					Получить клиентов из базы
 				</button>
