@@ -5,7 +5,7 @@ import Section from './Section';
 
 export default function Main() {
 	const { sections } = config;
-	const [section, setSection] = useState('practice2');
+	const [section, setSection] = useState('practice3');
 	const [opened, setOpened] = useState(false);
 	return (
 		<div className="flex flex-col w-full items-center">
