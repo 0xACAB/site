@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { IPost } from '../models/IPost';
-
+const baseUrl = (typeof window !== "undefined")?((window.location.hostname==='localhost')?'http://localhost:5000':'https://'+window.location.hostname+':5000'):('http://localhost:5000');
 export const postAPI = createApi({
 	reducerPath: 'postAPI',
 	baseQuery: fetchBaseQuery(
-		{ baseUrl: `http://${(typeof window !== "undefined") ? window.location.hostname : 'localhost'}:5000` }),
+		{ baseUrl }),
 	tagTypes: ['Post'],
 	endpoints: (build) => ({
 		fetchAllPosts: build.query<IPost[], number>({
