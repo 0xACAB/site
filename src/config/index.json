@@ -29,8 +29,8 @@
   "mainHero": {
     "title": "Десктопная версия целевой страницы",
     "mobileTitle": "Мобильная версия целевой страницы",
-    "subtitle": "Frontend и Canvas API",
-    "description": "Вы находитесь на целевой странице, основной задачей которой, является предоставление информации обо мне целевой аудитории",
+    "subtitle": "Frontend experiments",
+    "description": "Экспериментальный полигон",
     "primaryAction": {
       "text": "Написать мне",
       "href": "https://t.me/xTranscendence"
@@ -41,7 +41,7 @@
     "items": [
       {
         "title": "Что это за сайт?",
-        "description": "Сайт представляет собой небольшую демонстрацию моего опыта во frontend разработке.",
+        "description": "Сайт представляет собой целевую страницу с моими экспериментами во frontend разработке.",
         "img": "/assets/images/HTML5.svg"
       },
       {
@@ -67,7 +67,7 @@
   "features": {
     "title": "Особенности",
     "subtitle": "Технологический процесс",
-    "description": "Я использую следующие технологии",
+    "description": "Обкатываемые технологии",
     "items": [
       {
         "name": "React.js",
