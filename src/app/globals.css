@@ -30,6 +30,10 @@ a {
     @apply text-red-700;
 }
 
+p, ul, ol {
+    all: revert;
+}
+
 .content p {
     @apply my-6;
 }

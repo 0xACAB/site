@@ -7,6 +7,7 @@ const nextConfig = {
             allowedOrigins: ['xtranscendence.ru', 'localhost:3000', 'localhost:80']
         }
     },
+    devIndicators: false,
     poweredByHeader: false,
     trailingSlash: true,
     /*async redirects() {
