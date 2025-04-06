@@ -34,10 +34,10 @@ const layoutStyle = {
 	overflow: 'hidden',
 	width: 'calc(100%)',
 	maxWidth: 'calc(100%)',
-	height: '100vh',
+	minHeight: '100dvh',
 };
 
-const IntegerStep = () => {
+function IntegerStep() {
 	const [inputValue, setInputValue] = useState(1);
 	const onChange = newValue => {
 		setInputValue(newValue);
@@ -53,7 +53,14 @@ const IntegerStep = () => {
 				/>
 			</Col>
 			<Col span={4}>
+				{
+					// So, Chrome on iOS (for whatever reason) adds this "__gchrome_uniqueid" property to the input
+					// elements. A bit lame solution, but setting it manually on these elements will solve the hidration
+					// issue.
+				}
+
 				<InputNumber
+					__gchrome_uniqueid={1}
 					min={1}
 					max={20}
 					style={{ margin: '0 16px' }}
@@ -63,7 +70,7 @@ const IntegerStep = () => {
 			</Col>
 		</Row>
 	);
-};
+}
 
 export default function Main({ mobile }) {
 	return (
@@ -74,7 +81,8 @@ export default function Main({ mobile }) {
 			<Layout>
 				<Header style={headerStyle}>Header</Header>
 				<Content style={contentStyle}>
-					Slider
+					<a href="https://ant.design/">Ant Design</a>
+					<p>Slider</p>
 					<IntegerStep />
 				</Content>
 				<Footer style={footerStyle}>Footer</Footer>
