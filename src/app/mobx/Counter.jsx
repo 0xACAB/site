@@ -16,6 +16,13 @@ export default observer(function Counter() {
 				<button
 					style={{ all: 'revert' }}
 					className="btn"
+					onClick={() => counter.reset()}
+				>
+					reset
+				</button>
+				<button
+					style={{ all: 'revert' }}
+					className="btn"
 					onClick={() => counter.decrement()}
 				>
 					-

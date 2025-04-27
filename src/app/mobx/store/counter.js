@@ -18,6 +18,11 @@ class Counter {
 		console.log('decrement', this.count);
 	}
 
+	reset() {
+		this.count = 0;
+		console.log('decrement', this.count);
+	}
+
 	get total() {
 		return `Count + timer = ${ this.timer + this.count }`;
 	}
