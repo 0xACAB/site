@@ -1,11 +1,8 @@
 'use client';
-import { useState, memo } from 'react';
+import { useState } from 'react';
 import config from './config';
 import Section from './Section';
 
-const MemoizedSection = memo(({ mobile, section }) => {
-	return <Section mobile={mobile} section={section} />;
-});
 export default function Main({ mobile }) {
 	const { sections } = config;
 	const [section, setSection] = useState(sections[0].name);
@@ -49,7 +46,7 @@ export default function Main({ mobile }) {
 				<div
 					className="flex flex-row w-full divide-x-2 border-t-2 border-x-2 border-b-2">
 					<div className="w-full flex items-center flex-col overflow-hidden">
-						<MemoizedSection mobile={mobile} section={section} />
+						<Section mobile={mobile} section={section} />;
 					</div>
 				</div>
 			</div>

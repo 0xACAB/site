@@ -1,5 +1,5 @@
-import Sphere from '@/components/Scenes/RayCasting/Sphere/Sphere';
-import Triangle from '@/components/Scenes/RayCasting/Triangle/Triangle';
+import Sphere from './Scenes/RayCasting/Sphere/Sphere';
+import Triangle from './Scenes/RayCasting/Triangle/Triangle';
 
 const sectionsMap = {
 	sphere: Sphere,

@@ -23,7 +23,7 @@
     ],
     "paths": {
       "@/*": [
-        "./src/*", "./app/react/"
+        "./src/*", "./src/app/*", "./src/app/canvas/*"
       ]
     }
   },
