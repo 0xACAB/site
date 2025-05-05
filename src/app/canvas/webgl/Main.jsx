@@ -33,7 +33,7 @@ export default function Main({ mobile }) {
 									className="mt-2 text-gray-500 hover:text-gray-900 hover:border-b-2 border-black-700 hover:border-red-700 cursor-pointer"
 									onClick={() => {
 										setOpened(false);
-										setSection(name)
+										setSection(name);
 									}}
 								>
 									{title}
@@ -44,9 +44,9 @@ export default function Main({ mobile }) {
 					</div>}
 				</header>
 				<div
-					className="flex flex-row w-full divide-x-2 border-t-2 border-x-2 border-b-2">
+					className="flex flex-row w-full divide-x-2 border-t-2 border-x-2">
 					<div className="w-full flex items-center flex-col overflow-hidden">
-						<Section mobile={mobile} section={section} />;
+						<Section mobile={mobile} section={section} />
 					</div>
 				</div>
 			</div>

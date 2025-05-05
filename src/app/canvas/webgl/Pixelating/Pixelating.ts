@@ -1,4 +1,3 @@
-import React from 'react';
 import { resolution } from './../interfaces';
 
 export default class Pixelating {
@@ -153,13 +152,12 @@ export default class Pixelating {
 		}
 	}
 
-	onChange(event: React.ChangeEvent<HTMLInputElement>) {
+	onChange(newResolutionIndex: number) {
 		const program = this.program;
 		if (program) {
 			const canvas = this.canvas;
 			const context = this.context;
-			const valueAsNumber = event.target.valueAsNumber;
-			const resolution = this.resolutions[valueAsNumber];
+			const resolution = this.resolutions[newResolutionIndex];
 			canvas.width = resolution.width;
 			canvas.height = resolution.height;
 
