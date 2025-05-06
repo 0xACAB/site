@@ -23,8 +23,7 @@ export default function Sphere() {
 		{ width: 256, height: 256 },
 		{ width: 512, height: 512 },
 	];
-	const startResolutionIndex = 3;
-	const [resolutionIndex, setResolutionIndex] = useState(startResolutionIndex);
+	const [resolutionIndex, setResolutionIndex] = useState(3);
 	const [onChange, setOnChange] = useState(() => () => console.log('default ooops'));
 
 	let material: THREE.MeshBasicMaterial;
@@ -41,8 +40,7 @@ export default function Sphere() {
 			pixelating = new Pixelating(
 				pixelatingCanvasRef.current,
 				{ vert, frag, uniforms },
-				resolutions,
-				resolutionIndex,
+				resolutions[resolutionIndex]
 			);
 
 			const geometry = new THREE.PlaneGeometry(2.0, 2.0);
@@ -57,7 +55,7 @@ export default function Sphere() {
 				if (pixelating && material.map) {
 					uniforms.iMouse.data = [-999, -999];
 					material.map.dispose();
-					pixelating.onChange(newResolutionIndex);
+					pixelating.onChange(resolutions[newResolutionIndex]);
 				}
 				setResolutionIndex(newResolutionIndex);
 			});
@@ -117,7 +115,7 @@ export default function Sphere() {
 				const intersects = rayCaster.intersectObjects([plane], false);
 				const uv = intersects[0]?.uv;
 				if (uv) {
-					const { width, height } = resolutions[resolutionIndex];
+					const { width, height } = pixelating.resolution;
 					uniforms.iMouse.data = [
 						Math.floor((uv.x - 0.5) * width),
 						Math.floor((uv.y - 0.5) * height),

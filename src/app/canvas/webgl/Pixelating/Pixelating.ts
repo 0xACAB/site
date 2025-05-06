@@ -5,17 +5,17 @@ export default class Pixelating {
 	private readonly context: WebGL2RenderingContext;
 	private readonly shaders: { vert: string; frag: string; uniforms: any };
 	private readonly program: WebGLProgram | null | undefined;
-	private readonly resolutions: Array<resolution>;
+	public resolution: resolution;
 
 	constructor(
 		canvas: HTMLCanvasElement,
 		shaders: { vert: string, frag: string, uniforms: any },
-		resolutions: Array<resolution>,
-		defaultResolution = 0,
+		resolution: resolution,
 	) {
 		this.canvas = canvas;
 		this.shaders = shaders;
-		this.resolutions = resolutions;
+		this.resolution = resolution;
+
 		const context = this.context = canvas.getContext('webgl2')!;
 
 		const fragmentShader = this.getShader(context.FRAGMENT_SHADER, shaders.frag);
@@ -31,7 +31,7 @@ export default class Pixelating {
 				console.log('ERROR linking program!', context.getProgramInfoLog(program));
 				throw 'Не удалось установить шейдеры';
 			} else {
-				Object.assign(canvas, resolutions[defaultResolution]);
+				Object.assign(canvas, this.resolution);
 				context.viewport(0, 0, canvas.width, canvas.height);
 
 				const positionBuffer = context.createBuffer();
@@ -88,8 +88,8 @@ export default class Pixelating {
 					undefined,
 					{
 						...shaders.uniforms,
-						iScaleWidth: { type: 'uniform1f', data: resolutions[defaultResolution].width },
-						iScaleHeight: { type: 'uniform1f', data: resolutions[defaultResolution].height },
+						iScaleWidth: { type: 'uniform1f', data: this.resolution.width },
+						iScaleHeight: { type: 'uniform1f', data: this.resolution.height },
 					});
 			}
 		}
@@ -152,12 +152,13 @@ export default class Pixelating {
 		}
 	}
 
-	onChange(newResolutionIndex: number) {
+	onChange(resolution: resolution) {
 		const program = this.program;
 		if (program) {
+			this.resolution = resolution;
+
 			const canvas = this.canvas;
 			const context = this.context;
-			const resolution = this.resolutions[newResolutionIndex];
 			canvas.width = resolution.width;
 			canvas.height = resolution.height;
 
@@ -167,6 +168,7 @@ export default class Pixelating {
 			context.uniform1f(iScaleWidth, resolution.width);
 			context.uniform1f(iScaleHeight, resolution.height);
 			context.drawArrays(context.TRIANGLES, 0, 6);
+
 		}
 	}
 
