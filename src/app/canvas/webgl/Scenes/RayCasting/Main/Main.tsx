@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 import vert from './shaders/vert.glsl';
@@ -21,7 +21,8 @@ export default function Main() {
 		{ width: 256, height: 256 },
 		{ width: 512, height: 512 },
 	];
-	let currentResolutionIndex = 1;
+	const [resolutionIndex, setResolutionIndex] = useState(3);
+	const [onChange, setOnChange] = useState(() => () => console.log('default ooops'));
 
 	let material: THREE.MeshBasicMaterial;
 	let pixelating: Pixelating;
@@ -32,14 +33,22 @@ export default function Main() {
 			pixelating = new Pixelating(
 				pixelatingCanvasRef.current,
 				{ vert, frag, uniforms },
-				resolutions,
-				currentResolutionIndex,
+				resolutions[resolutionIndex]
 			);
 
 			const geometry = new THREE.PlaneGeometry(2.0, 2.0);
 			material = new THREE.MeshBasicMaterial();
 			material.map = new THREE.CanvasTexture(pixelating.canvas);
 			material.map.magFilter = THREE.NearestFilter;
+
+			setOnChange(() => (newResolutionIndex: number) => {
+				if (pixelating && material.map) {
+					uniforms.iMouse.data = [-999, -999];
+					material.map.dispose();
+					pixelating.onChange(resolutions[newResolutionIndex]);
+				}
+				setResolutionIndex(newResolutionIndex);
+			});
 
 			const plane = new THREE.Mesh(geometry, material);
 
@@ -67,7 +76,7 @@ export default function Main() {
 				const intersects = rayCaster.intersectObjects([plane], false);
 				const uv = intersects[0]?.uv;
 				if (uv) {
-					const { width, height } = resolutions[currentResolutionIndex];
+					const { width, height } = pixelating.resolution;
 					uniforms.iMouse.data = [
 						Math.floor((uv.x - 0.5) * width),
 						Math.floor((uv.y - 0.5) * height),
@@ -89,6 +98,7 @@ export default function Main() {
 				}
 				renderer.render(scene, camera);
 			};
+
 			renderer.setAnimationLoop(animate);
 
 			return () => {
@@ -101,19 +111,11 @@ export default function Main() {
 		}
 	}, []);
 
-	const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		if (pixelating && material.map) {
-			currentResolutionIndex = event.target.valueAsNumber;
-			uniforms.iMouse.data = [-999, -999];
-			material.map.dispose();
-			pixelating.onChange(event);
-		}
-	};
 	return (
 		<>
 			<canvas id="canvas" className={`pixelated`} width={512} height={512} ref={canvasRef}></canvas>
 			<canvas id="canvas" className={`hidden`} ref={pixelatingCanvasRef}></canvas>
-			<Slider onChange={onChange} resolutions={resolutions} defaultResolution={currentResolutionIndex} />
+			<Slider resolutions={resolutions} resolutionIndex={resolutionIndex} onChange={onChange} />
 		</>
 	);
 }

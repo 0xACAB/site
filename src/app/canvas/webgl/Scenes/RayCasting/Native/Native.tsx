@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import vert from '../Main/shaders/vert.glsl';
 import frag from '../Main/shaders/frag.glsl';
 import uniforms from '../Main/uniforms';
@@ -8,7 +8,6 @@ import Slider from './../../../Pixelating/Slider';
 
 export default function Native() {
 	const pixelatingCanvasRef = useRef<HTMLCanvasElement>(null);
-
 	const resolutions = [
 		{ width: 8, height: 8 },
 		{ width: 16, height: 16 },
@@ -18,7 +17,8 @@ export default function Native() {
 		{ width: 256, height: 256 },
 		{ width: 512, height: 512 },
 	];
-	let currentResolutionIndex = 1;
+	const [resolutionIndex, setResolutionIndex] = useState(3);
+	const [onChange, setOnChange] = useState(() => () => console.log('default ooops'));
 
 	let pixelating: Pixelating;
 	useEffect(() => {
@@ -27,9 +27,16 @@ export default function Native() {
 			pixelating = new Pixelating(
 				pixelatingCanvasRef.current,
 				{ vert, frag, uniforms },
-				resolutions,
-				currentResolutionIndex,
+				resolutions[resolutionIndex]
 			);
+
+			setOnChange(() => (newResolutionIndex: number) => {
+				if (pixelating) {
+					//uniforms.iMouse.data = [-999, -999];
+					pixelating.onChange(resolutions[newResolutionIndex]);
+				}
+				setResolutionIndex(newResolutionIndex);
+			});
 
 			const pointerDown = (event: MouseEvent) => {
 				console.log(event.offsetX, event.offsetY);
@@ -55,14 +62,8 @@ export default function Native() {
 				}
 			};
 		}
-	});
-	const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		if (pixelating) {
-			pixelating.onChange(event);
-		}
-	};
+	}, []);
 	return (
-
 		<>
 			<canvas id="canvas"
 			        className={`w-512 h-512 pixelated`}
@@ -70,10 +71,7 @@ export default function Native() {
 			        height={512}
 			        ref={pixelatingCanvasRef}
 			></canvas>
-			<Slider onChange={onChange}
-			        resolutions={resolutions}
-			        defaultResolution={currentResolutionIndex}
-			/>
+			<Slider resolutions={resolutions} resolutionIndex={resolutionIndex} onChange={onChange} />
 		</>
 	);
 }
