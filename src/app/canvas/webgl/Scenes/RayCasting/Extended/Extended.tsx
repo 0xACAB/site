@@ -159,11 +159,11 @@ export default function Extended() {
 	}, []);
 
 	return (
-		<>
+		<div className="flex flex-col items-center">
 			<div ref={statsRef}></div>
 			<canvas id="canvas" className={`pixelated`} width={512} height={512} ref={canvasRef}></canvas>
 			<canvas id="canvas" className={`hidden`} ref={pixelatingCanvasRef}></canvas>
 			<Slider resolutions={resolutions} resolutionIndex={resolutionIndex} onChange={onChange} />
-		</>
+		</div>
 	);
 }

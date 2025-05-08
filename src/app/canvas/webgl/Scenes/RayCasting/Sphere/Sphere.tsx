@@ -26,10 +26,9 @@ export default function Sphere() {
 	const [resolutionIndex, setResolutionIndex] = useState(3);
 	const [onChange, setOnChange] = useState(() => () => console.log('default ooops'));
 
-	let material: THREE.MeshBasicMaterial;
-	let pixelating: Pixelating;
 	useEffect(() => {
 		if (canvasRef.current && pixelatingCanvasRef.current) {
+			let material: THREE.MeshBasicMaterial;
 			//Create Stats for fps info
 			const stats = new Stats();
 			if (statsRef.current) {
@@ -37,10 +36,10 @@ export default function Sphere() {
 			}
 
 			//Create controller for plane CanvasTexture
-			pixelating = new Pixelating(
+			const pixelating: Pixelating = new Pixelating(
 				pixelatingCanvasRef.current,
 				{ vert, frag, uniforms },
-				resolutions[resolutionIndex]
+				resolutions[resolutionIndex],
 			);
 
 			const geometry = new THREE.PlaneGeometry(2.0, 2.0);
@@ -178,7 +177,6 @@ export default function Sphere() {
 			};
 
 			renderer.setAnimationLoop(animate);
-
 			return () => {
 				if (pixelating) {
 					pixelating.unmount();
@@ -187,14 +185,14 @@ export default function Sphere() {
 				renderer.forceContextLoss();
 			};
 		}
-	}, []);
+	}, [resolutionIndex]);
 
 	return (
-		<>
+		<div className="flex flex-col items-center">
 			<div ref={statsRef}></div>
 			<canvas id="canvas" className={`pixelated`} width={512} height={512} ref={canvasRef}></canvas>
 			<canvas id="canvas" className={`hidden`} ref={pixelatingCanvasRef}></canvas>
 			<Slider resolutions={resolutions} resolutionIndex={resolutionIndex} onChange={onChange} />
-		</>
+		</div>
 	);
 }

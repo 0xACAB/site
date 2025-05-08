@@ -9,7 +9,7 @@ import uniforms from './uniforms';
 import Pixelating from './../../../Pixelating/Pixelating';
 import Slider from './../../../Pixelating/Slider';
 
-export default function Main() {
+export default function Basic() {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const pixelatingCanvasRef = useRef<HTMLCanvasElement>(null);
 	const resolutions = [
@@ -24,13 +24,12 @@ export default function Main() {
 	const [resolutionIndex, setResolutionIndex] = useState(3);
 	const [onChange, setOnChange] = useState(() => () => console.log('default ooops'));
 
-	let material: THREE.MeshBasicMaterial;
-	let pixelating: Pixelating;
 	useEffect(() => {
 		if (canvasRef.current && pixelatingCanvasRef.current) {
+			let material: THREE.MeshBasicMaterial;
 
 			//Create controller for plane CanvasTexture
-			pixelating = new Pixelating(
+			const pixelating: Pixelating = new Pixelating(
 				pixelatingCanvasRef.current,
 				{ vert, frag, uniforms },
 				resolutions[resolutionIndex]
@@ -110,12 +109,11 @@ export default function Main() {
 			};
 		}
 	}, []);
-
 	return (
-		<>
+		<div className="flex flex-col items-center">
 			<canvas id="canvas" className={`pixelated`} width={512} height={512} ref={canvasRef}></canvas>
 			<canvas id="canvas" className={`hidden`} ref={pixelatingCanvasRef}></canvas>
 			<Slider resolutions={resolutions} resolutionIndex={resolutionIndex} onChange={onChange} />
-		</>
+		</div>
 	);
 }

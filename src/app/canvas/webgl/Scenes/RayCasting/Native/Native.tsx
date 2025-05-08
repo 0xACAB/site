@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import vert from '../Main/shaders/vert.glsl';
 import frag from '../Main/shaders/frag.glsl';
 import uniforms from '../Main/uniforms';
@@ -20,11 +20,10 @@ export default function Native() {
 	const [resolutionIndex, setResolutionIndex] = useState(3);
 	const [onChange, setOnChange] = useState(() => () => console.log('default ooops'));
 
-	let pixelating: Pixelating;
 	useEffect(() => {
 		if (pixelatingCanvasRef.current) {
 			//Create controller for plane CanvasTexture
-			pixelating = new Pixelating(
+			const pixelating: Pixelating = new Pixelating(
 				pixelatingCanvasRef.current,
 				{ vert, frag, uniforms },
 				resolutions[resolutionIndex]
@@ -43,7 +42,7 @@ export default function Native() {
 			};
 			pixelatingCanvasRef.current.addEventListener('pointerdown', pointerDown);
 
-			let animationId: number;
+			let animationId: number = 0;
 			const render = (time: number) => {
 				// convert to seconds
 				time *= 0.001;
@@ -64,7 +63,7 @@ export default function Native() {
 		}
 	}, []);
 	return (
-		<>
+		<div className="flex flex-col items-center">
 			<canvas id="canvas"
 			        className={`w-512 h-512 pixelated`}
 			        width={512}
@@ -72,6 +71,6 @@ export default function Native() {
 			        ref={pixelatingCanvasRef}
 			></canvas>
 			<Slider resolutions={resolutions} resolutionIndex={resolutionIndex} onChange={onChange} />
-		</>
+		</div>
 	);
 }
