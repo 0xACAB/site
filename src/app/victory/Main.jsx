@@ -17,7 +17,7 @@ function randomInteger(min, max) {
 const series = [
 	{
 		name: 'Canada',
-		data: [-999, ...Array(20).fill(null).map(() => randomInteger(0, 9))],
+		data: Array(20).fill(null).map(() => randomInteger(0, 9))
 	},
 ];
 export default function Main({ mobile }) {
@@ -44,13 +44,13 @@ export default function Main({ mobile }) {
 									tickValues={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}
 								/>
 								<VictoryAxis
-									tickValues={series[0].data.slice(1,series[0].data.length).map((_, index) => index + 1)}
+									tickValues={series[0].data.map((_, index) => index)}
 								/>
 								<VictoryLine
 									data={series[0].data.map(
 										(d, i) => {
 											return {
-												x: (([0].includes(i)) ? null : i),
+												x: i,
 												y: d,
 											};
 										},
