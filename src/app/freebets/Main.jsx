@@ -130,7 +130,7 @@ const dataForValue = [
     })
 ];
 
-export default function Main({ mobile }) {
+export default function Main() {
     return (
         <div className="flex flex-col w-full justify-between items-center">
             <header className="flex flex-col w-full items-center">
