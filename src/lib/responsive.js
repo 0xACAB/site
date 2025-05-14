@@ -8,4 +8,4 @@ export default async function isMobileDevice() {
 
     const device = new UAParser(ua || '').getDevice();
     return device.type === 'mobile';
-};
+}

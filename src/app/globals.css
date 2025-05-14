@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 /* This had to be added to change the color that tailwind sets at background-color after a refresh */
 /*@layer base {
     section {
@@ -30,7 +29,9 @@ a {
     @apply text-red-700;
 }
 
-p, ul, ol {
+p,
+ul,
+ol {
     all: revert;
 }
 

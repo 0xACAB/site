@@ -20,14 +20,13 @@ const nextConfig = {
         ]
     },*/
     webpack: (config) => {
-        config.module.rules.push(
-            {
-                test: /\.(glsl|wgsl|vs|fs)$/,
-                loader: 'raw-loader',
-            });
+        config.module.rules.push({
+            test: /\.(glsl|wgsl|vs|fs)$/,
+            loader: 'raw-loader'
+        });
 
         return config;
-    },
+    }
 };
 
 export default nextConfig;
