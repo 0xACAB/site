@@ -2,8 +2,8 @@ import config from '../config/index.json';
 import Divider from './Divider';
 
 export default function Intro({ ref }) {
-    const { intro, company } = config;
-    const [firstItem, secondItem, thirdItem] = intro.items;
+    const { intro } = config;
+    const [firstItem, secondItem] = intro.items;
 
     return (
         <section className={`py-4`} id="production" ref={ref}>

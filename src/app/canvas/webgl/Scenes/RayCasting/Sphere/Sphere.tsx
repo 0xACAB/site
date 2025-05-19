@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import Stats from 'three/addons/libs/stats.module.js';
 
@@ -28,7 +28,6 @@ export default function Sphere() {
 
     useEffect(() => {
         if (canvasRef.current && pixelatingCanvasRef.current) {
-            let material: THREE.MeshBasicMaterial;
             //Create Stats for fps info
             const stats = new Stats();
             if (statsRef.current) {
@@ -43,7 +42,7 @@ export default function Sphere() {
             );
 
             const geometry = new THREE.PlaneGeometry(2.0, 2.0);
-            material = new THREE.MeshBasicMaterial();
+            const material: THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial();
             material.map = new THREE.CanvasTexture(pixelating.canvas);
             material.map.magFilter = THREE.NearestFilter;
             material.side = THREE.DoubleSide;

@@ -1,4 +1,4 @@
-export default function Main({ mobile }) {
+export default function Main() {
     return (
         <div className="flex flex-col w-full justify-between items-center">
             <header className="flex flex-col w-full divide-x-2 border-x-2 border-b-2">

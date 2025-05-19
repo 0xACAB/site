@@ -1,6 +1,6 @@
 'use client'; // Indicates that this component is client-side only
 
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 export default function Playground() {

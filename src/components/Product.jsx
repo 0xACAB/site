@@ -2,7 +2,7 @@ import config from '../config/index.json';
 import Divider from './Divider';
 
 export default function Product({ ref }) {
-    const { product, company } = config;
+    const { product } = config;
     const [firstItem, secondItem] = product.items;
 
     return (

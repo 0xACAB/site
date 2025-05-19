@@ -130,9 +130,8 @@ export default function Triangle() {
                 };
                 mainCanvas.addEventListener('pointerdown', pointerDown);
                 //group.rotation.y = Math.PI / 4;
-                const animate = (time) => {
+                const animate = () => {
                     //convert to seconds
-                    time *= 0.001;
                     group.rotation.y -= 0.005;
 
                     cameraPerspective.position.x = -Math.cos(group.rotation.y + Math.PI / 2);

@@ -7,7 +7,7 @@ function randomInteger(min, max) {
     return Math.floor(rand);
 }
 
-export default function Main({ mobile }) {
+export default function Main() {
     const mainCanvasRef = useRef(null);
     useEffect(() => {
         const mainCanvas = mainCanvasRef.current;

@@ -129,7 +129,7 @@ const dataForValue = [
     })
 ];
 
-export default function Main({ mobile }) {
+export default function Main() {
     const [domLoaded, setDomLoaded] = useState(false);
     useEffect(() => {
         setDomLoaded(true);
@@ -190,10 +190,10 @@ export default function Main({ mobile }) {
                                 innerRadius={50}
                                 padAngle={0}
                                 data={[
-                                    { x: 'Cats', y: 21 },
-                                    { x: 'Birds', y: 1 },
-                                    { x: 'Dogs', y: 26 },
-                                    { x: 'Rabbits', y: 1 }
+                                    { x: 'Cats', y: freeBets },
+                                    { x: 'Birds', y: bonuses },
+                                    { x: 'Dogs', y: bets },
+                                    { x: 'Rabbits', y: forks }
                                 ]}
                                 labels
                                 labelIndicator

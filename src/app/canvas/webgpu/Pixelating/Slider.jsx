@@ -1,6 +1,6 @@
 import { Slider } from 'antd';
 
-export default function ({ resolutions, resolutionIndex, onChange }) {
+export default function SliderWrapper({ resolutions, resolutionIndex, onChange }) {
     const formatter = (value) => `${resolutions[value].width}x${resolutions[value].height}`;
     return (
         <div className="flex flex-col items-center mt-2">

@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@layer theme  base  components utilities;
 
 /* This had to be added to change the color that tailwind sets at background-color after a refresh */
 /*@layer base {
@@ -19,6 +19,7 @@
         -ms-interpolation-mode: nearest-neighbor; /* IE  */
     }
 }
+
 :root {
     --color-primary: #ec4755;
     --color-secondary: #a12c34;

@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 import vert from './shaders/vert.glsl';
@@ -26,8 +26,6 @@ export default function Basic() {
 
     useEffect(() => {
         if (canvasRef.current && pixelatingCanvasRef.current) {
-            let material: THREE.MeshBasicMaterial;
-
             //Create controller for plane CanvasTexture
             const pixelating: Pixelating = new Pixelating(
                 pixelatingCanvasRef.current,
@@ -36,7 +34,7 @@ export default function Basic() {
             );
 
             const geometry = new THREE.PlaneGeometry(2.0, 2.0);
-            material = new THREE.MeshBasicMaterial();
+            const material: THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial();
             material.map = new THREE.CanvasTexture(pixelating.canvas);
             material.map.magFilter = THREE.NearestFilter;
 

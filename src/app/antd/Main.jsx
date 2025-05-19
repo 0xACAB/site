@@ -67,7 +67,7 @@ function IntegerStep() {
     );
 }
 
-export default function Main({ mobile }) {
+export default function Main() {
     return (
         <Layout style={layoutStyle}>
             <Sider width="25%" style={siderStyle}>

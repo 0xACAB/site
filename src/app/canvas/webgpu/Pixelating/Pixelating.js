@@ -3,11 +3,10 @@ export default class Pixelating {
         this.resolutions = resolutions;
     }
 
-    initialize = function (canvas, shader, startResolutionIndex) {
-        return new Promise(async (resolve, reject) => {
-            const adapter = await navigator.gpu?.requestAdapter();
-            const device = await adapter?.requestDevice();
-
+    initialize = async function (canvas, shader, startResolutionIndex) {
+        const adapter = await navigator.gpu?.requestAdapter();
+        const device = await adapter?.requestDevice();
+        return new Promise((resolve, reject) => {
             if (!device) {
                 reject('need a browser that supports WebGPU');
             }
@@ -37,7 +36,7 @@ export default class Pixelating {
                 }
             });
             const recursiveGetUniformBufferSize = (uniform) => {
-                if (uniform.hasOwnProperty('bufferSize')) {
+                if (Object.prototype.hasOwnProperty.call(uniform, 'bufferSize')) {
                     return uniform.bufferSize;
                 } else {
                     return Object.keys(uniform).reduce((prevValues, subUniformName) => {
@@ -47,7 +46,7 @@ export default class Pixelating {
             };
 
             const recursiveGetUniformValues = (uniform) => {
-                if (uniform.hasOwnProperty('bufferSize')) {
+                if (Object.prototype.hasOwnProperty.call(uniform, 'bufferSize')) {
                     return uniform.data;
                 } else {
                     return Object.keys(uniform).reduce((prevValues, subUniformName) => {
