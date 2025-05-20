@@ -66,7 +66,7 @@ export default function Native() {
         <div className="flex flex-col items-center">
             <canvas
                 id="canvas"
-                className={`w-512 h-512 pixelated`}
+                className={`w-[512px] h-[512px] pixelated`}
                 width={512}
                 height={512}
                 ref={pixelatingCanvasRef}

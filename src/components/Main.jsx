@@ -25,7 +25,7 @@ export default function Main({ mobile, opened, setOpened, refs, navigation }) {
                 </div>
             </div>
             {opened && (
-                <div className={`w-full border-b-4 text-center absolute bg-white top-16`}>
+                <div className={`w-full border-b-4 border-gray-600 text-center absolute bg-white top-16`}>
                     {navigation.map((item) => {
                         const ref = refs[item.href];
                         return (

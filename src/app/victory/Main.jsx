@@ -1,4 +1,5 @@
 'use client';
+import './styles.css';
 import { VictoryChart, VictoryAxis, VictoryLine, VictoryTheme, VictoryPie, VictoryScatter } from 'victory';
 import { useState, useEffect } from 'react';
 

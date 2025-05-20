@@ -13,7 +13,7 @@ export default function Experiments({ ref }) {
                     <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">{description}</p>
                 </div>
 
-                <div className="grid grid-rows-3 ">
+                <div className="grid grid-rows-[auto_auto_auto] ">
                     <div className="grid grid-cols-2 justify-items-center">
                         {featuresList.map((feature) => (
                             <div key={feature.name} className="w-1/2 justify-self-center self-center">

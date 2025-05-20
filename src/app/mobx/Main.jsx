@@ -1,4 +1,5 @@
 'use client';
+import './styles.css';
 import Counter from './Counter';
 import Todo from './Todo';
 

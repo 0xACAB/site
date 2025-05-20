@@ -7,7 +7,7 @@ export default function MainHero() {
             <div className="sm:text-center">
                 <h1 className={`text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl`}>
                     {mainHero.subtitle.split(' ').map((word, index) => (
-                        <span key={index} className={index % 2 ? 'text-primary' : 'text-primary'}>
+                        <span key={index} className={index % 2 ? 'text-primary' : 'text-border'}>
                             {word}{' '}
                         </span>
                     ))}
