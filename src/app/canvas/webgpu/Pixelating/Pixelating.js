@@ -19,7 +19,7 @@ export default class Pixelating {
                 format: presentationFormat
             });
 
-            const module = device.createShaderModule({
+            const shaderModule = device.createShaderModule({
                 label: 'shaders',
                 code: shader.code
             });
@@ -28,10 +28,10 @@ export default class Pixelating {
                 label: 'pipeline',
                 layout: 'auto',
                 vertex: {
-                    module
+                    module: shaderModule
                 },
                 fragment: {
-                    module,
+                    module: shaderModule,
                     targets: [{ format: presentationFormat }]
                 }
             });

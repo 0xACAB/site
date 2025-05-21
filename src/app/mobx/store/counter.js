@@ -27,5 +27,5 @@ class Counter {
         return `Count + timer = ${this.timer + this.count}`;
     }
 }
-
-export default new Counter();
+const counter = new Counter();
+export default counter;

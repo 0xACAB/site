@@ -9,25 +9,24 @@ import uniforms from './uniforms';
 
 import Pixelating from './../../../Pixelating/Pixelating';
 import Slider from './../../../Pixelating/Slider';
-
+const resolutions = [
+    { width: 8, height: 8 },
+    { width: 16, height: 16 },
+    { width: 32, height: 32 },
+    { width: 64, height: 64 },
+    { width: 128, height: 128 },
+    { width: 256, height: 256 },
+    { width: 512, height: 512 }
+];
+const startResolutionIndex = 3;
 export default function Extended() {
     const statsRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const pixelatingCanvasRef = useRef<HTMLCanvasElement>(null);
-    const resolutions = [
-        { width: 8, height: 8 },
-        { width: 16, height: 16 },
-        { width: 32, height: 32 },
-        { width: 64, height: 64 },
-        { width: 128, height: 128 },
-        { width: 256, height: 256 },
-        { width: 512, height: 512 }
-    ];
-    const [resolutionIndex, setResolutionIndex] = useState(3);
+
+    const [resolutionIndex, setResolutionIndex] = useState(startResolutionIndex);
     const [onChange, setOnChange] = useState(() => () => console.log('default ooops'));
 
-    let material: THREE.MeshBasicMaterial;
-    let pixelating: Pixelating;
     useEffect(() => {
         if (canvasRef.current && pixelatingCanvasRef.current) {
             //Create Stats for fps info
@@ -37,14 +36,14 @@ export default function Extended() {
             }
 
             //Create controller for plane CanvasTexture
-            pixelating = new Pixelating(
+            const pixelating: Pixelating = new Pixelating(
                 pixelatingCanvasRef.current,
                 { vert, frag, uniforms },
-                resolutions[resolutionIndex]
+                resolutions[startResolutionIndex]
             );
 
             const geometry = new THREE.PlaneGeometry(2.0, 2.0);
-            material = new THREE.MeshBasicMaterial();
+            const material: THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial();
             material.map = new THREE.CanvasTexture(pixelating.canvas);
             material.map.magFilter = THREE.NearestFilter;
             material.side = THREE.DoubleSide;
@@ -148,7 +147,7 @@ export default function Extended() {
                 renderer.forceContextLoss();
             };
         }
-    }, []);
+    },[]);
 
     return (
         <div className="flex flex-col items-center">

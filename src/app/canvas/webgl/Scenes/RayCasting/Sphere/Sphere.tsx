@@ -9,21 +9,22 @@ import uniforms from './uniforms';
 
 import Pixelating from './../../../Pixelating/Pixelating';
 import Slider from './../../../Pixelating/Slider';
-
+const resolutions = [
+    { width: 8, height: 8 },
+    { width: 16, height: 16 },
+    { width: 32, height: 32 },
+    { width: 64, height: 64 },
+    { width: 128, height: 128 },
+    { width: 256, height: 256 },
+    { width: 512, height: 512 }
+];
+const startResolutionIndex = 3;
 export default function Sphere() {
     const statsRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const pixelatingCanvasRef = useRef<HTMLCanvasElement>(null);
-    const resolutions = [
-        { width: 8, height: 8 },
-        { width: 16, height: 16 },
-        { width: 32, height: 32 },
-        { width: 64, height: 64 },
-        { width: 128, height: 128 },
-        { width: 256, height: 256 },
-        { width: 512, height: 512 }
-    ];
-    const [resolutionIndex, setResolutionIndex] = useState(3);
+
+    const [resolutionIndex, setResolutionIndex] = useState(startResolutionIndex);
     const [onChange, setOnChange] = useState(() => () => console.log('default ooops'));
 
     useEffect(() => {
@@ -38,7 +39,7 @@ export default function Sphere() {
             const pixelating: Pixelating = new Pixelating(
                 pixelatingCanvasRef.current,
                 { vert, frag, uniforms },
-                resolutions[resolutionIndex]
+                resolutions[startResolutionIndex]
             );
 
             const geometry = new THREE.PlaneGeometry(2.0, 2.0);
@@ -176,7 +177,7 @@ export default function Sphere() {
                 renderer.forceContextLoss();
             };
         }
-    }, [resolutionIndex]);
+    }, []);
 
     return (
         <div className="flex flex-col items-center">

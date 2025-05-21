@@ -1,4 +1,4 @@
-export default {
+const uniforms = {
     camera: {
         eye: {
             bufferSize: 16, //12+padding
@@ -46,3 +46,4 @@ export default {
         }
     }
 };
+export default uniforms;

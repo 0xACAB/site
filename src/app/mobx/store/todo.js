@@ -35,5 +35,5 @@ class Todo {
             );
     }
 }
-
-export default new Todo();
+const todo = new Todo();
+export default todo;

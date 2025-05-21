@@ -79,7 +79,9 @@ const originalData = [
     { type: 'bet', value: 150, result: 102, coeffs: [1.87, 1.87] },
 
     { type: 'bet', value: 500, result: -500, coeffs: [1.99, 1.73] },
-    { type: 'freeBet', value: 500, profit: 550, coeffs: [2.1, 1.72] }
+    { type: 'freeBet', value: 500, profit: 550, coeffs: [2.1, 1.72] },
+
+    { type: 'bet', value: 1000, result: 900, coeffs: [1.9, 1.9] }
 ].map((valueData) => {
     if (valueData.type === 'freeBet') {
         valueData.coeffs = valueData.coeffs.map((coef) => coef - 1);
