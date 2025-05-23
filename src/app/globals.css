@@ -44,10 +44,6 @@
 :root {
 }
 
-/*a {
-    @apply text-red-700;
-}*/
-
 
 .content p {
     @apply my-6;

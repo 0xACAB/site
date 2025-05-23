@@ -1,4 +1,5 @@
 import config from '../config/index.json';
+import { Button } from 'antd';
 
 export default function MainHero() {
     const { mainHero } = config;
@@ -18,12 +19,16 @@ export default function MainHero() {
                 </p>
                 <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-center">
                     <div className="rounded-md shadow">
-                        <a
+                        <Button
                             href={mainHero.primaryAction.href}
-                            className={`w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium text-background bg-primary hover:bg-border hover:text-primary md:py-4 md:text-lg md:px-10`}
+                            target="_blank"
+                            color="danger"
+                            variant="solid"
+                            size="large"
+                            style={{ padding: '2rem', fontSize: '2rem' }}
                         >
                             {mainHero.primaryAction.text}
-                        </a>
+                        </Button>
                     </div>
                 </div>
             </div>
