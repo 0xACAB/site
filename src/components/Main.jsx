@@ -8,6 +8,27 @@ const { Header, Content, Footer } = Layout;
 import { Menu, Layout } from 'antd';
 import config from '@/config/index.json';
 import { useCallback, useRef } from 'react';
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+i18n.use(initReactI18next) // passes i18n down to react-i18next
+    .init({
+        // the translations
+        // (tip move them in a JSON file and import them,
+        // or even better, manage them via a UI: https://react.i18next.com/guides/multiple-translation-files#manage-your-translations-with-a-management-gui)
+        resources: {
+            en: {
+                translation: {
+                    [config.mainHero.description]: 'Experimental site'
+                }
+            }
+        },
+        lng: 'ru', // if you're using a language detector, do not define the lng option
+        fallbackLng: 'ru',
+
+        interpolation: {
+            escapeValue: false // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
+        }
+    });
 
 const { navigation } = config;
 const items = navigation.map((item) => ({ key: item.href, label: item.name }));
@@ -31,12 +52,11 @@ export default function Main({ mobile }) {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    justifyContent: 'center',
                     background: '#ffffff'
                 }}
             >
                 <Menu
-                    className={`flex flex-row ${mobile ? 'w-full' : 'w-2/3'} justify-between`}
+                    className={`flex flex-row w-full justify-center`}
                     onClick={({ key }) => {
                         executeScroll(refs[key].current);
                     }}

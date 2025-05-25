@@ -1,8 +1,10 @@
 import config from '../config/index.json';
 import { Button } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 export default function MainHero() {
     const { mainHero } = config;
+    const { t } = useTranslation();
     return (
         <main className="mt-10 mx-auto max-w-5xl px-4 sm:mt-12 sm:px-6 lg:px-8">
             <div className="text-center">
@@ -13,8 +15,7 @@ export default function MainHero() {
                         </span>
                     ))}
                 </h1>
-
-                <p className="mt-3 text-base text-gray-500 text-xl">{mainHero.description}</p>
+                <p className="mt-3 text-base text-gray-500 text-xl">{t(mainHero.description)}</p>
                 <div className="mt-4 flex justify-center">
                     <div className="">
                         <Button
