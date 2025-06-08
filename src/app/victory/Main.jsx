@@ -81,7 +81,21 @@ const originalData = [
     { type: 'bet', value: 500, result: -500, coeffs: [1.99, 1.73] },
     { type: 'freeBet', value: 500, profit: 550, coeffs: [2.1, 1.72] },
 
-    { type: 'bet', value: 1000, result: 900, coeffs: [1.9, 1.9] }
+    { type: 'bet', value: 1000, result: 900, coeffs: [1.9, 1.9] },
+
+    { type: 'bet', value: 1000, result: 980, coeffs: [1.98, 1.79] },
+    { type: 'freeBet', value: 500, profit: 680, coeffs: [2.36, 1.59] },
+
+    { type: 'freeBet', value: 500, profit: 0, coeffs: [1.71, 2.12] },
+    { type: 'bet', value: 1000, result: 710, coeffs: [1.71, 2.12] },
+
+    { type: 'freeBet', value: 1000, profit: 860, coeffs: [1.86, 4.3, 4.0] },
+
+    { type: 'bet', value: 500, result: 445, coeffs: [1.89, 1.89] },
+    { type: 'freeBet', value: 500, profit: 0, coeffs: [1.91, 1.9] },
+    { type: 'freeBet', value: 500, profit: 605, coeffs: [2.21, 1.58] },
+
+    { type: 'bet', value: 500, result: 455, coeffs: [1.91, 1.9] }
 ].map((valueData) => {
     if (valueData.type === 'freeBet') {
         valueData.coeffs = valueData.coeffs.map((coef) => coef - 1);
@@ -143,6 +157,13 @@ const dataForValue = [
             y: summaryValue
         };
     })
+];
+
+const desc = [
+    { name: 'Cats', value: freeBets },
+    { name: 'Birds', value: bonuses },
+    { name: 'Dogs', value: bets },
+    { name: 'Rabbits', value: forks }
 ];
 
 export default function Main() {
@@ -233,12 +254,7 @@ export default function Main() {
                         <VictoryPie
                             innerRadius={50}
                             padAngle={0}
-                            data={[
-                                { x: `Cats: ${freeBets}`, y: freeBets },
-                                { x: `Birds: ${bonuses}`, y: bonuses },
-                                { x: `Dogs: ${bets}`, y: bets },
-                                { x: `Rabbits: ${forks}`, y: forks }
-                            ]}
+                            data={desc.map(({ name, value }) => ({ x: `${name}: ${value}`, y: value }))}
                             colorScale={['#2D7FF9', 'orange', 'tomato', 'black']}
                             labels
                             labelIndicator

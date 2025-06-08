@@ -1,12 +1,18 @@
 import config from '../config/index.json';
-import { Button } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-export default function MainHero() {
+export default function MainHero({ ref }) {
     const { mainHero } = config;
     const { t } = useTranslation();
     return (
-        <main className="mt-10 mx-auto max-w-5xl px-4 sm:mt-12 sm:px-6 lg:px-8">
+        <main
+            className="mt-0 mx-auto max-w-5xl pt-10"
+            ref={ref}
+            id="production"
+            style={{
+                scrollMarginTop: '64px'
+            }}
+        >
             <div className="text-center">
                 <h1 className={`text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl`}>
                     {mainHero.subtitle.split(' ').map((word, index) => (
@@ -17,17 +23,13 @@ export default function MainHero() {
                 </h1>
                 <p className="mt-3 text-base text-gray-500 text-xl">{t(mainHero.description)}</p>
                 <div className="mt-4 flex justify-center">
-                    <div className="">
-                        <Button
-                            href={mainHero.primaryAction.href}
-                            target="_blank"
-                            color="danger"
-                            variant="solid"
-                            size="large"
-                            style={{ padding: '2rem', fontSize: '2rem' }}
-                        >
-                            {mainHero.primaryAction.text}
-                        </Button>
+                    <div
+                        onClick={() => {
+                            window.open(mainHero.primaryAction.href, '_blank');
+                        }}
+                        className={`w-1/3 flex justify-center px-8 py-3 font-medium text-2xl text-background bg-primary hover:bg-border hover:text-primary`}
+                    >
+                        {mainHero.primaryAction.text}
                     </div>
                 </div>
             </div>

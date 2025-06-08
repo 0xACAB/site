@@ -1,5 +1,4 @@
 import MainHero from '@/components/MainHero';
-import Intro from '@/components/Intro';
 import Product from '@/components/Product';
 import Features from '@/components/Features';
 import Experiments from '@/components/Experiments';
@@ -71,9 +70,8 @@ export default function Main({ mobile }) {
                     background: '#ffffff'
                 }}
             >
-                <MainHero mobile={mobile} />
-                <Intro ref={refs.intro} />
-                <Product ref={refs.production} />
+                <MainHero mobile={mobile} ref={refs.production} />
+                <Product />
                 <Features ref={refs.features} />
                 <Experiments ref={refs.experiments} />
             </Content>

@@ -6,22 +6,15 @@ export default function Product({ ref }) {
     const [firstItem, secondItem] = product.items;
 
     return (
-        <section
-            className={`py-4`}
-            id="production"
-            style={{
-                scrollMarginTop: '64px'
-            }}
-            ref={ref}
-        >
+        <section className={`py-4`}>
             <div className={`container max-w-4xl mx-auto m-8`}>
-                <h1 className={`w-full my-2 text-5xl font-bold leading-tight text-center text-primary`}>
+                {/*<h1 className={`w-full my-2 text-5xl font-bold leading-tight text-center text-primary`}>
                     {product.title.split(' ').map((word, index) => (
                         <span key={index} className={index % 2 ? 'text-primary' : 'text-border'}>
                             {word}{' '}
                         </span>
                     ))}
-                </h1>
+                </h1>*/}
                 <Divider />
 
                 <div className={`flex flex-wrap`}>

@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
     eslint: {
         // Warning: This allows production builds to successfully complete even if
         // your project has ESLint errors.
-        ignoreDuringBuilds: false,
+        ignoreDuringBuilds: false
     },
     reactStrictMode: false,
     experimental: {
@@ -16,15 +16,15 @@ const nextConfig: NextConfig = {
     devIndicators: false,
     poweredByHeader: false,
     trailingSlash: true,
-    /*async redirects() {
-		return [
-			{
-				source: '/math',
-				destination: '/',
-				permanent: true,
-			},
-		]
-	},*/
+    async redirects() {
+        return [
+            {
+                source: '/resume',
+                destination: '/',
+                permanent: true
+            }
+        ];
+    },
     webpack: (config) => {
         config.module.rules.push({
             test: /\.(glsl|wgsl|vs|fs)$/,

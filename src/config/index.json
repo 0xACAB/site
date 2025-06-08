@@ -6,10 +6,6 @@
     },
     "navigation": [
         {
-            "name": "Направление",
-            "href": "intro"
-        },
-        {
             "name": "Целевая страница",
             "href": "production"
         },
@@ -35,21 +31,6 @@
             "text": "Написать мне",
             "href": "https://t.me/xTranscendence"
         }
-    },
-    "intro": {
-        "title": "Направление",
-        "items": [
-            {
-                "title": "Что это за сайт?",
-                "description": "Сайт представляет собой целевую страницу с моими экспериментами во frontend разработке.",
-                "img": "/assets/images/HTML5.svg"
-            },
-            {
-                "title": "Контент",
-                "description": "Наполнением сайта я сделал несколько визуально воспринимающихся идей",
-                "img": "/assets/images/logo.svg"
-            }
-        ]
     },
     "product": {
         "title": "Целевая страница",

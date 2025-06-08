@@ -67,29 +67,40 @@ const originalData = [
     { type: 'bet', value: 1000, result: -1000, coeffs: [1.71, 2.0] },
     { type: 'bet', value: 1000, result: -1000, coeffs: [1.63, 2.13] },
     { type: 'freeBet', value: 500, profit: 0, coeffs: [1.9, 1.9] },
-
     { type: 'fork', value: 300 },
     { type: 'bet', value: 1000, result: 800, coeffs: [1.9, 1.9] },
     { type: 'freeBet', value: 1000, profit: 0, coeffs: [1.9, 1.9] },
-
     { type: 'bet', value: 1000, result: -1000, coeffs: [4.6, 1.18] },
     { type: 'freeBet', value: 300, profit: 0, coeffs: [2.95, 1.4] },
-
     { type: 'bet', value: 100, result: -100, coeffs: [3.9, 18, 1.32] },
     { type: 'bet', value: 150, result: 102, coeffs: [1.87, 1.87] },
-
     { type: 'bet', value: 500, result: -500, coeffs: [1.99, 1.73] },
     { type: 'freeBet', value: 500, profit: 550, coeffs: [2.1, 1.72] },
-
     { type: 'bet', value: 1000, result: 900, coeffs: [1.9, 1.9] },
-
     { type: 'bet', value: 1000, result: 980, coeffs: [1.98, 1.79] },
     { type: 'freeBet', value: 500, profit: 680, coeffs: [2.36, 1.59] },
-
     { type: 'freeBet', value: 500, profit: 0, coeffs: [1.71, 2.12] },
     { type: 'bet', value: 1000, result: 710, coeffs: [1.71, 2.12] },
-
-    { type: 'freeBet', value: 1000, profit: 860, coeffs: [1.86, 4.3, 4.0] }
+    { type: 'freeBet', value: 1000, profit: 860, coeffs: [1.86, 4.3, 4.0] },
+    { type: 'bet', value: 500, result: 445, coeffs: [1.89, 1.89] },
+    { type: 'freeBet', value: 500, profit: 0, coeffs: [1.91, 1.9] },
+    { type: 'freeBet', value: 500, profit: 605, coeffs: [2.21, 1.58] },
+    { type: 'bet', value: 500, result: 455, coeffs: [1.91, 1.9] },
+    { type: 'freeBet', value: 500, profit: 0, coeffs: [2.5, 1.56] },
+    { type: 'bet', value: 1000, result: -1000, coeffs: [1.9, 1.9] },
+    { type: 'freeBet', value: 500, profit: 375, coeffs: [1.75, 2.04] },
+    { type: 'bet', value: 500, result: -500, coeffs: [1.89, 1.91] },
+    { type: 'bet', value: 1000, result: -1000, coeffs: [2.18, 4.36, 2.88] },
+    { type: 'bet', value: 3000, result: -3000, coeffs: [1.94, 1.94] },
+    { type: 'bet', value: 3000, result: 2820, coeffs: [1.94, 1.94] },
+    //Ниже ставка где кеф был только один(3.0) на "мбаппе забьет" у олимпа
+    { type: 'bet', value: 200, result: 400, coeffs: [1.9, 1.9], realCoeff: 3.0 },
+    { type: 'freeBet', value: 500, profit: 465, coeffs: [1.93, 1.88] },
+    { type: 'bet', value: 1500, result: -1500, coeffs: [2.06, 3.45, 3.65] },
+    //Ниже фрибет Димы 3000, частью профита поделился, поэтому такой рассчет (2000 / 0.94)
+    { type: 'freeBet', value: 2000 / 0.94, profit: 2000, coeffs: [1.94, 3.48, 4.51], outPay: 880 },
+    { type: 'bet', value: 1000, result: 740, coeffs: [1.74, 2.1] },
+    { type: 'freeBet', value: 1000, profit: 0, coeffs: [1.71, 2.13] }
 ].map((valueData) => {
     if (valueData.type === 'freeBet') {
         valueData.coeffs = valueData.coeffs.map((coef) => coef - 1);
@@ -152,12 +163,18 @@ const dataForValue = [
         };
     })
 ];
-
+const desc = [
+    { name: 'Фрибеты', value: freeBets },
+    { name: 'Бонусы деньгами', value: bonuses },
+    { name: 'Ставки своих денег', value: bets },
+    { name: 'Вилки', value: forks }
+];
 export default function Main() {
     return (
         <div className="flex flex-col w-full justify-between items-center">
             <header className="flex flex-col w-full items-center">
-                <a href="https://nearform.com/open-source/victory/">Victory</a>
+                {/*<a href="https://nearform.com/open-source/victory/">Victory</a>*/}
+                Бонусхантинг
             </header>
 
             <main className="flex flex-col w-1/2 items-center">
@@ -241,12 +258,7 @@ export default function Main() {
                         <VictoryPie
                             innerRadius={50}
                             padAngle={0}
-                            data={[
-                                { x: `Фрибеты: ${freeBets}`, y: freeBets },
-                                { x: `Бонусы деньгами: ${bonuses}`, y: bonuses },
-                                { x: `Ставки своих денег: ${bets}`, y: bets },
-                                { x: `Вилки: ${forks}`, y: forks }
-                            ]}
+                            data={desc.map(({ name, value }) => ({ x: `${name}: ${value}`, y: value }))}
                             colorScale={['#2D7FF9', 'orange', 'tomato', 'black']}
                             labels
                             labelIndicator
