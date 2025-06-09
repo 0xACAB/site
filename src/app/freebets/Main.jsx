@@ -100,7 +100,12 @@ const originalData = [
     //Ниже фрибет Димы 3000, частью профита поделился, поэтому такой рассчет (2000 / 0.94)
     { type: 'freeBet', value: 2000 / 0.94, profit: 2000, coeffs: [1.94, 3.48, 4.51], outPay: 880 },
     { type: 'bet', value: 1000, result: 740, coeffs: [1.74, 2.1] },
-    { type: 'freeBet', value: 1000, profit: 0, coeffs: [1.71, 2.13] }
+    { type: 'freeBet', value: 1000, profit: 0, coeffs: [1.71, 2.13] },
+    { type: 'freeBet', value: 1000, profit: 0, coeffs: [3.95, 3.8, 1.99] },
+    { type: 'bet', value: 3000, result: -3000, coeffs: [1.92, 1.88] },
+    { type: 'bet', value: 3000, result: 2880, coeffs: [1.96, 1.93] },
+    //Ниже ставка где кеф был только один(3.4) на "нико уильямс забьет" у олимпа
+    { type: 'freeBet', value: 200, profit: 0, coeffs: [1.9, 1.9], realCoeff: 3.4 }
 ].map((valueData) => {
     if (valueData.type === 'freeBet') {
         valueData.coeffs = valueData.coeffs.map((coef) => coef - 1);

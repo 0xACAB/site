@@ -5,7 +5,7 @@ export default function MainHero({ ref }) {
     const { mainHero } = config;
     const { t } = useTranslation();
     return (
-        <main
+        <section
             className="mt-0 mx-auto max-w-5xl pt-10"
             ref={ref}
             id="production"
@@ -33,6 +33,6 @@ export default function MainHero({ ref }) {
                     </div>
                 </div>
             </div>
-        </main>
+        </section>
     );
 }

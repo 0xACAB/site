@@ -1,4 +1,6 @@
 import './globals.css';
+import { Suspense } from 'react';
+import { YandexMetrika } from '@/components/YandexMetrika';
 
 export const metadata = {
     title: '@xTranscendence',
@@ -8,7 +10,12 @@ export const metadata = {
 export default async function RootLayout({ children }) {
     return (
         <html lang="en">
-            <body>{children}</body>
+            <body>
+                <Suspense>
+                    <YandexMetrika />
+                </Suspense>
+                {children}
+            </body>
         </html>
     );
 }
