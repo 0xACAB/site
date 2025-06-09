@@ -1,6 +1,7 @@
 'use client';
 import './styles.css';
 import { VictoryChart, VictoryAxis, VictoryLine, VictoryTheme, VictoryPie, VictoryScatter } from 'victory';
+import { useState, useEffect } from 'react';
 
 const originalData = [
     { type: 'bet', value: 60, result: 27.88, coeffs: [1.9, 1.9] },
@@ -105,13 +106,18 @@ const originalData = [
     { type: 'bet', value: 3000, result: -3000, coeffs: [1.92, 1.88] },
     { type: 'bet', value: 3000, result: 2880, coeffs: [1.96, 1.93] },
     //Ниже ставка где кеф был только один(3.4) на "нико уильямс забьет" у олимпа
-    { type: 'freeBet', value: 200, profit: 0, coeffs: [1.9, 1.9], realCoeff: 3.4 }
+    { type: 'bet', value: 200, result: -200, coeffs: [1.9, 1.9], realCoeff: 3.4 },
+    { type: 'bet', value: 500, result: 470, coeffs: [1.94, 1.87] },
+    { type: 'bet', value: 1500, result: 1455, coeffs: [1.97, 1.84] },
+    { type: 'bet', value: 2000, result: -2000, coeffs: [1.99, 1.81] },
+    { type: 'freeBet', value: 500, profit: 480, coeffs: [1.96, 1.84] }
 ].map((valueData) => {
     if (valueData.type === 'freeBet') {
         valueData.coeffs = valueData.coeffs.map((coef) => coef - 1);
     }
     return valueData;
 });
+
 //.filter(({ type, value }) => type === 'freeBet' && value>=500);
 let summaryValue = 0;
 let summaryEV = 0;
@@ -174,108 +180,117 @@ const desc = [
     { name: 'Ставки своих денег', value: bets },
     { name: 'Вилки', value: forks }
 ];
-export default function Main() {
-    return (
-        <div className="flex flex-col w-full justify-between items-center">
-            <header className="flex flex-col w-full items-center">
-                {/*<a href="https://nearform.com/open-source/victory/">Victory</a>*/}
-                Бонусхантинг
-            </header>
+export default function Main({}) {
+    const [originalDataState, setOriginalData] = useState();
 
-            <main className="flex flex-col w-1/2 items-center">
-                <article className="flex flex-col items-center">
-                    <div>
-                        <VictoryChart theme={VictoryTheme.clean}>
-                            <VictoryAxis dependentAxis />
-                            <VictoryAxis />
-                            {dataForValue.slice(0, -1).map((data, index) => {
-                                return (
-                                    <VictoryLine
-                                        key={index}
-                                        data={[data, dataForValue[index + 1]]}
-                                        style={{
-                                            data: {
-                                                stroke: () => {
-                                                    if (originalData[index].type === 'bet') {
-                                                        return 'tomato';
-                                                    } else if (originalData[index].type === 'freeBet') {
-                                                        return '#2D7FF9';
-                                                    } else if (originalData[index].type === 'bonus') {
-                                                        return 'orange';
-                                                    } else if (originalData[index].type === 'fork') {
-                                                        return 'black';
-                                                    } else {
-                                                        return '#4CA515';
+    useEffect(() => {
+        setOriginalData(originalData);
+    }, []);
+    return (
+        originalDataState && (
+            <div className="flex flex-col w-full justify-between items-center">
+                <header className="flex flex-col w-full items-center">
+                    {/*<a href="https://nearform.com/open-source/victory/">Victory</a>*/}
+                    Бонусхантинг
+                </header>
+
+                <main className="flex flex-col w-1/2 items-center">
+                    <article className="flex flex-col items-center">
+                        <div>
+                            <VictoryChart theme={VictoryTheme.clean}>
+                                <VictoryAxis dependentAxis />
+                                <VictoryAxis />
+                                {dataForValue.slice(0, -1).map((data, index) => {
+                                    return (
+                                        <VictoryLine
+                                            key={index}
+                                            data={[data, dataForValue[index + 1]]}
+                                            style={{
+                                                data: {
+                                                    stroke: () => {
+                                                        if (originalData[index].type === 'bet') {
+                                                            return 'tomato';
+                                                        } else if (originalData[index].type === 'freeBet') {
+                                                            return '#2D7FF9';
+                                                        } else if (originalData[index].type === 'bonus') {
+                                                            return 'orange';
+                                                        } else if (originalData[index].type === 'fork') {
+                                                            return 'black';
+                                                        } else {
+                                                            return '#4CA515';
+                                                        }
                                                     }
                                                 }
-                                            }
-                                        }}
-                                        labels={({ datum }) => {
-                                            return datum.x === dataForValue.length - 1 ? summaryValue.toFixed(2) : null;
-                                        }}
-                                    />
-                                );
-                            })}
-                            <VictoryScatter
-                                data={dataForValue}
-                                size={2}
-                                style={{
-                                    data: {
-                                        fill: ({ datum }) => {
-                                            const fullData = [{ type: undefined }, ...originalData];
-                                            if (fullData[datum.x].type === 'bet') {
-                                                return 'tomato';
-                                            } else if (fullData[datum.x].type === 'freeBet') {
-                                                return '#2D7FF9';
-                                            } else if (fullData[datum.x].type === 'bonus') {
-                                                return 'orange';
-                                            } else if (fullData[datum.x].type === 'fork') {
-                                                return 'black';
-                                            } else {
-                                                return '#4CA515';
+                                            }}
+                                            labels={({ datum }) => {
+                                                return datum.x === dataForValue.length - 1
+                                                    ? summaryValue.toFixed(2)
+                                                    : null;
+                                            }}
+                                        />
+                                    );
+                                })}
+                                <VictoryScatter
+                                    data={dataForValue}
+                                    size={2}
+                                    style={{
+                                        data: {
+                                            fill: ({ datum }) => {
+                                                const fullData = [{ type: undefined }, ...originalData];
+                                                if (fullData[datum.x].type === 'bet') {
+                                                    return 'tomato';
+                                                } else if (fullData[datum.x].type === 'freeBet') {
+                                                    return '#2D7FF9';
+                                                } else if (fullData[datum.x].type === 'bonus') {
+                                                    return 'orange';
+                                                } else if (fullData[datum.x].type === 'fork') {
+                                                    return 'black';
+                                                } else {
+                                                    return '#4CA515';
+                                                }
                                             }
                                         }
-                                    }
-                                }}
-                            />
+                                    }}
+                                />
 
-                            <VictoryLine
-                                data={dataForEV}
-                                style={{
-                                    data: {
-                                        stroke: '#A36209'
-                                    }
-                                }}
-                                labels={({ datum }) => {
-                                    return datum.x === dataForEV.length - 1 ? summaryEV.toFixed(2) : null;
-                                }}
+                                <VictoryLine
+                                    data={dataForEV}
+                                    style={{
+                                        data: {
+                                            stroke: '#A36209'
+                                        }
+                                    }}
+                                    labels={({ datum }) => {
+                                        return datum.x === dataForEV.length - 1 ? summaryEV.toFixed(2) : null;
+                                    }}
+                                />
+                                <VictoryScatter
+                                    data={dataForEV}
+                                    size={2}
+                                    style={{
+                                        data: {
+                                            fill: '#A36209'
+                                        }
+                                    }}
+                                />
+                            </VictoryChart>
+                            <VictoryPie
+                                innerRadius={50}
+                                padAngle={0}
+                                data={desc.map(({ name, value }) => ({ x: `${name}: ${value}`, y: value }))}
+                                colorScale={['#2D7FF9', 'orange', 'tomato', 'black']}
+                                labels
+                                labelIndicator
+                                theme={VictoryTheme.clean}
                             />
-                            <VictoryScatter
-                                data={dataForEV}
-                                size={2}
-                                style={{
-                                    data: {
-                                        fill: '#A36209'
-                                    }
-                                }}
-                            />
-                        </VictoryChart>
-                        <VictoryPie
-                            innerRadius={50}
-                            padAngle={0}
-                            data={desc.map(({ name, value }) => ({ x: `${name}: ${value}`, y: value }))}
-                            colorScale={['#2D7FF9', 'orange', 'tomato', 'black']}
-                            labels
-                            labelIndicator
-                            theme={VictoryTheme.clean}
-                        />
-                    </div>
-                    <span className="tracking-tight text-border">
-                        Итого ставок, фрибетов, бонусов и вилок:
-                        <span className="font-bold"> {originalData.length}</span>
-                    </span>
-                </article>
-            </main>
-        </div>
+                        </div>
+                        <span className="tracking-tight text-border">
+                            Итого ставок, фрибетов, бонусов и вилок:
+                            <span className="font-bold"> {originalData.length}</span>
+                        </span>
+                    </article>
+                </main>
+            </div>
+        )
     );
 }
