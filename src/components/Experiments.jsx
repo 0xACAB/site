@@ -41,7 +41,7 @@ export default function Experiments({ ref }) {
                         {featuresList.map((feature) => (
                             <div key={feature.name} className="w-5/6 justify-self-center">
                                 <Link className={`cursor-pointer text-center`} href={feature.href}>
-                                    <div>Смотреть демо</div>
+                                    <div className={'text-red-700'}>Смотреть демо</div>
                                     <img className="w-full" src={feature.img} alt={'test1'} />
                                 </Link>
                             </div>

@@ -98,8 +98,8 @@ const originalData = [
     { type: 'bet', value: 200, result: 400, coeffs: [1.9, 1.9], realCoeff: 3.0 },
     { type: 'freeBet', value: 500, profit: 465, coeffs: [1.93, 1.88] },
     { type: 'bet', value: 1500, result: -1500, coeffs: [2.06, 3.45, 3.65] },
-    //Ниже фрибет Димы 3000, частью профита поделился, поэтому такой рассчет (2000 / 0.94)
-    { type: 'freeBet', value: 2000 / 0.94, profit: 2000, coeffs: [1.94, 3.48, 4.51], outPay: 880 },
+    //Ниже фрибет Димы 3000, частью профита поделился
+    { type: 'freeBet', value: 3000, profit: 2880, coeffs: [1.94, 3.48, 4.51], outPay: 880 },
     { type: 'bet', value: 1000, result: 740, coeffs: [1.74, 2.1] },
     { type: 'freeBet', value: 1000, profit: 0, coeffs: [1.71, 2.13] },
     { type: 'freeBet', value: 1000, profit: 0, coeffs: [3.95, 3.8, 1.99] },
@@ -110,7 +110,95 @@ const originalData = [
     { type: 'bet', value: 500, result: 470, coeffs: [1.94, 1.87] },
     { type: 'bet', value: 1500, result: 1455, coeffs: [1.97, 1.84] },
     { type: 'bet', value: 2000, result: -2000, coeffs: [1.99, 1.81] },
-    { type: 'freeBet', value: 500, profit: 480, coeffs: [1.96, 1.84] }
+    { type: 'freeBet', value: 500, profit: 480, coeffs: [1.96, 1.84] },
+    { type: 'bet', value: 1500, result: 1065, coeffs: [1.71, 3.88, 4.86] },
+    { type: 'freeBet', value: 200, profit: 142, coeffs: [1.71, 3.88, 4.86] },
+    { type: 'freeBet', value: 750, profit: 570, coeffs: [1.76, 2.06] },
+    { type: 'freeBet', value: 750, profit: 540, coeffs: [1.72, 2.12] },
+    { type: 'freeBet', value: 1500, profit: 1125, coeffs: [1.75, 2.07] },
+    { type: 'freeBet', value: 3000, profit: 2250, coeffs: [1.75, 2.07] },
+    { type: 'freeBet', value: 500, profit: 995, coeffs: [2.99, 1.39] },
+    { type: 'bet', value: 2000, result: 3420, coeffs: [2.71, 1.46] },
+    { type: 'bet', value: 3000, result: 5100, coeffs: [2.7, 1.47] },
+    { type: 'freeBet', value: 750, profit: 787, coeffs: [2.05, 1.76] },
+    { type: 'bet', value: 500, result: -500, coeffs: [1.69, 2.09], book: 'OlimpBet' },
+    { type: 'bet', value: 500, result: -500, coeffs: [1.69, 2.09], book: 'OlimpBet' },
+    { type: 'bet', value: 1000, result: 800, coeffs: [1.8, 1.92], book: 'BetBoom' },
+    { type: 'bet', value: 2000, result: 2000, coeffs: [2.0, 1.74], book: 'BetBoom' },
+    { type: 'freeBet', value: 3000, profit: 1560, coeffs: [1.52, 2.55], book: 'BetBoom' },
+    { type: 'freeBet', value: 500, profit: 0, coeffs: [2.5, 1.46], book: 'OlimpBet' },
+    { type: 'bet', value: 1000, result: 2250, coeffs: [3.25, 1.42], book: 'Lion' },
+    { type: 'freeBet', value: 1000, profit: 0, coeffs: [1.5, 26.0, 2.59], book: 'Winline' },
+    { type: 'bet', value: 1000, result: 2300, coeffs: [1.71, 3.3, 4.5], book: 'Lion' },
+    { type: 'freeBet', value: 1000, profit: 970, coeffs: [1.97, 1.88], book: 'Lion' },
+    { type: 'bet', value: 500, result: -500, coeffs: [1.86, 1.95], book: 'OlimpBet' },
+    { type: 'bet', value: 2000, result: -2000, coeffs: [1.93, 1.97], book: 'BetCity' },
+    //Ниже фрибет Эдика 2000, частью профита планировал поделиться, поэтому такой рассчет (2000 / 2)
+    { type: 'freeBet', value: 2000, profit: 0, coeffs: [1.93, 1.97], book: 'BetCity', outPay: 0 },
+    { type: 'freeBet', value: 500, profit: 0, coeffs: [1.98, 2.87, 4.66], book: 'OlimpBet' },
+    { type: 'bet', value: 100, result: 800, coeffs: [9, 4.3, 1.45], book: 'MelBet' },
+    { type: 'bet', value: 3000, result: 6660, coeffs: [3.22, 1.37], book: 'OlimpBet' },
+    { type: 'freeBet', value: 1500, profit: 1980, coeffs: [2.32, 1.59], book: 'OlimpBet' },
+    { type: 'freeBet', value: 500, profit: 500, coeffs: [1.75, 2.0], book: 'Lion' },
+    { type: 'bet', value: 1000, result: -1000, coeffs: [1.75, 2.05], book: 'FonBet' },
+    { type: 'freeBet', value: 75, profit: 0, coeffs: [1.75, 2.05], book: 'FonBet' },
+    { type: 'bet', value: 100, result: 133, coeffs: [2.33, 3.2, 3.3], book: 'BetCity' },
+    { type: 'freeBet', value: 500, profit: 460, coeffs: [1.92, 50.0, 1.92], book: 'FonBet' },
+    { type: 'freeBet', value: 500, profit: 460, coeffs: [1.92, 50.0, 1.92], book: 'FonBet' },
+    //От Никиты 1000 с промиком PGL первую не на кибер бахнул, но выиграл.
+    //Частью профита поделился
+    { type: 'bet', value: 1000, result: 920, coeffs: [1.92, 50.0, 1.92], book: 'FonBet', outPay: 460 },
+    //От Никиты 1000 с промиком PGL. Частью профита поделился
+    { type: 'bet', value: 1000, result: 1750, coeffs: [2.75, 1.4], book: 'FonBet', outPay: 875 },
+    //500 дали Никите на колесе
+    { type: 'freeBet', value: 500, profit: 0, coeffs: [1.9, 1.9], book: 'FonBet', outPay: 0 },
+    { type: 'bet', value: 1000, result: 770, coeffs: [1.77, 2.01], book: 'Marathonbet' },
+    { type: 'bet', value: 500, result: -500, coeffs: [2.05, 1.72], book: 'OlimpBet' },
+    { type: 'freeBet', value: 1000, profit: 0, coeffs: [1.92, 50.0, 1.92], book: 'Marathonbet' },
+    { type: 'bet', value: 1500, result: 990, coeffs: [1.66, 2.15], book: 'Lion' },
+    { type: 'freeBet', value: 200, profit: 0, coeffs: [1.62, 2.3], book: 'FonBet' },
+    { type: 'freeBet', value: 200, profit: 0, coeffs: [1.62, 2.3], book: 'FonBet' },
+    { type: 'freeBet', value: 500, profit: 0, coeffs: [3.0, 1.39], book: 'Lion' },
+    { type: 'freeBet', value: 500, profit: 0, coeffs: [2.79, 1.44], book: 'Winline' },
+    { type: 'bet', value: 100, result: -100, coeffs: [5.0, 1.17], book: 'FonBet' },
+    { type: 'bet', value: 100, result: -100, coeffs: [5.5, 1.14], book: 'LigaStavok' },
+    { type: 'freeBet', value: 500, profit: 665, coeffs: [2.33, 1.54], book: 'OlimpBet' },
+    { type: 'bet', value: 100, result: -100, coeffs: [3.05, 1.35], book: 'FonBet' },
+    { type: 'bet', value: 900, result: 117, coeffs: [1.13, 5.09], book: 'LigaStavok' },
+    { type: 'freeBet', value: 75, profit: 139, coeffs: [2.85, 1.37], book: 'FonBet' },
+    { type: 'freeBet', value: 100, profit: 205, coeffs: [3.05, 1.33], book: 'LigaStavok' },
+    { type: 'bet', value: 1000, result: -1000, coeffs: [2.12, 1.75], book: 'FonBet' },
+    { type: 'freeBet', value: 500, profit: 725, coeffs: [2.45, 1.55], book: 'FonBet' },
+    { type: 'bet', value: 1000, result: -1000, coeffs: [2.4, 1.53], book: 'FonBet' },
+    { type: 'freeBet', value: 300, profit: 0, coeffs: [2.4, 1.5], book: 'FonBet' },
+    //С этого момента уже пользовался подписками bet-hub
+    { type: 'bet', value: 1000, result: 1130, coeffs: [2.13, 1.6], book: 'Marathonbet' },
+    { type: 'freeBet', value: 1000, profit: 0, coeffs: [2.72, 1.46], book: 'Marathonbet' },
+    //От Димы с фрибетом 5000 на деп 6000 бахнул, обсчитался немного поэтому минус ev вышло. Слишком много заплатил
+    //outPay включено в result.
+    { type: 'bet', value: 6000, result: 5220, coeffs: [1.87, 1.83], book: 'LigaStavok', outPay: 2620 },
+    //Ниже фрибет Димы 5000, частью профита поделиля, поэтому такой рассчет (4000 / 1.42)
+    { type: 'freeBet', value: 5000, profit: 7100, coeffs: [2.42, 3.6, 2.95], book: 'LigaStavok', outPay: 3100 },
+    { type: 'bet', value: 500, result: 425, coeffs: [1.85, 1.95], book: 'OlimpBet' },
+    { type: 'bet', value: 1000, result: 720, coeffs: [1.72, 2.12], book: 'FonBet' },
+    { type: 'bet', value: 1000, result: -1000, coeffs: [1.4, 2.69], book: 'Marathonbet' },
+    { type: 'freeBet', value: 500, profit: 0, coeffs: [6.0, 3.85, 1.68], book: 'FonBet' },
+    { type: 'freeBet', value: 500, profit: 0, coeffs: [6.0, 3.85, 1.68], book: 'FonBet' },
+    //Ниже ставка где кеф был только один(2.38) на cчет 0:3 у лиона
+    { type: 'freeBet', value: 1000, profit: 0, coeffs: [1.9, 1.9], book: 'Lion' },
+    { type: 'freeBet', value: 1000, profit: 680, coeffs: [1.68, 2.05], book: 'Marathonbet' },
+    //Ниже у фона на кибере оказалась маржа 4.93% по кф 1.68/2.19
+    { type: 'bet', value: 1000, result: -1000, coeffs: [1.68, 2.19], book: 'FonBet' },
+    { type: 'bet', value: 1000, result: 1160, coeffs: [2.16, 1.71], book: 'Lion' },
+    { type: 'bet', value: 500, result: -500, coeffs: [1.67, 2.13], book: 'FonBet' },
+    { type: 'freeBet', value: 1000, profit: 0, coeffs: [2.12, 1.67], book: 'Lion' },
+    { type: 'freeBet', value: 500, profit: 2150, coeffs: [5.3, 4.2, 1.65], book: 'FonBet' },
+    { type: 'bet', value: 500, result: -500, coeffs: [1.8, 1.95], book: 'OlimpBet' },
+    { type: 'bet', value: 50, result: -50, coeffs: [2.05, 1.7], book: 'Winline' },
+    { type: 'freeBet', value: 500, profit: 0, coeffs: [2.08, 1.7], book: 'OlimpBet' },
+    { type: 'bet', value: 1000, result: -1000, coeffs: [1.6, 2.35], book: 'FonBet' },
+    { type: 'freeBet', value: 500, profit: 0, coeffs: [1.59, 2.36], book: 'FonBet' },
+    { type: 'freeBet', value: 500, profit: 0, coeffs: [1.59, 2.36], book: 'FonBet' }
 ].map((valueData) => {
     if (valueData.type === 'freeBet') {
         valueData.coeffs = valueData.coeffs.map((coef) => coef - 1);
@@ -121,6 +209,7 @@ const originalData = [
 //.filter(({ type, value }) => type === 'freeBet' && value>=500);
 let summaryValue = 0;
 let summaryEV = 0;
+let summaryOutPays = 0;
 let bets = 0;
 let freeBets = 0;
 let bonuses = 0;
@@ -128,7 +217,7 @@ let forks = 0;
 const dataForEV = [{ x: 0, y: 0 }];
 const dataForValue = [
     { x: 0, y: 0 },
-    ...originalData.map(({ type, value, result, profit, coeffs }, i) => {
+    ...originalData.map(({ type, value, result, profit, coeffs, outPay }, i) => {
         if (type === 'bet') bets++;
         if (type === 'freeBet') freeBets++;
         if (type === 'bonus') bonuses++;
@@ -154,20 +243,42 @@ const dataForValue = [
                 equity = betEquity;
             } else throw 'wtf?!';
         }
-        const ev = value * equity;
+        let realProfit = profit;
+        let realResult = result;
+        let realValue = value;
+        let realEquity = equity;
+        if (outPay !== undefined) {
+            summaryOutPays += outPay;
+            if (outPay === 0) {
+                if (type === 'freeBet' && profit === 0) {
+                    //Не зашел фрибет, но были планы поделиться, поэтому считаю что проставил половину суммы
+                    realValue = value / 2;
+                }
+            } else {
+                if (type === 'freeBet') {
+                    realValue = value / 2;
+                    realProfit = profit - outPay;
+                }
+                if (type === 'bet') {
+                    realResult = result - outPay;
+                    realEquity = equity - outPay / (result + outPay);
+                }
+            }
+        }
+        const ev = realValue * realEquity;
         summaryEV += ev;
+        if (type === 'freeBet') {
+            summaryValue += realProfit;
+        } else if (['bonus', 'fork'].includes(type)) {
+            summaryValue += realValue;
+        } else {
+            summaryValue += realResult;
+        }
+
         dataForEV.push({
             x: i + 1,
             y: summaryEV
         });
-
-        if (type === 'freeBet') {
-            summaryValue += profit;
-        } else if (['bonus', 'fork'].includes(type)) {
-            summaryValue += value;
-        } else {
-            summaryValue += result;
-        }
         return {
             x: i + 1,
             y: summaryValue
@@ -189,10 +300,7 @@ export default function Main({}) {
     return (
         originalDataState && (
             <div className="flex flex-col w-full justify-between items-center">
-                <header className="flex flex-col w-full items-center">
-                    {/*<a href="https://nearform.com/open-source/victory/">Victory</a>*/}
-                    Бонусхантинг
-                </header>
+                <header className="flex flex-col w-full items-center">Бонусхантинг</header>
 
                 <main className="flex flex-col w-1/2 items-center">
                     <article className="flex flex-col items-center">
@@ -284,10 +392,18 @@ export default function Main({}) {
                                 theme={VictoryTheme.clean}
                             />
                         </div>
-                        <span className="tracking-tight text-border">
-                            Итого ставок, фрибетов, бонусов и вилок:
-                            <span className="font-bold"> {originalData.length}</span>
-                        </span>
+                        <div>
+                            <span className="tracking-tight text-border">
+                                Итого ставок, фрибетов, бонусов и вилок:
+                                <span className="font-bold"> {originalData.length}</span>
+                            </span>
+                        </div>
+                        <div>
+                            <span className="tracking-tight text-border">
+                                Внешние выплаты помимо основного профита:
+                                <span className="font-bold"> {summaryOutPays}</span>
+                            </span>
+                        </div>
                     </article>
                 </main>
             </div>
