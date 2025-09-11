@@ -23,7 +23,7 @@ export default function Sphere() {
         { width: 256, height: 256 },
         { width: 512, height: 512 }
     ];
-    const startResolutionIndex = 3;
+    const startResolutionIndex = 1;
     const [resolutionIndex, setResolutionIndex] = useState(startResolutionIndex);
     const [onChange, setOnChange] = useState();
     useEffect(() => {

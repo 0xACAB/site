@@ -25,7 +25,7 @@
     "mainHero": {
         "title": "Десктопная версия целевой страницы",
         "mobileTitle": "Мобильная версия целевой страницы",
-        "subtitle": "Frontend experiments",
+        "subtitle": "Frontend Lab",
         "description": "Экспериментальный полигон",
         "primaryAction": {
             "text": "Написать мне",
