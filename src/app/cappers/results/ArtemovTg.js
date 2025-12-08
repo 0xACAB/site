@@ -1,0 +1,25 @@
+const ArtemovTg = [
+    { original: 1.6, real: 1.6, result: 'win' },
+    { original: 1.95, real: 1.95, result: 'win' },
+    { original: 1.7, real: 1.7, result: 'win' },
+    { original: 1.7, real: 1.8, result: 'lose' },
+    { original: 2.75, real: 2.75, result: 'win' },
+    { original: 2.1, real: 2.1, result: 'lose' },
+    { original: 1.75, real: 1.73, result: 'win' },
+    { original: 1.73, real: 1.73, result: 'win' },
+    { original: 1.8, real: 1.8, result: 'win' },
+    { original: 1.83, real: 1.83, result: 'win' },
+    { original: 1.82, real: 1.82, result: 'lose' },
+    { original: 1.52, real: 1.6, result: 'win' },
+    { original: 1.77, real: 1.78, result: 'win' },
+    { original: 1.8, real: 1.8, result: 'win' },
+    { original: 1.73, real: 1.73, result: 'lose' },
+    { original: 1.62, real: 1.62, result: 'win' },
+    { original: 1.84, real: 1.84, result: 'win' },
+    { original: 1.65, real: 1.65, result: 'lose' },
+    { original: 1.55, real: 1.56, result: 'win' },
+    { original: 1.73, real: 1.73, result: 'lose' },
+    { original: 1.72, real: 1.72, result: 'win' },
+    { original: 1.72, real: 1.72, result: 'win' }
+];
+export default ArtemovTg;

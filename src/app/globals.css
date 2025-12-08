@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@layer theme base components utilities;
+@layer theme;
 
 /* This had to be added to change the color that tailwind sets at background-color after a refresh */
 /*@layer base {
