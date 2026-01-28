@@ -1,0 +1,32 @@
+const DaniilBig = [
+    { original: 1.95, real: 1.97, result: 'win', betSumRUR: 2500 },
+    { original: 2.8, real: 2.84, result: 'lose', betSumRUR: 1000 },
+    { original: 1.7, real: 1.72, result: 'lose', betSumRUR: 2000 },
+    { original: 1.72, real: 1.72, result: 'win', betSumRUR: 1000 },
+    { original: 1.8, real: 1.8, result: 'win', betSumRUR: 1000 },
+    { original: 1.85, real: 1.8, result: 'win', betSumRUR: 0 },
+    { original: 1.9, real: 1.89, result: 'lose', betSumRUR: 2000 },
+    { original: 1.7, real: 1.7, result: 'lose', betSumRUR: 1000 },
+    { original: 1.73, real: 1.73, result: 'lose', betSumRUR: 1000 },
+    { original: 1.55, real: 1.55, result: 'lose', betSumRUR: 1000 },
+    { original: 1.87, real: 1.87, result: 'lose', betSumRUR: 1000 },
+    { original: 1.8, real: 1.8, result: 'lose', betSumRUR: 2000 },
+    { original: 2.76, real: 2.76, result: 'win', betSumRUR: 2000 },
+    { original: 1.8, real: 1.8, result: 'win', betSumRUR: 2000 },
+    { original: 2.1, real: 2.1, result: 'lose', betSumRUR: 2000 },
+    { original: 1.95, real: 1.95, result: 'lose', betSumRUR: 2000 },
+    { original: 1.98, real: 1.98, result: 'return', betSumRUR: 2000 },
+    { original: 2.22, real: 2.2, result: 'lose', betSumRUR: 2000 },
+    //Снизил ставку до 200р
+    { original: 2.24, real: 2.27, result: 'lose', betSumRUR: 200 },
+    { original: 3.0, real: 3.03, result: 'lose', betSumRUR: 200 },
+    { original: 1.7, real: 1.7, result: 'lose', betSumRUR: 100 },
+    { original: 1.72, real: 1.73, result: 'lose', betSumRUR: 100 },
+    { original: 1.78, real: 1.77, result: 'lose', betSumRUR: 200 },
+    { original: 2.2, real: 2.2, result: 'win', betSumRUR: 200 },
+    { original: 1.75, real: 1.8, result: 'lose', betSumRUR: 200 },
+    { original: 1.73, real: 1.73, result: 'lose', betSumRUR: 200 },
+    { original: 1.85, real: 1.85, result: 'return', betSumRUR: 200 },
+    { original: 1.32, real: 1.3, result: 'win', betSumRUR: 200 }
+];
+export default DaniilBig;

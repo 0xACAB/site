@@ -2,91 +2,44 @@
 import './styles.css';
 //import { VictoryChart, VictoryAxis, VictoryLine, VictoryTheme, VictoryPie, VictoryScatter } from 'victory';
 //import { useState, useEffect } from 'react';
-import EllowCards from './results/EllowCards';
+
 import ArtemovBig from './results/ArtemovBig';
-import ArtemovLine from './results/ArtemovLine';
-import ArtemovLiveHockey from './results/ArtemovLiveHockey';
-import ArtemovHockeyPlayers from './results/ArtemovHockeyPlayers';
-import ArtemovTg from './results/ArtemovTg';
-import ArtemovLegalBet from './results/ArtemovLegalBet';
-import ChestniyCapper from './results/ChestniyCapper';
-import ChestniyCapperPremium from './results/ChestniyCapperPremium';
-import ChestnieSmalls from './results/ChestnieSmalls';
-import CherkasovLegalBet from './results/CherkasovLegalBet';
-import Territoria from './results/Territoria';
-import SportStatisticsTrifonov from './results/SportStatisticsTrifonov';
-import Borovko from './results/Borovko';
-import Fizruk from './results/Fizruk';
-import TrifonovSchethic from './results/TrifonovSchethic';
+import CherkasovBig from './results/CherkasovBig';
+import TsvetkoffBig from './results/TsvetkoffBig';
+import DaniilBig from './results/DaniilBig';
+import Litovets from './results/Litovets';
+import LogachevBig from './results/LogachevBig';
 
 let summary = {
     bets: 0,
-    result: { original: 0, real: 0 }
+    result: { original: 0, real: 0 },
+    realWinRUR: 0,
+    afterPays: 0
 };
 const originalData = [
+    {
+        name: 'Дмитрий Литовец',
+        coeffs: Litovets
+    },
     {
         name: 'Дмитрий Артёмов Биги', //Лудоманская ошибка. От 100к наверное такое играется.
         coeffs: ArtemovBig
     },
     {
-        name: 'Счетчик ЖК Дмитрий Артёмов',
-        coeffs: EllowCards
+        name: 'Сергей Черкасов Биги',
+        coeffs: CherkasovBig
     },
     {
-        name: 'Счетчик Линия Дмитрий Артёмов',
-        coeffs: ArtemovLine
+        name: 'Цветков Биги',
+        coeffs: TsvetkoffBig
     },
     {
-        name: 'Счетчик на игроков в хоккей Дмитрий Артёмов',
-        coeffs: ArtemovHockeyPlayers
+        name: 'Даниил Биги',
+        coeffs: DaniilBig
     },
     {
-        name: 'Счетчик LIVE Хоккей Дмитрий Артёмов',
-        coeffs: ArtemovLiveHockey
-    },
-    {
-        name: 'Дмитрий Артёмов Смоллы тг',
-        coeffs: ArtemovTg
-    },
-    {
-        name: 'Артёмов на legalbet',
-        coeffs: ArtemovLegalBet
-    },
-    {
-        name: 'Честный каппер',
-        coeffs: ChestniyCapper
-    },
-    {
-        name: 'Честный каппер Premium',
-        coeffs: ChestniyCapperPremium
-    },
-    {
-        name: 'Честные смоллы',
-        coeffs: ChestnieSmalls
-    },
-    {
-        name: 'Черкасов на legalbet',
-        coeffs: CherkasovLegalBet
-    },
-    {
-        name: 'Территория Анализа',
-        coeffs: Territoria
-    },
-    {
-        name: 'Боровко (канал+легалбет)',
-        coeffs: Borovko
-    },
-    {
-        name: 'Sport Statistics (канал + Трифонов на легалбет)',
-        coeffs: SportStatisticsTrifonov
-    },
-    {
-        name: 'Счётчик Трифонова',
-        coeffs: TrifonovSchethic
-    },
-    {
-        name: 'Физрук (канал+легалбет)',
-        coeffs: Fizruk
+        name: 'Михаил Логачёв Биги',
+        coeffs: LogachevBig
     }
 ].map((data) => {
     data.maxdrawdown = data.coeffs.reduce(
@@ -119,32 +72,42 @@ const originalData = [
         }
     ).finalValue;
     const result = data.coeffs.reduce(
-        (acc, { original, real, result }) => {
+        (acc, { original, real, result, betSumRUR, afterPayRUR }) => {
             if (result === 'lose') {
                 acc.original -= 1;
                 acc.real -= 1;
+                acc.realWinRUR -= betSumRUR;
             } else {
                 if (result === 'win') {
                     acc.original += original - 1;
                     acc.real += real - 1;
+                    acc.realWinRUR += betSumRUR * (real - 1);
+                    if (afterPayRUR) {
+                        acc.realWinRUR -= afterPayRUR;
+                        acc.afterPays += afterPayRUR;
+                    }
                 } else {
                     //result='return'
                     acc.original += 0;
                     acc.real += 0;
+                    acc.realWinRUR += 0;
                 }
             }
             return acc;
         },
-        { original: 0, real: 0 }
+        { original: 0, real: 0, realWinRUR: 0, afterPays: 0 }
     );
     data.result = result;
-    summary.bets += data.coeffs.length;
-    summary.result.original += result.original;
-    summary.result.real += result.real;
+    if (data.name !== 'Дмитрий Литовец') {
+        summary.bets += data.coeffs.length;
+        summary.result.original += result.original;
+        summary.result.real += result.real;
+        summary.realWinRUR += result.realWinRUR;
+        summary.afterPays += result.afterPays;
+    }
     return data;
 });
 
-const bonusesData = [{ type: 'bonus', value: 1000, book: 'Leon' }];
 export default async function Main({}) {
     /*const [originalDataState, setOriginalData] = useState();
     useEffect(() => {
@@ -153,7 +116,7 @@ export default async function Main({}) {
         });
     }, []); /!*${originalData.length + 1 + ``}*!/*/
     //${originalData.length + 1 + ``}
-    const className = `grid grid-cols-17 w-full gap-4`;
+    const className = `grid grid-cols-8 w-full gap-4`;
     return (
         /*originalDataState && */ <div className="flex flex-col w-full justify-between items-center">
             <header className="flex flex-col w-full items-center">Стата по капперам</header>
@@ -302,14 +265,26 @@ export default async function Main({}) {
                     </div>
                     <div>
                         <span className="tracking-tight text-border">
-                            Итого оригинальный результат:
+                            Итого оригинальный результат в флэтах:
                             <span className="font-bold"> {summary.result.original.toFixed(2)}</span>
                         </span>
                     </div>
                     <div>
                         <span className="tracking-tight text-border">
-                            Итого реальный результат:
+                            Итого реальный результат в флэтах:
                             <span className="font-bold"> {summary.result.real.toFixed(2)}</span>
+                        </span>
+                    </div>
+                    <div>
+                        <span className="tracking-tight text-border">
+                            Итого реальный результат в рублях(с уже вычтенными постоплатами):
+                            <span className="font-bold"> {summary.realWinRUR.toFixed(2)}</span>
+                        </span>
+                    </div>
+                    <div>
+                        <span className="tracking-tight text-border">
+                            Итого постоплат на:
+                            <span className="font-bold"> {summary.afterPays.toFixed(2)}</span>
                         </span>
                     </div>
                 </article>
