@@ -7,7 +7,6 @@ import ArtemovBig from './results/ArtemovBig';
 import CherkasovBig from './results/CherkasovBig';
 import TsvetkoffBig from './results/TsvetkoffBig';
 import DaniilBig from './results/DaniilBig';
-import Litovets from './results/Litovets';
 import LogachevBig from './results/LogachevBig';
 
 let summary = {
@@ -17,10 +16,6 @@ let summary = {
     afterPays: 0
 };
 const originalData = [
-    {
-        name: 'Дмитрий Литовец',
-        coeffs: Litovets
-    },
     {
         name: 'Дмитрий Артёмов Биги', //Лудоманская ошибка. От 100к наверное такое играется.
         coeffs: ArtemovBig
@@ -107,6 +102,9 @@ const originalData = [
     }
     return data;
 });
+const getGridClass = (count) => {
+    return `grid grid-cols-${count} w-full gap-4`;
+};
 
 export default async function Main({}) {
     /*const [originalDataState, setOriginalData] = useState();
@@ -116,7 +114,7 @@ export default async function Main({}) {
         });
     }, []); /!*${originalData.length + 1 + ``}*!/*/
     //${originalData.length + 1 + ``}
-    const className = `grid grid-cols-8 w-full gap-4`;
+    const className = `grid grid-cols-${originalData.length + 1} w-full gap-4`;
     return (
         /*originalDataState && */ <div className="flex flex-col w-full justify-between items-center">
             <header className="flex flex-col w-full items-center">Стата по капперам</header>
@@ -208,6 +206,19 @@ export default async function Main({}) {
                                     className="flex flex-col items-center justify-self-center self-center"
                                 >
                                     {data.coeffs.length}
+                                </div>
+                            ))
+                        ]}
+                        {[
+                            <div key={'value'} className="flex flex-col items-center justify-self-center self-center">
+                                <div>Результат в рублях:</div>
+                            </div>,
+                            ...originalData.map((data) => (
+                                <div
+                                    key={data.name}
+                                    className="flex flex-col items-center justify-self-center self-center"
+                                >
+                                    {data.result.realWinRUR}
                                 </div>
                             ))
                         ]}

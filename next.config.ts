@@ -1,14 +1,8 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-    eslint: {
-        // Warning: This allows production builds to successfully complete even if
-        // your project has ESLint errors.
-        ignoreDuringBuilds: false
-    },
     reactStrictMode: false,
     experimental: {
-        forceSwcTransforms: true,
         serverActions: {
             allowedOrigins: ['xtranscendence.ru', 'localhost:3000', 'localhost:80']
         }
@@ -25,13 +19,13 @@ const nextConfig: NextConfig = {
             }
         ];
     },
-    webpack: (config) => {
-        config.module.rules.push({
-            test: /\.(glsl|wgsl|vs|fs)$/,
-            loader: 'raw-loader'
-        });
-
-        return config;
+    turbopack: {
+        rules: {
+            '*.{glsl,wgsl,vs,fs,vert,frag}': {
+                loaders: ['raw-loader'],
+                as: '*.js'
+            }
+        }
     }
 };
 

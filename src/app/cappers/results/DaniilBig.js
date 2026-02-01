@@ -27,6 +27,10 @@ const DaniilBig = [
     { original: 1.75, real: 1.8, result: 'lose', betSumRUR: 200 },
     { original: 1.73, real: 1.73, result: 'lose', betSumRUR: 200 },
     { original: 1.85, real: 1.85, result: 'return', betSumRUR: 200 },
-    { original: 1.32, real: 1.3, result: 'win', betSumRUR: 200 }
+    { original: 1.32, real: 1.3, result: 'win', betSumRUR: 200 },
+    { original: 1.75, real: 1.75, result: 'win', betSumRUR: 200 },
+    { original: 1.7, real: 1.7, result: 'win', betSumRUR: 200 },
+    { original: 1.95, real: 1.95, result: 'win', betSumRUR: 200 },
+    { original: 2.28, real: 2.28, result: 'win', betSumRUR: 200 }
 ];
 export default DaniilBig;

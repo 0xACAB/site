@@ -19,6 +19,9 @@ const TsvetkoffBig = [
     { original: 4.09, real: 4.09, result: 'win', betSumRUR: 0 },
     { original: 1.49, real: 1.49, result: 'return', betSumRUR: 200 },
     { original: 3.9, real: 3.9, result: 'lose', betSumRUR: 200 },
-    { original: 5.49, real: 5.53, result: 'lose', betSumRUR: 200 }
+    { original: 5.49, real: 5.53, result: 'lose', betSumRUR: 200 },
+    { original: 8.26, real: 5.89, result: 'lose', betSumRUR: 183 },
+    { original: 9.26, real: 9.26, result: 'lose', betSumRUR: 0 },
+    { original: 1.52, real: 1.52, result: 'win', betSumRUR: 0 }
 ];
 export default TsvetkoffBig;

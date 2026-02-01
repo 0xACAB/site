@@ -3,9 +3,9 @@
 import { useMemo } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 
-const MIN_ELEMS_IN_TOP_COEFFS = 4;
+const MIN_ELEMS_IN_TOP_COEFFS = 5;
 const TOP_COEFFS_LIMIT = 10;
-const MIN_COEFF_IN_TOP_COEFFS = 1.5;
+const MIN_COEFF_IN_TOP_COEFFS = 2.0;
 
 export default function FilterClient({
     initialItems,
