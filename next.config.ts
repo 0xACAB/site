@@ -10,15 +10,15 @@ const nextConfig: NextConfig = {
     devIndicators: false,
     poweredByHeader: false,
     trailingSlash: true,
-    async redirects() {
+    /*async redirects() {
         return [
             {
-                source: '/resume',
+                source: '/mongo',
                 destination: '/',
                 permanent: true
             }
         ];
-    },
+    },*/
     turbopack: {
         rules: {
             '*.{glsl,wgsl,vs,fs,vert,frag}': {

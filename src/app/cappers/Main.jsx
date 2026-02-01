@@ -102,9 +102,6 @@ const originalData = [
     }
     return data;
 });
-const getGridClass = (count) => {
-    return `grid grid-cols-${count} w-full gap-4`;
-};
 
 export default async function Main({}) {
     /*const [originalDataState, setOriginalData] = useState();
@@ -113,8 +110,8 @@ export default async function Main({}) {
             return originalData;
         });
     }, []); /!*${originalData.length + 1 + ``}*!/*/
-    //${originalData.length + 1 + ``}
-    const className = `grid grid-cols-${originalData.length + 1} w-full gap-4`;
+    //${originalData.length + 1} не работает, так как tailwind глючное говно так не умеет
+    const className = `grid grid-cols-6 w-full gap-4`;
     return (
         /*originalDataState && */ <div className="flex flex-col w-full justify-between items-center">
             <header className="flex flex-col w-full items-center">Стата по капперам</header>
