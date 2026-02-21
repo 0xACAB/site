@@ -7,6 +7,8 @@ import ArtemovBig from './results/ArtemovBig';
 import CherkasovBig from './results/CherkasovBig';
 import TsvetkoffBig from './results/TsvetkoffBig';
 import DaniilBig from './results/DaniilBig';
+import BomondBig from './results/BomondBig';
+import ClaudioBig from './results/ClaudioBig';
 import LogachevBig from './results/LogachevBig';
 
 let summary = {
@@ -31,6 +33,14 @@ const originalData = [
     {
         name: 'Даниил Биги',
         coeffs: DaniilBig
+    },
+    {
+        name: 'Хоккейный Бомонд',
+        coeffs: BomondBig
+    },
+    {
+        name: 'Клаудио Биг',
+        coeffs: ClaudioBig
     },
     {
         name: 'Михаил Логачёв Биги',
@@ -68,6 +78,8 @@ const originalData = [
     ).finalValue;
     const result = data.coeffs.reduce(
         (acc, { original, real, result, betSumRUR, afterPayRUR }) => {
+            acc.summaryBetsRUR += betSumRUR;
+
             if (result === 'lose') {
                 acc.original -= 1;
                 acc.real -= 1;
@@ -88,12 +100,14 @@ const originalData = [
                     acc.realWinRUR += 0;
                 }
             }
+
             return acc;
         },
-        { original: 0, real: 0, realWinRUR: 0, afterPays: 0 }
+        { original: 0, real: 0, realWinRUR: 0, afterPays: 0, summaryBetsRUR: 0 }
     );
+    result.ROI = (result.realWinRUR / result.summaryBetsRUR) * 100;
     data.result = result;
-    if (data.name !== 'Дмитрий Литовец') {
+    if (data.name !== 'Михаил Логачёв Биги') {
         summary.bets += data.coeffs.length;
         summary.result.original += result.original;
         summary.result.real += result.real;
@@ -111,7 +125,7 @@ export default async function Main({}) {
         });
     }, []); /!*${originalData.length + 1 + ``}*!/*/
     //${originalData.length + 1} не работает, так как tailwind глючное говно так не умеет
-    const className = `grid grid-cols-6 w-full gap-4`;
+    const className = `grid grid-cols-8 w-full gap-4`;
     return (
         /*originalDataState && */ <div className="flex flex-col w-full justify-between items-center">
             <header className="flex flex-col w-full items-center">Стата по капперам</header>
@@ -215,7 +229,20 @@ export default async function Main({}) {
                                     key={data.name}
                                     className="flex flex-col items-center justify-self-center self-center"
                                 >
-                                    {data.result.realWinRUR}
+                                    {data.result.realWinRUR.toFixed(2)}
+                                </div>
+                            ))
+                        ]}
+                        {[
+                            <div key={'value'} className="flex flex-col items-center justify-self-center self-center">
+                                <div>ROI:</div>
+                            </div>,
+                            ...originalData.map((data) => (
+                                <div
+                                    key={data.name}
+                                    className="flex flex-col items-center justify-self-center self-center"
+                                >
+                                    {data.result.ROI.toFixed(2)}
                                 </div>
                             ))
                         ]}

@@ -32,6 +32,24 @@ const DaniilBig = [
     { original: 1.7, real: 1.7, result: 'win', betSumRUR: 200 },
     { original: 1.95, real: 1.95, result: 'win', betSumRUR: 200 },
     { original: 2.28, real: 2.28, result: 'win', betSumRUR: 200 },
-    { original: 1.85, real: 1.83, result: undefined, betSumRUR: 200 }
+    { original: 1.85, real: 1.83, result: 'win', betSumRUR: 200 },
+    { original: 1.78, real: 1.78, result: 'return', betSumRUR: 200 },
+    //03.02.2026
+    { original: 1.67, real: 1.67, result: 'lose', betSumRUR: 200 },
+    { original: 1.8, real: 1.8, result: 'win', betSumRUR: 200 },
+    { original: 1.67, real: 1.68, result: 'win', betSumRUR: 200 },
+    { original: 1.85, real: 1.87, result: 'win', betSumRUR: 200 },
+    { original: 1.85, real: 1.85, result: 'return', betSumRUR: 200 },
+    { original: 1.75, real: 1.75, result: 'win', betSumRUR: 200 },
+    { original: 2.07, real: 2.07, result: 'win', betSumRUR: 200 },
+    { original: 1.65, real: 1.65, result: 'return', betSumRUR: 200 },
+    { original: 1.7, real: 1.7, result: 'win', betSumRUR: 200 },
+    { original: 1.85, real: 1.85, result: 'lose', betSumRUR: 200 },
+    { original: 1.77, real: 1.77, result: 'win', betSumRUR: 200 },
+    { original: 1.7, real: 1.7, result: 'return', betSumRUR: 200 },
+    { original: 1.7, real: 1.7, result: 'win', betSumRUR: 200 },
+    { original: 2.32, real: 2.44, result: 'lose', betSumRUR: 200 },
+    { original: 1.77, real: 1.72, result: 'lose', betSumRUR: 0 },
+    { original: 1.91, real: 1.92, result: 'win', betSumRUR: 200 }
 ];
 export default DaniilBig;

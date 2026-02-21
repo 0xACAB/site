@@ -10,6 +10,13 @@ const CherkasovBig = [
     { original: 1.6, real: 1.64, result: 'lose', betSumRUR: 7000 },
     { original: 1.88, real: 1.87, result: 'win', betSumRUR: 7000 },
     { original: 1.71, real: 1.65, result: 'win', betSumRUR: 7000 },
-    { original: 1.8, real: 1.8, result: 'lose', betSumRUR: 7000 }
+    { original: 1.8, real: 1.8, result: 'lose', betSumRUR: 7000 },
+    //03.02.2026
+    { original: 1.75, real: 1.78, result: 'return', betSumRUR: 7000 },
+    { original: 1.8, real: 1.8, result: 'return', betSumRUR: 7000 },
+    { original: 1.68, real: 1.68, result: 'win', betSumRUR: 7000 },
+    { original: 1.67, real: 1.67, result: 'win', betSumRUR: 7000 },
+    { original: 1.8, real: 1.82, result: 'lose', betSumRUR: 7000 },
+    { original: 1.85, real: 1.9, result: 'win', betSumRUR: 7000 }
 ];
 export default CherkasovBig;

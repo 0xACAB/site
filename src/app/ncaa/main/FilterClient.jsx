@@ -3,9 +3,9 @@
 import { useMemo } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 
-const MIN_ELEMS_IN_TOP_COEFFS = 5;
+const MIN_ELEMS_IN_TOP_COEFFS = 3;
 const TOP_COEFFS_LIMIT = 10;
-const MIN_COEFF_IN_TOP_COEFFS = 2.0;
+const MIN_COEFF_IN_TOP_COEFFS = 1.5;
 
 export default function FilterClient({
     initialItems,
@@ -98,7 +98,7 @@ export default function FilterClient({
         } else {
             params.delete('coefficient');
         }
-        router.push(`/mongo/main?${params.toString()}`);
+        router.push(`/ncaa/main?${params.toString()}`);
     };
 
     const formatWinner = (winner) =>
@@ -109,7 +109,7 @@ export default function FilterClient({
 
     return (
         <div className="p-4 max-w-6xl mx-auto">
-            <h1 className="text-2xl font-bold mb-6 text-center">Фильтр коэффициентов NBA</h1>
+            <h1 className="text-2xl font-bold mb-6 text-center">Фильтр коэффициентов NCAA</h1>
 
             <FilterPanel
                 searchParams={searchParams}
@@ -174,7 +174,7 @@ function FilterPanel({
         } else {
             params.delete('team');
         }
-        router.push(`/mongo/main?${params.toString()}`);
+        router.push(`/ncaa/main?${params.toString()}`);
     };
 
     return (

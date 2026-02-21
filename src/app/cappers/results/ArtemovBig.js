@@ -7,6 +7,15 @@ const ArtemovBig = [
     { original: 1.77, real: 1.81, result: 'lose', betSumRUR: 3500 },
     { original: 1.7, real: 1.69, result: 'lose', betSumRUR: 3500 },
     { original: 1.67, real: 1.65, result: 'return', betSumRUR: 3500 },
-    { original: 1.72, real: 1.72, result: 'lose', betSumRUR: 3500 }
+    { original: 1.72, real: 1.72, result: 'lose', betSumRUR: 3500 },
+    //03.02.2026,
+    { original: 1.75, real: 1.75, result: 'win', betSumRUR: 3500 },
+    { original: 1.65, real: 1.64, result: 'win', betSumRUR: 3500 },
+    { original: 1.82, real: 1.83, result: 'win', betSumRUR: 3500 },
+    { original: 1.77, real: 1.77, result: 'win', betSumRUR: 3500 },
+    { original: 1.6, real: 1.64, result: 'win', betSumRUR: 3500 },
+    { original: 1.77, real: 1.77, result: 'lose', betSumRUR: 3500 },
+    { original: 1.68, real: 1.7, result: 'lose', betSumRUR: 3500 },
+    { original: 1.7, real: 1.68, result: 'win', betSumRUR: 3500 }
 ];
 export default ArtemovBig;
