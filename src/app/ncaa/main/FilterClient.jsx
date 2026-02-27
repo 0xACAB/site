@@ -153,7 +153,9 @@ function FilterPanel({
         // Приводим к числам и фильтруем
         const numericCoeffs = allCoeffs
             .map((c) => Number(c))
-            .filter((c) => !isNaN(c))
+            .filter((c) => {
+                return !isNaN(c) && c > MIN_COEFF_IN_TOP_COEFFS;
+            })
             .map((c) => parseFloat(c.toFixed(2))); // Нормализуем до 2 знаков
 
         // Убираем дубли
@@ -188,7 +190,7 @@ function FilterPanel({
                             onChange={(e) => onCoeffSelect(e.target.value)}
                             className="flex-1 p-2 border rounded-lg"
                         >
-                            <option value="">Все коэффициенты</option>
+                            <option value="">Все кэфы выборки</option>
                             {uniqueCoeffs.map((coeff) => {
                                 const stat = coeffMap.get((Number(coeff) || 0).toFixed(2));
                                 return (

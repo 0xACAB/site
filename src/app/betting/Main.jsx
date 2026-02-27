@@ -56,7 +56,7 @@ const UltraThinTable = () => {
                                             index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
                                         } ${index !== tableData.length - 1 ? 'border-b border-gray-200' : ''}`}
                                     >
-                                        <div className="text-xs text-gray-600 mb-0.5 truncate font-mono">
+                                        <div className="text-xs text-gray-600 mb-0.5 font-mono break-all whitespace-normal">
                                             {item.calculation}
                                         </div>
                                         <div

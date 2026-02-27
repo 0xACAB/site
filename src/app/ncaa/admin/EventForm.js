@@ -65,7 +65,7 @@ export default function EventFormToggle({ event, onSuccess }) {
                         <input
                             type="number"
                             step="0.01"
-                            min="1.01"
+                            min="1.00"
                             placeholder="1.50"
                             className="w-full p-2 border rounded"
                             value={homeCoeff}
@@ -79,7 +79,7 @@ export default function EventFormToggle({ event, onSuccess }) {
                         <input
                             type="number"
                             step="0.01"
-                            min="1.01"
+                            min="1.00"
                             placeholder="2.50"
                             className="w-full p-2 border rounded"
                             value={awayCoeff}

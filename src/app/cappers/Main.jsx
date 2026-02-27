@@ -5,11 +5,11 @@ import './styles.css';
 
 import ArtemovBig from './results/ArtemovBig';
 import CherkasovBig from './results/CherkasovBig';
-import TsvetkoffBig from './results/TsvetkoffBig';
 import DaniilBig from './results/DaniilBig';
 import BomondBig from './results/BomondBig';
 import ClaudioBig from './results/ClaudioBig';
 import LogachevBig from './results/LogachevBig';
+import Graph from './Graph';
 
 let summary = {
     bets: 0,
@@ -25,10 +25,6 @@ const originalData = [
     {
         name: 'Сергей Черкасов Биги',
         coeffs: CherkasovBig
-    },
-    {
-        name: 'Цветков Биги',
-        coeffs: TsvetkoffBig
     },
     {
         name: 'Даниил Биги',
@@ -106,6 +102,11 @@ const originalData = [
         { original: 0, real: 0, realWinRUR: 0, afterPays: 0, summaryBetsRUR: 0 }
     );
     result.ROI = (result.realWinRUR / result.summaryBetsRUR) * 100;
+
+    if (data.name === 'Клаудио Биг') {
+        //console.log(result.realWinRUR);
+        //console.log(result.summaryBetsRUR);
+    }
     data.result = result;
     if (data.name !== 'Михаил Логачёв Биги') {
         summary.bets += data.coeffs.length;
@@ -125,7 +126,7 @@ export default async function Main({}) {
         });
     }, []); /!*${originalData.length + 1 + ``}*!/*/
     //${originalData.length + 1} не работает, так как tailwind глючное говно так не умеет
-    const className = `grid grid-cols-8 w-full gap-4`;
+    const className = `grid grid-cols-7 w-full gap-4`;
     return (
         /*originalDataState && */ <div className="flex flex-col w-full justify-between items-center">
             <header className="flex flex-col w-full items-center">Стата по капперам</header>
@@ -246,52 +247,18 @@ export default async function Main({}) {
                                 </div>
                             ))
                         ]}
+                        {[
+                            <div key={'value'} className="flex flex-col items-center justify-self-center self-center">
+                                <div>График:</div>
+                            </div>,
+                            ...originalData.map((data) => (
+                                <div key={data.name}>
+                                    <Graph data={data} />
+                                </div>
+                            ))
+                        ]}
                     </div>
 
-                    <div>
-                        {/*<VictoryChart theme={VictoryTheme.clean}>
-                                <VictoryAxis dependentAxis />
-                                <VictoryAxis />
-                                {[
-                                    ...cappersData.map(({ capperKey, color }) => {
-                                        return (
-                                            <VictoryLine
-                                                data={dataForValue[capperKey]}
-                                                style={{
-                                                    data: {
-                                                        stroke: () => {
-                                                            return color;
-                                                        }
-                                                    }
-                                                }}
-                                                labels={({ datum }) => {
-                                                    return datum.x === dataForValue[capperKey].length - 1
-                                                        ? dataForValue[capperKey][
-                                                              dataForValue[capperKey].length - 1
-                                                          ].y.toFixed(2)
-                                                        : null;
-                                                }}
-                                            />
-                                        );
-                                    }),
-                                    ...cappersData.map(({ capperKey, color }) => {
-                                        return (
-                                            <VictoryScatter
-                                                data={dataForValue[capperKey]}
-                                                size={2}
-                                                style={{
-                                                    data: {
-                                                        fill: ({ datum }) => {
-                                                            return color;
-                                                        }
-                                                    }
-                                                }}
-                                            />
-                                        );
-                                    })
-                                ]}
-                            </VictoryChart>*/}
-                    </div>
                     <div>
                         <span className="tracking-tight text-border">
                             Итого ставок:
