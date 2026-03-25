@@ -4,7 +4,15 @@ const nextConfig: NextConfig = {
     reactStrictMode: false,
     experimental: {
         serverActions: {
-            allowedOrigins: ['xtranscendence.ru', 'localhost:3000', 'localhost:80']
+            allowedOrigins: [
+                'xtranscendence.ru',
+                'localhost:3000',
+                'localhost:80',
+                '192.168.1.240:3000',
+                '192.168.1.*:3000',
+                '192.168.1.240:80',
+                '192.168.1.*:80'
+            ]
         }
     },
     devIndicators: false,

@@ -19,6 +19,22 @@ const CherkasovBig = [
     { original: 1.8, real: 1.82, result: 'lose', betSumRUR: 7000 },
     { original: 1.85, real: 1.9, result: 'win', betSumRUR: 7000 },
     { original: 1.68, real: 1.7, result: 'win', betSumRUR: 7000 },
-    { original: 1.6, real: 1.6, result: 'win', betSumRUR: 7000 }
+    { original: 1.6, real: 1.6, result: 'win', betSumRUR: 7000 },
+    { original: 1.6, real: 1.59, result: 'win', betSumRUR: 7000 },
+    { original: 1.75, real: 1.75, result: 'return', betSumRUR: 7000 },
+    { original: 1.75, real: 1.75, result: 'lose', betSumRUR: 0 },
+    //02.03.2026,
+    { original: 1.75, real: 1.71, result: 'lose', betSumRUR: 7000 },
+    { original: 1.75, real: 1.74, result: 'win', betSumRUR: 7000 },
+    { original: 1.95, real: 1.95, result: 'win', betSumRUR: 7000 },
+    { original: 1.78, real: 1.78, result: 'win', betSumRUR: 7000 },
+    { original: 1.6, real: 1.59, result: 'win', betSumRUR: 7000 },
+    { original: 1.75, real: 1.75, result: 'lose', betSumRUR: 7000 },
+    { original: 1.77, real: 1.72, result: 'win', betSumRUR: 7000 },
+    { original: 1.6, real: 1.57, result: 'win', betSumRUR: 7000 },
+    { original: 1.86, real: 1.81, result: 'lose', betSumRUR: 7000 },
+    { original: 1.87, real: 1.85, result: 'win', betSumRUR: 7000 },
+    { original: 1.87, real: 1.87, result: 'win', betSumRUR: 7000 },
+    { original: 1.8, real: 1.73, result: 'win', betSumRUR: 7000 }
 ];
 export default CherkasovBig;

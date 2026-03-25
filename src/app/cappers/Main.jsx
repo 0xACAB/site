@@ -101,6 +101,8 @@ const originalData = [
         },
         { original: 0, real: 0, realWinRUR: 0, afterPays: 0, summaryBetsRUR: 0 }
     );
+    result.originalROI = (result.original / data.coeffs.length) * 100;
+    result.realROI = (result.real / data.coeffs.length) * 100;
     result.ROI = (result.realWinRUR / result.summaryBetsRUR) * 100;
 
     if (data.name === 'Клаудио Биг') {
@@ -166,12 +168,9 @@ export default async function Main({}) {
                             ))
                         ]}
                         {[
-                            <div
-                                key={'maxdrawdown'}
-                                className="w-4/5 flex flex-row items-center justify-self-center self-center"
-                            >
-                                <div className="items-center">Макс. просадка:</div>
-                                <div className="flex flex-col items-center justify-self-center self-center">
+                            <div key={'value'} className="flex flex-row justify-self-stretch self-center">
+                                <div className="w-1/2 flex flex-col place-items-center">Максимальная просадка:</div>
+                                <div className="w-1/2 flex flex-col place-items-center justify-self-center self-center">
                                     <div className="text-xs">Оригинальная:</div>
                                     <div className="text-xs">Реальная:</div>
                                 </div>
@@ -188,12 +187,9 @@ export default async function Main({}) {
                         ]}
 
                         {[
-                            <div
-                                key={'value'}
-                                className="w-4/5 flex flex-row items-center justify-self-center self-center"
-                            >
-                                <div>Результат:</div>
-                                <div className="flex flex-col items-center justify-self-center self-center">
+                            <div key={'value'} className="flex flex-row justify-self-stretch self-center">
+                                <div className="w-1/2 flex flex-col place-items-center">Результат:</div>
+                                <div className="w-1/2 flex flex-col place-items-center justify-self-center self-center">
                                     <div className="text-xs">Оригинальный:</div>
                                     <div className="text-xs">Реальный:</div>
                                 </div>
@@ -234,9 +230,28 @@ export default async function Main({}) {
                                 </div>
                             ))
                         ]}
+
+                        {[
+                            <div key={'value'} className="flex flex-row justify-self-stretch self-center">
+                                <div className="w-1/2 flex flex-col place-items-center">% ROI:</div>
+                                <div className="w-1/2 flex flex-col place-items-center">
+                                    <div className="text-xs">Оригинальный:</div>
+                                    <div className="text-xs">Реальный:</div>
+                                </div>
+                            </div>,
+                            ...originalData.map((data) => (
+                                <div
+                                    key={data.name}
+                                    className="flex flex-col items-center justify-self-center self-center"
+                                >
+                                    <div>{data.result.originalROI.toFixed(2)}</div>
+                                    <div>{data.result.realROI.toFixed(2)}</div>
+                                </div>
+                            ))
+                        ]}
                         {[
                             <div key={'value'} className="flex flex-col items-center justify-self-center self-center">
-                                <div>ROI:</div>
+                                <div>% ROI в рублях:</div>
                             </div>,
                             ...originalData.map((data) => (
                                 <div

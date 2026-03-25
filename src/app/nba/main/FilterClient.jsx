@@ -18,7 +18,6 @@ export default function FilterClient({
 
     const selectedCoeff = searchParams.get('coefficient') || serverParams?.coefficient || '';
     const selectedTeam = searchParams.get('team') || serverParams?.team || '';
-
     const topCoefficients = useMemo(() => {
         if (!teamCoefficientStats || !allCoefficientStats) return [];
 
@@ -273,9 +272,6 @@ function CoeffButton({ stat, isSelected, onClick }) {
                 <span>{stat.coefficient.toFixed(2)}</span>
                 <span className={`text-xs ${isSelected ? 'text-blue-100' : 'text-gray-500'}`}>
                     ({stat.winCount}/{stat.totalCount})
-                </span>
-                <span className={`text-xs ${isSelected ? 'text-blue-100' : 'text-gray-400'}`}>
-                    {stat.team === 'home' ? '🏠' : '✈️'}
                 </span>
             </div>
         </button>

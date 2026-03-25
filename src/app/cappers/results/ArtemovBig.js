@@ -21,6 +21,30 @@ const ArtemovBig = [
     { original: 1.7, real: 1.7, result: 'win', betSumRUR: 3500 },
     { original: 1.72, real: 1.72, result: 'win', betSumRUR: 3500 },
     { original: 1.65, real: 1.66, result: 'lose', betSumRUR: 3500 },
-    { original: 1.87, real: 1.87, result: 'win', betSumRUR: 3500 }
+    { original: 1.87, real: 1.87, result: 'win', betSumRUR: 3500 },
+    { original: 1.72, real: 1.72, result: 'lose', betSumRUR: 3500 },
+    { original: 1.67, real: 1.68, result: 'lose', betSumRUR: 3500 },
+    //02.03.2026
+    { original: 1.65, real: 1.65, result: 'lose', betSumRUR: 3500 },
+    { original: 1.82, real: 1.84, result: 'win', betSumRUR: 3500 },
+    { original: 1.7, real: 1.72, result: 'lose', betSumRUR: 3900 },
+    //Опять ошибся по лудке поставил больше флета. на целых 400р. Больше 10%
+    //Тут ненадежно. Снизим флет до 1000,
+    { original: 1.65, real: 1.65, result: 'win', betSumRUR: 1000 },
+    { original: 1.63, real: 1.59, result: 'lose', betSumRUR: 0 },
+    { original: 1.62, real: 1.61, result: 'lose', betSumRUR: 1000 },
+    { original: 1.71, real: 1.67, result: 'lose', betSumRUR: 0 },
+    { original: 1.83, real: 1.86, result: 'win', betSumRUR: 1000 },
+    { original: 1.8, real: 1.8, result: 'win', betSumRUR: 1000 },
+    { original: 1.95, real: 2.1, result: 'win', betSumRUR: 1000 },
+    { original: 1.69, real: 1.69, result: 'lose', betSumRUR: 1000 },
+    { original: 1.7, real: 1.65, result: 'win', betSumRUR: 0 },
+    { original: 2.02, real: 2.1, result: 'return', betSumRUR: 0 },
+    { original: 1.6, real: 1.61, result: 'win', betSumRUR: 1000 },
+    { original: 1.7, real: 1.7, result: 'win', betSumRUR: 1000 },
+    { original: 1.8, real: 1.83, result: 'lose', betSumRUR: 1000 },
+    { original: 1.7, real: 1.7, result: 'lose', betSumRUR: 0 },
+    { original: 1.73, real: 1.73, result: 'lose', betSumRUR: 1000 },
+    { original: 1.63, real: 1.67, result: 'win', betSumRUR: 1000 }
 ];
 export default ArtemovBig;

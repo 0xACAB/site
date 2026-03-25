@@ -5,18 +5,18 @@ import { useState, useEffect } from 'react';
 
 export default function Graph({ data }) {
     const [originalDataState, setOriginalData] = useState();
-    let summary = 0;
-    const dataForGraph = data.coeffs.map(({ original, real, result }, index) => {
+    let summaryOriginal = 0;
+    const dataForOriginalGraph = data.coeffs.map(({ original, real, result }, index) => {
         if (result === 'lose') {
-            summary -= original;
+            summaryOriginal -= 1;
         } else if (result === 'win') {
-            summary += original;
+            summaryOriginal += original - 1;
         } else if (result === 'return') {
-            summary += 0;
+            summaryOriginal += 0;
         }
         return {
             x: index + 1,
-            y: summary
+            y: summaryOriginal
         };
     });
     useEffect(() => {
@@ -28,8 +28,8 @@ export default function Graph({ data }) {
                 <VictoryChart theme={VictoryTheme.clean}>
                     <VictoryAxis dependentAxis />
                     <VictoryAxis />
-                    <VictoryLine data={dataForGraph} />
-                    <VictoryScatter size={2} data={dataForGraph} />
+                    <VictoryLine data={dataForOriginalGraph} />
+                    <VictoryScatter size={2} data={dataForOriginalGraph} />
                 </VictoryChart>
             </div>
         )

@@ -7,16 +7,13 @@ import EventForm from './EventForm'; // или EventFormToggle, EventFormSimple
 export default function SimplePage() {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState('');
 
     const handleCheck = async () => {
         setLoading(true);
         try {
             const result = await checkNewEventsAction();
-            setMessage(result.message);
             setEvents(result.result || []);
         } catch (error) {
-            setMessage('Ошибка при проверке');
             console.error(error);
         } finally {
             setLoading(false);

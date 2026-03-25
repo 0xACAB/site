@@ -7,5 +7,6 @@ const BomondBig = [
     { original: 1.91, real: 1.95, result: 'win', betSumRUR: 100 },
     { original: 2.1, real: 2.14, result: 'win', betSumRUR: 100 },
     { original: 1.78, real: 1.82, result: 'win', betSumRUR: 100 }
+    //02.03.2026,
 ];
 export default BomondBig;
