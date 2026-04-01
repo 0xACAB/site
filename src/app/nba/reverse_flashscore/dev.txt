@@ -37,8 +37,8 @@ this._dataEventHolderProxy.getEventHandler() - такое надо искать 
             result[splitted[splitted.length - 1]] =
             {
                 total: {
-                    home: Number(node.children[7].textContent),
-                    away: Number(node.children[8].textContent)
+                    home: Number(node.children[5].textContent),
+                    away: Number(node.children[6].textContent)
                 },
                 scheme: {
                     home: [
@@ -47,7 +47,7 @@ this._dataEventHolderProxy.getEventHandler() - такое надо искать 
                         Number(node.querySelector('.event__part.event__part--home.event__part--3').textContent),
                         Number(node.querySelector('.event__part.event__part--home.event__part--4').textContent),
                         node.querySelector('.event__part.event__part--home.event__part--5')?Number(node.querySelector('.event__part.event__part--home.event__part--5').textContent):undefined,
-                        Number(node.children[7].textContent),
+                        Number(node.children[5].textContent),
                     ],
                     away: [
                         Number(node.querySelector('.event__part.event__part--away.event__part--1').textContent),
@@ -55,7 +55,7 @@ this._dataEventHolderProxy.getEventHandler() - такое надо искать 
                         Number(node.querySelector('.event__part.event__part--away.event__part--3').textContent),
                         Number(node.querySelector('.event__part.event__part--away.event__part--4').textContent),
                         node.querySelector('.event__part.event__part--away.event__part--5')?Number(node.querySelector('.event__part.event__part--away.event__part--5').textContent):undefined,
-                        Number(node.children[8].textContent)
+                        Number(node.children[6].textContent)
                     ]
                 }
             }

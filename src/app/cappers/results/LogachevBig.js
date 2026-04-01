@@ -22,6 +22,14 @@ const LogachevBig = [
     { original: 1.27, real: 1.27, result: 'lose', betSumRUR: 1000 },
     //вот красивое подтверждение, что снижение ставки оправдано
     { original: 1.81, real: 1.81, result: 'lose', betSumRUR: 100 },
-    { original: 1.65, real: 1.65, result: 'win', betSumRUR: 100 }
+    { original: 1.65, real: 1.65, result: 'win', betSumRUR: 100 },
+    { original: 8.5, real: 8.5, result: 'lose', betSumRUR: 1000 },
+    { original: 5.5, real: 5.5, result: 'win', betSumRUR: 1000 },
+    { original: 3.5, real: 3.5, result: 'lose', betSumRUR: 10000 },
+    //сам себя в говно втер, рассказал себе о какой-то силе с кефами Руслана. Они также могут перестать работать просто
+    //разобрался что ошибся с тем с какого он прыгнул на проходной
+    //флет 1000 пока не отыграешь как и говорил,
+    { original: 1.26, real: 1.26, result: 'lose', betSumRUR: 5000 }, //вообще лудканул на доту
+    { original: 4.1, real: 4.1, result: 'lose', betSumRUR: 50 }
 ];
 export default LogachevBig;

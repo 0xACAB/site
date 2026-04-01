@@ -8,6 +8,7 @@ const ClaudioBig = [
     //02.03.2026,
     { original: 1.7, real: 1.72, result: 'lose', betSumRUR: 1000 },
     { original: 1.9, real: 1.92, result: 'win', betSumRUR: 1000 },
-    { original: 1.91, real: 1.91, result: 'lose', betSumRUR: 1000 }
+    { original: 1.91, real: 1.91, result: 'lose', betSumRUR: 1000 },
+    { original: 1.55, real: 1.55, result: 'win', betSumRUR: 1000 }
 ];
 export default ClaudioBig;

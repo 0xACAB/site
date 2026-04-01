@@ -1,0 +1,7 @@
+p,
+ul,
+ol,
+button,
+h1 {
+    all: revert;
+}
