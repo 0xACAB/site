@@ -60,7 +60,7 @@ function validateAndProcessScheme(scheme) {
     };
 }
 
-export async function addItemAction(eventId, homeCoeff = null, awayCoeff = null) {
+export async function addItemAction(eventId, homeCoeff = null, awayCoeff = null, comment) {
     try {
         // Валидация входных данных
         if (!eventId || typeof eventId !== 'string') {
@@ -90,7 +90,9 @@ export async function addItemAction(eventId, homeCoeff = null, awayCoeff = null)
             flashScoreCoefficients: flashScoreData.home !== null ? [flashScoreData.home, flashScoreData.away] : null,
             homeAwayDefined: true
         };
-
+        if (comment) {
+            updateData.comment = comment;
+        }
         // Добавляем коэффициенты только если они переданы
         if (homeCoeff !== null && awayCoeff !== null) {
             const homeCoef = parseFloat(homeCoeff);

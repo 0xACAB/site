@@ -7,6 +7,7 @@ export default function EventFormToggle({ event, onSuccess }) {
     const [mode, setMode] = useState('withCoeff'); // 'withCoeff' или 'withoutCoeff'
     const [homeCoeff, setHomeCoeff] = useState('');
     const [awayCoeff, setAwayCoeff] = useState('');
+    const [comment, setComment] = useState('');
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
@@ -17,7 +18,8 @@ export default function EventFormToggle({ event, onSuccess }) {
             const result = await addItemAction(
                 event.eventId,
                 mode === 'withCoeff' ? homeCoeff : null,
-                mode === 'withCoeff' ? awayCoeff : null
+                mode === 'withCoeff' ? awayCoeff : null,
+                comment !== '' ? comment : undefined
             );
 
             if (result.success) {
@@ -90,7 +92,17 @@ export default function EventFormToggle({ event, onSuccess }) {
                     </div>
                 </div>
             )}
-
+            <div>
+                <label className="block text-sm mb-1 font-medium">Коммент</label>
+                <input
+                    type="text"
+                    placeholder=""
+                    className="w-full p-2 border rounded"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                    disabled={loading}
+                />
+            </div>
             {/* Информация в режиме "без коэффициентов" */}
             {mode === 'withoutCoeff' && (
                 <div className="p-3 border border-yellow-200 bg-yellow-50 rounded-lg">

@@ -30,6 +30,19 @@ const LogachevBig = [
     //разобрался что ошибся с тем с какого он прыгнул на проходной
     //флет 1000 пока не отыграешь как и говорил,
     { original: 1.26, real: 1.26, result: 'lose', betSumRUR: 5000 }, //вообще лудканул на доту
-    { original: 4.1, real: 4.1, result: 'lose', betSumRUR: 50 }
+    { original: 4.1, real: 4.1, result: 'lose', betSumRUR: 50 },
+    { original: 4.7, real: 4.7, result: 'lose', betSumRUR: 1000 },
+    //хотел добирать в лайве, но дисциплина зарешала. А ошибка в том что в туре был только 1 высокий кф
+    { original: 7.55, real: 7.55, result: 'win', betSumRUR: 50 },
+    { original: 5.5, real: 5.5, result: 'lose', betSumRUR: 50 },
+    { original: 2.75, real: 2.75, result: 'lose', betSumRUR: 50 },
+    { original: 5.4, real: 5.4, result: 'lose', betSumRUR: 1000 },
+    { original: 6.5, real: 6.5, result: 'lose', betSumRUR: 1000 },
+    { original: 1.96, real: 1.96, result: 'lose', betSumRUR: 1050 },
+    { original: 10.5, real: 10.5, result: 'lose', betSumRUR: 50 },
+    { original: 2.45, real: 2.45, result: 'lose', betSumRUR: 7000 }, //Полез после уже забитого поставил тб1.5(прогноз был же что забьют только 1)
+    { original: 2.3, real: 2.3, result: 'lose', betSumRUR: 500 }, //Куда-то полез без видео. Мог он слететь же.
+    { original: 2.8, real: 2.8, result: 'win', betSumRUR: 500 }, //Опять полез куда-то полез без видео. Но повезло
+    { original: 2.43, real: 2.43, result: 'lose', betSumRUR: 500 }
 ];
 export default LogachevBig;

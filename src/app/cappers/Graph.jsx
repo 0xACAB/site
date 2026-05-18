@@ -6,19 +6,22 @@ import { useState, useEffect } from 'react';
 export default function Graph({ data }) {
     const [originalDataState, setOriginalData] = useState();
     let summaryOriginal = 0;
-    const dataForOriginalGraph = data.coeffs.map(({ original, real, result }, index) => {
-        if (result === 'lose') {
-            summaryOriginal -= 1;
-        } else if (result === 'win') {
-            summaryOriginal += original - 1;
-        } else if (result === 'return') {
-            summaryOriginal += 0;
-        }
-        return {
-            x: index + 1,
-            y: summaryOriginal
-        };
-    });
+    const dataForOriginalGraph = [
+        { x: 0, y: 0 },
+        ...data.coeffs.map(({ original, real, result }, index) => {
+            if (result === 'lose') {
+                summaryOriginal -= 1;
+            } else if (result === 'win') {
+                summaryOriginal += original - 1;
+            } else if (result === 'return') {
+                summaryOriginal += 0;
+            }
+            return {
+                x: index + 1,
+                y: summaryOriginal
+            };
+        })
+    ];
     useEffect(() => {
         setOriginalData(data.coeffs);
     }, []);

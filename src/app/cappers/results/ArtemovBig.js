@@ -52,6 +52,35 @@ const ArtemovBig = [
     { original: 1.8, real: 1.86, result: 'lose', betSumRUR: 500 },
     { original: 1.72, real: 1.72, result: 'lose', betSumRUR: 0 },
     { original: 1.7, real: 1.68, result: 'win', betSumRUR: 0 },
-    { original: 1.65, real: 1.62, result: 'win', betSumRUR: 0 }
+    { original: 1.65, real: 1.62, result: 'win', betSumRUR: 0 },
+    { original: 1.7, real: 1.7, result: 'win', betSumRUR: 0 },
+    { original: 1.68, real: 1.64, result: 'win', betSumRUR: 500 }, //на в тг 1.68, а на легалбете дал 1.64
+    //05.04.2026
+    { original: 1.68, real: 1.68, result: 'lose', betSumRUR: 500 },
+    { original: 1.72, real: 1.8, result: 'win', betSumRUR: 500 },
+    { original: 1.64, real: 1.67, result: 'lose', betSumRUR: 500 },
+    { original: 1.84, real: 1.87, result: 'win', betSumRUR: 500 },
+    { original: 1.7, real: 1.7, result: 'win', betSumRUR: 500 },
+    { original: 1.7, real: 1.72, result: 'win', betSumRUR: 500 },
+    { original: 2.0, real: 2.0, result: 'lose', betSumRUR: 500 },
+    { original: 1.9, real: 1.9, result: 'win', betSumRUR: 500 },
+    { original: 1.67, real: 1.67, result: 'return', betSumRUR: 500 },
+    { original: 1.53, real: 1.63, result: 'lose', betSumRUR: 500 },
+    { original: 1.66, real: 1.66, result: 'win', betSumRUR: 0 },
+    { original: 1.8, real: 1.78, result: 'win', betSumRUR: 500 },
+    { original: 2.15, real: 2.15, result: 'win', betSumRUR: 500 },
+    { original: 1.68, real: 1.68, result: 'lose', betSumRUR: 500 },
+    { original: 1.65, real: 1.76, result: 'return', betSumRUR: 500 },
+    { original: 2.05, real: 2.05, result: 'lose', betSumRUR: 500 },
+    { original: 1.7, real: 1.7, result: 'win', betSumRUR: 500 },
+    { original: 1.61, real: 1.58, result: 'win', betSumRUR: 0 },
+    { original: 1.61, real: 1.62, result: 'win', betSumRUR: 0 },
+    { original: 1.83, real: 1.84, result: 'return', betSumRUR: 500 },
+    { original: 1.65, real: 1.65, result: 'win', betSumRUR: 500 },
+    { original: 1.63, real: 1.65, result: 'win', betSumRUR: 500 },
+    { original: 1.65, real: 1.67, result: 'lose', betSumRUR: 500 },
+    { original: 1.92, real: 1.92, result: 'return', betSumRUR: 500 },
+    { original: 1.67, real: 1.67, result: 'lose', betSumRUR: 3500 }, //Что-то со смоллами напутал, поставил крупно
+    { original: 1.65, real: 1.65, result: 'return', betSumRUR: 500 }
 ];
 export default ArtemovBig;

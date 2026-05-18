@@ -9,6 +9,14 @@ const ClaudioBig = [
     { original: 1.7, real: 1.72, result: 'lose', betSumRUR: 1000 },
     { original: 1.9, real: 1.92, result: 'win', betSumRUR: 1000 },
     { original: 1.91, real: 1.91, result: 'lose', betSumRUR: 1000 },
-    { original: 1.55, real: 1.55, result: 'win', betSumRUR: 1000 }
+    { original: 1.55, real: 1.55, result: 'win', betSumRUR: 1000 },
+    //05.04.2026
+    { original: 1.68, real: 1.62, result: 'win', betSumRUR: 1000 },
+    { original: 1.74, real: 1.74, result: 'win', betSumRUR: 1000 },
+    { original: 2.15, real: 2.15, result: 'win', betSumRUR: 1000 },
+    { original: 2.14, real: 2.14, result: 'win', betSumRUR: 4385 },
+    { original: 1.79, real: 1.79, result: 'win', betSumRUR: 5000 },
+    { original: 2.05, real: 1.68, result: 'lose', betSumRUR: 5000 },
+    { original: 1.95, real: 1.95, result: 'win', betSumRUR: 5000 }
 ];
 export default ClaudioBig;

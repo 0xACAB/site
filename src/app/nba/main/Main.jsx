@@ -26,12 +26,6 @@ export default async function Page(props) {
         ...item,
         _id: item._id.toString(),
         createdAt: item.createdAt ? item.createdAt.toISOString() : null,
-        totalHomeScore: item.scheme?.home?.filter((s) => s !== null).reduce((a, b) => a + b, 0) || 0,
-        totalAwayScore: item.scheme?.away?.filter((s) => s !== null).reduce((a, b) => a + b, 0) || 0,
-        scoreDifference: Math.abs(
-            (item.scheme?.home?.filter((s) => s !== null).reduce((a, b) => a + b, 0) || 0) -
-                (item.scheme?.away?.filter((s) => s !== null).reduce((a, b) => a + b, 0) || 0)
-        ),
         realCoefficients: item.realCoefficients || [],
         flashScoreCoefficients: item.flashScoreCoefficients || []
     }));
@@ -80,7 +74,6 @@ export default async function Page(props) {
         });
         return stats;
     }, {});
-
     return (
         <FilterClient
             initialItems={serializedItems}
