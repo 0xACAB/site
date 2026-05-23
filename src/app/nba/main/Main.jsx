@@ -7,9 +7,7 @@ function normalizeCoeff(coeff) {
     return isNaN(num) ? null : parseFloat(num.toFixed(2));
 }
 
-export default async function Page(props) {
-    const { coefficient, team } = (await props.searchParams) || {};
-
+export default async function Page() {
     const { db } = await connectToDatabase();
     const items = await db
         .collection('nba')
@@ -79,7 +77,6 @@ export default async function Page(props) {
             initialItems={serializedItems}
             teamCoefficientStats={teamCoefficientStats} // передаем ВСЮ статистику по командам
             allCoefficientStats={Object.values(generalCoefficientStats)} // ОБЩАЯ для селекта
-            serverParams={{ coefficient, team }}
         />
     );
 }

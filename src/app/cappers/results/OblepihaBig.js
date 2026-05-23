@@ -7,6 +7,8 @@ const OblepihaBig = [
     { original: 1.9, real: 1.9, result: 'win', betSumRUR: 0 }, //не ставил потому что гончаров дал обратный
     { original: 1.75, real: 1.73, result: 'lose', betSumRUR: 0 },
     { original: 1.67, real: 1.67, result: 'win', betSumRUR: 500 },
-    { original: 1.85, real: 1.81, result: 'win', betSumRUR: 500 }
+    { original: 1.85, real: 1.81, result: 'win', betSumRUR: 500 },
+    { original: 1.71, real: 1.72, result: 'win', betSumRUR: 500 },
+    { original: 1.85, real: 1.8, result: undefined, betSumRUR: 0 }
 ];
 export default OblepihaBig;

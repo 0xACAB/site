@@ -11,6 +11,7 @@ import OblepihaBig from './results/OblepihaBig';
 import LogachevBig from './results/LogachevBig';
 import Kicha from './results/Kicha';
 import HockeyFather from './results/HockeyFather';
+import WinClubBig from './results/WinClubBig';
 import Graph from './Graph';
 
 let summary = {
@@ -43,6 +44,10 @@ const originalData = [
     {
         name: 'Хоккейный Батя Биг',
         coeffs: HockeyFather
+    },
+    {
+        name: 'Win Club Биг',
+        coeffs: WinClubBig
     },
     {
         name: 'Kicha Углы Смолл',
@@ -138,7 +143,7 @@ export default async function Main({}) {
         });
     }, []); /!*${originalData.length + 1 + ``}*!/*/
     //${originalData.length + 1} не работает, так как tailwind глючное говно так не умеет
-    const className = `grid grid-cols-9 w-full gap-4`;
+    const className = `grid grid-cols-10 w-full gap-4`;
     return (
         /*originalDataState && */ <div className="flex flex-col w-full justify-between items-center">
             <header className="flex flex-col w-full items-center">Стата по капперам</header>
@@ -159,7 +164,6 @@ export default async function Main({}) {
                                 </div>
                             ))
                         ]}
-
                         {[
                             <div key={'value'} className="flex flex-col items-center justify-self-center self-center">
                                 <div>Средний оригинальный кеф:</div>
@@ -195,7 +199,6 @@ export default async function Main({}) {
                                 </div>
                             ))
                         ]}
-
                         {[
                             <div key={'value'} className="flex flex-row justify-self-stretch self-center">
                                 <div className="w-1/2 flex flex-col place-items-center">Результат:</div>
@@ -240,7 +243,6 @@ export default async function Main({}) {
                                 </div>
                             ))
                         ]}
-
                         {[
                             <div key={'value'} className="flex flex-row justify-self-stretch self-center">
                                 <div className="w-1/2 flex flex-col place-items-center">% ROI:</div>

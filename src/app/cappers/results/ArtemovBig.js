@@ -81,6 +81,10 @@ const ArtemovBig = [
     { original: 1.65, real: 1.67, result: 'lose', betSumRUR: 500 },
     { original: 1.92, real: 1.92, result: 'return', betSumRUR: 500 },
     { original: 1.67, real: 1.67, result: 'lose', betSumRUR: 3500 }, //Что-то со смоллами напутал, поставил крупно
-    { original: 1.65, real: 1.65, result: 'return', betSumRUR: 500 }
+    { original: 1.65, real: 1.65, result: 'return', betSumRUR: 500 },
+    { original: 1.8, real: 1.86, result: 'win', betSumRUR: 999 },
+    { original: 1.65, real: 1.66, result: 'win', betSumRUR: 500 },
+    { original: 1.7, real: 1.76, result: 'return', betSumRUR: 500 },
+    { original: 1.72, real: 1.72, result: undefined, betSumRUR: 500 }
 ];
 export default ArtemovBig;

@@ -1,4 +1,5 @@
 const CherkasovBig = [
+    //01.01.2026
     { original: 1.7, real: 1.72, result: 'win', betSumRUR: 7000 },
     { original: 1.9, real: 1.92, result: 'win', betSumRUR: 7000 },
     { original: 1.6, real: 1.61, result: 'lose', betSumRUR: 7000 },
@@ -11,7 +12,6 @@ const CherkasovBig = [
     { original: 1.88, real: 1.87, result: 'win', betSumRUR: 7000 },
     { original: 1.71, real: 1.65, result: 'win', betSumRUR: 7000 },
     { original: 1.8, real: 1.8, result: 'lose', betSumRUR: 7000 },
-    //03.02.2026
     { original: 1.75, real: 1.78, result: 'return', betSumRUR: 7000 },
     { original: 1.8, real: 1.8, result: 'return', betSumRUR: 7000 },
     { original: 1.68, real: 1.68, result: 'win', betSumRUR: 7000 },
@@ -23,7 +23,6 @@ const CherkasovBig = [
     { original: 1.6, real: 1.59, result: 'win', betSumRUR: 7000 },
     { original: 1.75, real: 1.75, result: 'return', betSumRUR: 7000 },
     { original: 1.75, real: 1.75, result: 'lose', betSumRUR: 0 },
-    //02.03.2026,
     { original: 1.75, real: 1.71, result: 'lose', betSumRUR: 7000 },
     { original: 1.75, real: 1.74, result: 'win', betSumRUR: 7000 },
     { original: 1.95, real: 1.95, result: 'win', betSumRUR: 7000 },
@@ -39,7 +38,6 @@ const CherkasovBig = [
     { original: 1.9, real: 1.87, result: 'win', betSumRUR: 7000 },
     { original: 1.63, real: 1.59, result: 'win', betSumRUR: 7000 },
     { original: 1.73, real: 1.76, result: 'win', betSumRUR: 7000 },
-    //01.04.2026
     { original: 1.9, real: 1.9, result: 'lose', betSumRUR: 7000 },
     { original: 1.7, real: 1.68, result: 'win', betSumRUR: 7000 },
     { original: 1.65, real: 1.66, result: 'win', betSumRUR: 7000 },
@@ -65,6 +63,9 @@ const CherkasovBig = [
     { original: 1.6, real: 1.63, result: 'win', betSumRUR: 7000 },
     { original: 2.05, real: 2.05, result: 'lose', betSumRUR: 0 },
     { original: 1.75, real: 1.75, result: 'win', betSumRUR: 7000 },
-    { original: 1.8, real: 1.78, result: 'win', betSumRUR: 7000 }
+    { original: 1.8, real: 1.78, result: 'win', betSumRUR: 7000 },
+    { original: 1.85, real: 1.7, result: 'lose', betSumRUR: 7000 }, //затупил с кефом, взял сильно ниже
+    { original: 1.7, real: 1.71, result: 'lose', betSumRUR: 7000 },
+    { original: 1.85, real: 1.86, result: undefined, betSumRUR: 7000 }
 ];
 export default CherkasovBig;

@@ -5,6 +5,7 @@ const Kicha = [
     { original: 1.75, real: 1.77, result: 'win', betSumRUR: 2000 },
     { original: 1.61, real: 1.62, result: 'lose', betSumRUR: 2000 },
     { original: 1.61, real: 1.62, result: 'lose', betSumRUR: 2000 },
-    { original: 2.35, real: 2.35, result: 'lose', betSumRUR: 740 }
+    { original: 2.35, real: 2.35, result: 'lose', betSumRUR: 740 },
+    { original: 1.61, real: 1.64, result: 'lose', betSumRUR: 4000 } //случайно на разных буках поставил дважды
 ];
 export default Kicha;

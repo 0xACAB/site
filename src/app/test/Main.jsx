@@ -1,3 +1,4 @@
+'use client';
 import './styles.css';
 
 export default function Main() {
@@ -12,6 +13,9 @@ export default function Main() {
             <main className="w-1/2">
                 <article>Article1</article>
                 <article>Article2</article>
+                <button style={{ all: 'revert' }} onClick={() => alert('test')}>
+                    test
+                </button>
             </main>
         </div>
     );
