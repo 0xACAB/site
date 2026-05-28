@@ -1,5 +1,5 @@
 'use client';
-
+//ХОЧЕШЬ МАСШТАБНО ПОПРАВИТЬ ЧТО-ТО В БАЗЕ - СНАЧАЛА БЭКАПНИ!
 import { useState } from 'react';
 import { checkNewEventsAction } from './actions/events';
 import EventForm from './EventForm'; // или EventFormToggle, EventFormSimple

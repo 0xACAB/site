@@ -17,6 +17,7 @@ const ClaudioBig = [
     { original: 2.14, real: 2.14, result: 'win', betSumRUR: 4385 },
     { original: 1.79, real: 1.79, result: 'win', betSumRUR: 5000 },
     { original: 2.05, real: 1.68, result: 'lose', betSumRUR: 5000 },
-    { original: 1.95, real: 1.95, result: 'win', betSumRUR: 5000 }
+    { original: 1.95, real: 1.95, result: 'win', betSumRUR: 5000 },
+    { original: 2.75, real: 2.78, result: 'win', betSumRUR: 5020 }
 ];
 export default ClaudioBig;

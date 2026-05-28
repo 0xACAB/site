@@ -1,5 +1,5 @@
 import './globals.css';
-import { Suspense } from 'react';
+//import { Suspense } from 'react';
 import { YandexMetrika } from '@/components/YandexMetrika';
 
 export const metadata = {
@@ -11,9 +11,9 @@ export default async function RootLayout({ children }) {
     return (
         <html lang="en">
             <body>
-                <Suspense>
+                {/*<Suspense>
                     <YandexMetrika />
-                </Suspense>
+                </Suspense>*/}
                 {children}
             </body>
         </html>

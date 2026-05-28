@@ -5,13 +5,10 @@ import './styles.css';
 
 import ArtemovBig from './results/ArtemovBig';
 import CherkasovBig from './results/CherkasovBig';
-import DaniilBig from './results/DaniilBig';
 import ClaudioBig from './results/ClaudioBig';
 import OblepihaBig from './results/OblepihaBig';
 import LogachevBig from './results/LogachevBig';
-import Kicha from './results/Kicha';
 import HockeyFather from './results/HockeyFather';
-import WinClubBig from './results/WinClubBig';
 import Graph from './Graph';
 
 let summary = {
@@ -22,16 +19,12 @@ let summary = {
 };
 const originalData = [
     {
-        name: 'Дмитрий Артёмов Биги',
+        name: 'Дмитрий Артемов Биги',
         coeffs: ArtemovBig
     },
     {
         name: 'Сергей Черкасов Биги',
         coeffs: CherkasovBig
-    },
-    {
-        name: 'Даниил Биги',
-        coeffs: DaniilBig
     },
     {
         name: 'Клаудио Биг',
@@ -44,14 +37,6 @@ const originalData = [
     {
         name: 'Хоккейный Батя Биг',
         coeffs: HockeyFather
-    },
-    {
-        name: 'Win Club Биг',
-        coeffs: WinClubBig
-    },
-    {
-        name: 'Kicha Углы Смолл',
-        coeffs: Kicha
     },
     {
         name: 'Михаил Логачёв Биги',
@@ -135,7 +120,7 @@ const originalData = [
     return data;
 });
 
-export default async function Main({}) {
+export default async function Main() {
     /*const [originalDataState, setOriginalData] = useState();
     useEffect(() => {
         setOriginalData(() => {
@@ -143,7 +128,7 @@ export default async function Main({}) {
         });
     }, []); /!*${originalData.length + 1 + ``}*!/*/
     //${originalData.length + 1} не работает, так как tailwind глючное говно так не умеет
-    const className = `grid grid-cols-10 w-full gap-4`;
+    const className = `grid grid-cols-7 w-full gap-4`;
     return (
         /*originalDataState && */ <div className="flex flex-col w-full justify-between items-center">
             <header className="flex flex-col w-full items-center">Стата по капперам</header>

@@ -2,43 +2,12 @@
 
 import { useEffect, useMemo } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { create } from 'zustand/index';
-import { devtools } from 'zustand/middleware';
 
+import { useSampling } from './states';
+import { MIN_COEFF_IN_TOP_COEFFS } from './globals';
 import TopCoefficients from './TopCoefficients';
 
-import { MIN_ELEMS_IN_TOP_COEFFS, TOP_COEFFS_LIMIT, MIN_COEFF_IN_TOP_COEFFS } from './globals';
-const samplingReducer = (state, action) => {
-    switch (action) {
-        case 'even':
-            return { sampling: state.sampling.filter((el) => el % 2 === 0) };
-        case 'odd':
-            return { sampling: state.sampling.filter((el) => el % 2 === 1) };
-        default:
-            return state;
-    }
-};
-const useSampling = create()(
-    devtools(
-        (set) => ({
-            sampling: [1],
-            setSampling: (sampling) => set({ sampling }),
-            initialItems: [],
-            setInitialItems: (initialItems) => set({ initialItems }),
-
-            teamCoefficientStats: [], // статистика по командам с сервера
-            setTeamCoefficientStats: (teamCoefficientStats) => set({ teamCoefficientStats }),
-
-            allCoefficientStats: [], // общая статистика для селекта
-            setAllCoefficientStats: (allCoefficientStats) => set({ allCoefficientStats }),
-
-            filterSampling: () => set((state) => samplingReducer(state, 'odd'))
-        }),
-        { name: 'SamplingStore' } // 👈 добавьте имя для DevTools)
-    )
-);
-
-function SamplingControl({ selectedTeam, selectedCoeff, onCoeffSelect, uniqueCoeffs, handleTeamChange, coeffMap }) {
+function SamplingControl({ selectedTeam, selectedCoeff, handleCoeffSelect, uniqueCoeffs, handleTeamChange, coeffMap }) {
     const sampling = useSampling((state) => state.sampling);
     return (
         <div className="mt-4">
@@ -48,7 +17,7 @@ function SamplingControl({ selectedTeam, selectedCoeff, onCoeffSelect, uniqueCoe
                     <div className="flex gap-2">
                         <select
                             value={selectedCoeff}
-                            onChange={(e) => onCoeffSelect(e.target.value)}
+                            onChange={(e) => handleCoeffSelect(e.target.value)}
                             className="flex-1 p-2 border rounded-lg"
                         >
                             <option value="">Все кэфы выборки</option>
@@ -83,73 +52,43 @@ function Sampling() {
     return <h1>{sampling.join(',')}</h1>;
 }
 
-export default function FilterClient({
-    initialItems,
-    teamCoefficientStats, // статистика по командам с сервера
-    allCoefficientStats // общая статистика для селекта
-}) {
-    const { setSampling, setInitialItems, setTeamCoefficientStats, setAllCoefficientStats } = useSampling();
-    useEffect(() => {
-        console.log('render');
-        setInitialItems(initialItems);
-        setTeamCoefficientStats(teamCoefficientStats);
-        setAllCoefficientStats(allCoefficientStats);
-        setSampling([1, 2, 3, 4, 5, 6]);
-    }, []);
+export default function FilterClient() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    const selectedCoeff = searchParams.get('coefficient') || '';
-    const selectedTeam = searchParams.get('team') || '';
-    const topCoefficients = useMemo(() => {
-        if (!teamCoefficientStats || !allCoefficientStats) return [];
+    const selectedCoeff = searchParams.get('coefficient') || undefined;
+    const selectedTeam = searchParams.get('team') || undefined;
 
-        if (!selectedTeam) {
-            return allCoefficientStats
-                .filter(
-                    (stat) => stat.totalCount >= MIN_ELEMS_IN_TOP_COEFFS && stat.coefficient >= MIN_COEFF_IN_TOP_COEFFS
-                )
-                .map((stat) => ({ ...stat, winRate: stat.winCount / stat.totalCount }))
-                .sort((a, b) => b.winRate - a.winRate || b.coefficient - a.coefficient)
-                .slice(0, TOP_COEFFS_LIMIT);
-        }
+    const { stateInitialItems, stateAllCoefficientStats, stateTeamCoefficientStats, initializeStore } = useSampling();
+    useEffect(() => {
+        console.log('render');
+        initializeStore();
+        //setSampling([1, 2, 3, 4, 5, 6]);
+    }, []);
 
-        let stats = Object.values(teamCoefficientStats);
-        stats = stats.filter((stat) => stat.team === selectedTeam);
-
-        const filteredStats = stats
-            .filter((stat) => stat.totalCount >= MIN_ELEMS_IN_TOP_COEFFS && stat.coefficient >= MIN_COEFF_IN_TOP_COEFFS)
-            .map((stat) => ({ ...stat, winRate: stat.winCount / stat.totalCount }))
-            .sort((a, b) => b.winRate - a.winRate || b.coefficient - a.coefficient);
-
-        // Показываем до 10 или меньше, если столько нет
-        return filteredStats.slice(0, Math.min(TOP_COEFFS_LIMIT, filteredStats.length));
-    }, [teamCoefficientStats, allCoefficientStats, selectedTeam]);
     // То же самое для coefficientStats:
     const coefficientStats = useMemo(() => {
-        if (!teamCoefficientStats || !allCoefficientStats) return [];
-
         if (!selectedTeam) {
-            return allCoefficientStats
+            return stateAllCoefficientStats
                 .filter((stat) => stat.totalCount >= 4 && stat.coefficient >= 1.5)
                 .map((stat) => ({ ...stat, winRate: stat.winCount / stat.totalCount }))
                 .sort((a, b) => b.winRate - a.winRate || b.coefficient - a.coefficient);
         }
 
-        let stats = Object.values(teamCoefficientStats);
+        let stats = Object.values(stateTeamCoefficientStats);
         stats = stats.filter((stat) => stat.team === selectedTeam);
 
         return stats
             .filter((stat) => stat.totalCount >= 4 && stat.coefficient >= 1.5)
             .map((stat) => ({ ...stat, winRate: stat.winCount / stat.totalCount }))
             .sort((a, b) => b.winRate - a.winRate || b.coefficient - a.coefficient);
-    }, [teamCoefficientStats, allCoefficientStats, selectedTeam]);
+    }, [stateTeamCoefficientStats, stateAllCoefficientStats, selectedTeam]);
     const filteredItems = useMemo(() => {
-        if (!selectedCoeff && !selectedTeam) return initialItems;
+        if (!selectedCoeff && !selectedTeam) return stateInitialItems;
 
         const selectedNum = selectedCoeff ? parseFloat(selectedCoeff) : null;
 
-        return initialItems.filter((item) => {
+        return stateInitialItems.filter((item) => {
             if (selectedCoeff) {
                 const hasCoeff = item.realCoefficients?.some((c) => {
                     const num = Number(c);
@@ -171,7 +110,7 @@ export default function FilterClient({
 
             return true;
         });
-    }, [initialItems, selectedCoeff, selectedTeam]);
+    }, [stateInitialItems, selectedCoeff, selectedTeam]);
 
     const handleCoeffSelect = (value) => {
         const params = new URLSearchParams(searchParams);
@@ -195,28 +134,28 @@ export default function FilterClient({
             <FilterPanel
                 searchParams={searchParams}
                 router={router}
-                items={initialItems}
+                items={stateInitialItems}
                 filteredItems={filteredItems}
                 selectedCoeff={selectedCoeff}
                 selectedTeam={selectedTeam}
-                allCoefficientStats={allCoefficientStats}
-                onCoeffSelect={handleCoeffSelect}
+                allCoefficientStats={stateAllCoefficientStats}
+                handleCoeffSelect={handleCoeffSelect}
             />
+
             <TopCoefficients
-                topCoefficients={topCoefficients}
                 selectedCoeff={selectedCoeff}
                 selectedTeam={selectedTeam}
                 handleCoeffSelect={handleCoeffSelect}
             />
 
             <ResultsSection
-                items={initialItems}
+                items={stateInitialItems}
                 filteredItems={filteredItems}
                 selectedCoeff={selectedCoeff}
                 coefficientStats={coefficientStats}
                 formatWinner={formatWinner}
                 getWinnerColor={getWinnerColor}
-                onClearFilter={() => handleCoeffSelect('')}
+                onClearFilter={() => handleCoeffSelect(undefined)}
             />
         </div>
     );
@@ -230,7 +169,7 @@ function FilterPanel({
     allCoefficientStats,
     selectedCoeff,
     selectedTeam,
-    onCoeffSelect
+    handleCoeffSelect
 }) {
     const uniqueCoeffs = useMemo(() => {
         const allCoeffs = items.flatMap((item) => item.realCoefficients || []);
@@ -248,7 +187,12 @@ function FilterPanel({
     }, [items]);
 
     const coeffMap = useMemo(
-        () => new Map(allCoefficientStats?.map((stat) => [stat.coefficient.toFixed(2), stat])),
+        () =>
+            new Map(
+                allCoefficientStats?.map((stat) => {
+                    return [stat.coefficient.toFixed(2), stat];
+                })
+            ),
         [allCoefficientStats]
     );
 
@@ -275,7 +219,7 @@ function FilterPanel({
             <SamplingControl
                 selectedCoeff={selectedCoeff}
                 selectedTeam={selectedTeam}
-                onCoeffSelect={onCoeffSelect}
+                handleCoeffSelect={handleCoeffSelect}
                 uniqueCoeffs={uniqueCoeffs}
                 handleTeamChange={handleTeamChange}
                 coeffMap={coeffMap}
