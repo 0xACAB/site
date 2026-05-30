@@ -7,8 +7,8 @@ const formatWinner = (winner) => (winner === 'home' ? '🏠 Хозяева' : wi
 const getWinnerColor = (winner) =>
     winner === 'home' ? 'text-blue-600' : winner === 'away' ? 'text-orange-600' : 'text-gray-600';
 
-export default function ResultsSection({ filteredItems, onClearFilter }) {
-    const { allCoefficientStats, teamCoefficientStats, coefficient, team } = useSampling();
+export default function ResultsSection({ filteredItems }) {
+    const { allCoefficientStats, teamCoefficientStats, coefficient, team, setCoefficient } = useSampling();
     const coefficientStats = useMemo(() => {
         if (!team) {
             return allCoefficientStats
@@ -33,7 +33,7 @@ export default function ResultsSection({ filteredItems, onClearFilter }) {
                 </div>
                 {coefficient && (
                     <button
-                        onClick={onClearFilter}
+                        onClick={() => setCoefficient(undefined)}
                         className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
                     >
                         Показать все события

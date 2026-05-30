@@ -25,8 +25,8 @@ function CoeffButton({ stat, isSelected, onClick }) {
     );
 }
 
-export default function TopCoefficients({ handleCoeffSelect }) {
-    const { initialized, allCoefficientStats, teamCoefficientStats, coefficient, team } = useSampling();
+export default function TopCoefficients() {
+    const { initialized, allCoefficientStats, teamCoefficientStats, coefficient, team, setCoefficient } = useSampling();
     const topCoefficients = useMemo(() => {
         if (!initialized) return [];
         //дважды будет из-за изменения зависимостей
@@ -72,7 +72,7 @@ export default function TopCoefficients({ handleCoeffSelect }) {
                             }
                             onClick={() => {
                                 //filterSampling();
-                                handleCoeffSelect(formattedStatCoeff);
+                                setCoefficient(formattedStatCoeff);
                             }}
                         />
                     );

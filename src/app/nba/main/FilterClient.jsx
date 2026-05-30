@@ -1,15 +1,14 @@
 'use client';
 
 import { useEffect, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
 
 import { useSampling } from './states';
 import { MIN_COEFF_IN_TOP_COEFFS } from './globals';
 import TopCoefficients from './TopCoefficients';
 import ResultsSection from './ResultsSection';
 
-function SamplingControl({ handleCoeffSelect, uniqueCoeffs, handleTeamChange, coeffMap }) {
-    const { coefficient, team } = useSampling();
+function SamplingControl({ uniqueCoeffs, handleTeamChange, coeffMap }) {
+    const { coefficient, team, setCoefficient } = useSampling();
     return (
         <div className="mt-4">
             <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-4">
@@ -18,7 +17,7 @@ function SamplingControl({ handleCoeffSelect, uniqueCoeffs, handleTeamChange, co
                     <div className="flex gap-2">
                         <select
                             value={coefficient}
-                            onChange={(e) => handleCoeffSelect(e.target.value)}
+                            onChange={(e) => setCoefficient(e.target.value)}
                             className="flex-1 p-2 border rounded-lg"
                         >
                             <option value="">Все кэфы выборки</option>
@@ -49,18 +48,7 @@ function SamplingControl({ handleCoeffSelect, uniqueCoeffs, handleTeamChange, co
 }
 
 export default function FilterClient() {
-    const router = useRouter();
     const { initialItems, initializeStore, coefficient, team, setCoefficient } = useSampling();
-    const handleCoeffSelect = (value) => {
-        const params = new URLSearchParams();
-        if (value) {
-            params.set('coefficient', value);
-        } else {
-            params.delete('coefficient');
-        }
-        setCoefficient(value);
-        router.push(`/nba/main?${params.toString()}`);
-    };
 
     useEffect(() => {
         console.log('render');
@@ -98,16 +86,14 @@ export default function FilterClient() {
         <div className="p-4 max-w-6xl mx-auto">
             <h1 className="text-2xl font-bold mb-6 text-center">Фильтр коэффициентов NBA</h1>
 
-            <FilterPanel router={router} filteredItems={filteredItems} handleCoeffSelect={handleCoeffSelect} />
-
-            <TopCoefficients handleCoeffSelect={handleCoeffSelect} />
-
-            <ResultsSection filteredItems={filteredItems} onClearFilter={() => handleCoeffSelect(undefined)} />
+            <FilterPanel filteredItems={filteredItems} />
+            <TopCoefficients />
+            <ResultsSection filteredItems={filteredItems} />
         </div>
     );
 }
 
-function FilterPanel({ router, filteredItems, handleCoeffSelect }) {
+function FilterPanel({ filteredItems }) {
     const { initialItems, allCoefficientStats, setTeam } = useSampling();
 
     const uniqueCoeffs = useMemo(() => {
@@ -136,14 +122,7 @@ function FilterPanel({ router, filteredItems, handleCoeffSelect }) {
     );
 
     const handleTeamChange = (e) => {
-        const params = new URLSearchParams();
-        if (e.target.value) {
-            params.set('team', e.target.value);
-        } else {
-            params.delete('team');
-        }
         setTeam(e.target.value);
-        router.push(`/nba/main?${params.toString()}`);
     };
 
     return (
@@ -156,12 +135,7 @@ function FilterPanel({ router, filteredItems, handleCoeffSelect }) {
                     highlight={filteredItems.length < initialItems.length}
                 />
             </div>
-            <SamplingControl
-                handleCoeffSelect={handleCoeffSelect}
-                uniqueCoeffs={uniqueCoeffs}
-                handleTeamChange={handleTeamChange}
-                coeffMap={coeffMap}
-            />
+            <SamplingControl uniqueCoeffs={uniqueCoeffs} handleTeamChange={handleTeamChange} coeffMap={coeffMap} />
         </div>
     );
 }
