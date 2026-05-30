@@ -13,6 +13,7 @@ const HockeyFather = [
     { original: 1.6, real: 1.57, result: 'win', betSumRUR: 500 },
     { original: 1.54, real: 1.57, result: 'lose', betSumRUR: 500 },
     { original: 1.86, real: 2.0, result: 'lose', betSumRUR: 500 },
-    { original: 1.78, real: 1.79, result: 'win', betSumRUR: 1000 }
+    { original: 1.78, real: 1.79, result: 'win', betSumRUR: 1000 },
+    { original: 1.86, real: 1.85, result: 'win', betSumRUR: 1555 }
 ];
 export default HockeyFather;

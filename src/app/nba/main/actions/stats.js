@@ -1,6 +1,6 @@
 'use server';
 import { connectToDatabase } from '@/lib/mongodb';
-
+//TODO сделать чтобы normalizeCoeff было не нужно
 function normalizeCoeff(coeff) {
     if (coeff == null) return null;
     const num = typeof coeff === 'string' ? parseFloat(coeff) : coeff;
@@ -19,7 +19,7 @@ export async function fetchStats() {
         .sort({ createdAt: -1 })
         .toArray();
 
-    const serializedItems = items.map((item) => ({
+    const initialItems = items.map((item) => ({
         ...item,
         _id: item._id.toString(),
         createdAt: item.createdAt ? item.createdAt.toISOString() : null,
@@ -28,7 +28,7 @@ export async function fetchStats() {
     }));
 
     // 1. ОБЩАЯ статистика (для селекта)
-    const generalCoefficientStats = serializedItems.reduce((stats, item) => {
+    const generalCoefficientStats = initialItems.reduce((stats, item) => {
         item.realCoefficients?.forEach((coeff, idx) => {
             const normC = normalizeCoeff(coeff);
             if (!normC) return;
@@ -47,7 +47,7 @@ export async function fetchStats() {
     }, {});
 
     // 2. Статистика ПО КОМАНДАМ (для topCoefficients)
-    const teamCoefficientStats = serializedItems.reduce((stats, item) => {
+    const teamCoefficientStats = initialItems.reduce((stats, item) => {
         item.realCoefficients?.forEach((coeff, idx) => {
             const normC = normalizeCoeff(coeff);
             if (!normC) return;
@@ -71,5 +71,5 @@ export async function fetchStats() {
         });
         return stats;
     }, {});
-    return [serializedItems, teamCoefficientStats, Object.values(generalCoefficientStats)];
+    return [initialItems, Object.values(generalCoefficientStats), teamCoefficientStats];
 }

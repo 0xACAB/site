@@ -25,14 +25,14 @@ function CoeffButton({ stat, isSelected, onClick }) {
     );
 }
 
-export default function TopCoefficients({ selectedCoeff, selectedTeam, handleCoeffSelect }) {
-    const { initialized, stateAllCoefficientStats, stateTeamCoefficientStats } = useSampling();
+export default function TopCoefficients({ handleCoeffSelect }) {
+    const { initialized, allCoefficientStats, teamCoefficientStats, coefficient, team } = useSampling();
     const topCoefficients = useMemo(() => {
         if (!initialized) return [];
         //дважды будет из-за изменения зависимостей
         console.log('memo', Date.now());
-        if (!selectedTeam) {
-            return stateAllCoefficientStats
+        if (!team) {
+            return allCoefficientStats
                 .filter(
                     (stat) => stat.totalCount >= MIN_ELEMS_IN_TOP_COEFFS && stat.coefficient >= MIN_COEFF_IN_TOP_COEFFS
                 )
@@ -41,36 +41,34 @@ export default function TopCoefficients({ selectedCoeff, selectedTeam, handleCoe
                 .slice(0, TOP_COEFFS_LIMIT);
         }
 
-        let stats = Object.values(stateTeamCoefficientStats);
+        let stats = Object.values(teamCoefficientStats);
         const filteredStats = stats
-            .filter((stat) => stat.team === selectedTeam)
+            .filter((stat) => stat.team === team)
             .filter((stat) => stat.totalCount >= MIN_ELEMS_IN_TOP_COEFFS && stat.coefficient >= MIN_COEFF_IN_TOP_COEFFS)
             .map((stat) => ({ ...stat, winRate: stat.winCount / stat.totalCount }))
             .sort((a, b) => b.winRate - a.winRate || b.coefficient - a.coefficient);
 
         // Показываем до 10 или меньше, если столько нет
         return filteredStats.slice(0, Math.min(TOP_COEFFS_LIMIT, filteredStats.length));
-    }, [initialized, stateTeamCoefficientStats, stateAllCoefficientStats, selectedTeam]);
+    }, [initialized, teamCoefficientStats, allCoefficientStats, team]);
 
     return (
         <div className="p-4">
             <div className="text-sm font-medium text-gray-700 mb-2">
                 {`Самые часто выигрывающие коэффициенты начиная с ${MIN_COEFF_IN_TOP_COEFFS} в выборках минимум из ${MIN_ELEMS_IN_TOP_COEFFS} элементов:`}
-                {selectedTeam && ` (${selectedTeam === 'home' ? 'только домашние' : 'только гостевые'})`}
+                {team && ` (${team === 'home' ? 'только домашние' : 'только гостевые'})`}
                 <span className="text-gray-600 ml-1">(показано {topCoefficients.length})</span>
             </div>
             <div className="flex flex-wrap gap-2">
                 {topCoefficients.map((stat) => {
-                    //selectedCoeff already formatted
+                    //coefficient already formatted
                     const formattedStatCoeff = stat.coefficient.toFixed(2);
                     return (
                         <CoeffButton
                             key={`${stat.coefficient}_${stat.team}`}
                             stat={stat}
                             isSelected={
-                                selectedCoeff &&
-                                formattedStatCoeff === selectedCoeff &&
-                                (!selectedTeam || stat.team === selectedTeam)
+                                coefficient && formattedStatCoeff === coefficient && (!team || stat.team === team)
                             }
                             onClick={() => {
                                 //filterSampling();
