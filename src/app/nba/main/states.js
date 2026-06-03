@@ -77,9 +77,9 @@ const useSampling = create()(
         setTeam: (team) => set({ team }),
 
         filterSampling: () => set((state) => samplingReducer(state, 'odd')),
-        filterCoefficient: (coefficient) =>
+        filterCoefficient: async (coefficient) =>
             set((state) => filteringReducer(state, { type: 'coefficient', payload: coefficient })),
-        filterTeam: (team) => set((state) => filteringReducer(state, { type: 'team', payload: team }))
+        filterTeam: async (team) => set((state) => filteringReducer(state, { type: 'team', payload: team }))
     }))
 );
 export { useSampling };

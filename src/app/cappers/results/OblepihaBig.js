@@ -12,6 +12,6 @@ const OblepihaBig = [
     { original: 1.85, real: 1.8, result: 'lose', betSumRUR: 0 },
     { original: 1.85, real: 1.96, result: 'lose', betSumRUR: 500 }, //кф вырос в прелайфе так
     { original: 1.84, real: 1.87, result: 'lose', betSumRUR: 500 },
-    { original: 1.62, real: 1.62, result: undefined, betSumRUR: 0 }
+    { original: 1.62, real: 1.62, result: 'win', betSumRUR: 0 }
 ];
 export default OblepihaBig;
