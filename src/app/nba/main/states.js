@@ -61,9 +61,8 @@ const useSampling = create()(
         testFilteredItems: [],
 
         // Один метод для инициализации всеми данными сразу
-        initializeStore: (preInitialItems, preAllCoefficientStats, preTeamCoefficientStats) => {
+        initializeStore: (preAllCoefficientStats, preTeamCoefficientStats) => {
             set({
-                initialItems: preInitialItems,
                 allCoefficientStats: preAllCoefficientStats,
                 teamCoefficientStats: preTeamCoefficientStats,
                 initialized: true

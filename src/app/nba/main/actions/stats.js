@@ -1,15 +1,7 @@
 'use server';
 import { connectToDatabase } from '@/lib/mongodb';
-//TODO сделать чтобы normalizeCoeff было не нужно
-function normalizeCoeff(coeff) {
-    if (coeff == null) return null;
-    const num = typeof coeff === 'string' ? parseFloat(coeff) : coeff;
-    return isNaN(num) ? null : parseFloat(num.toFixed(2));
-}
-export async function fetchStats(props) {
-    const { coefficient } = (await props.searchParams) || {};
 
-    //В realCoefficients всегда строки длины 4 или 5 "x.xx" или "xx.xx"
+export async function fetchAllStats() {
     const { db } = await connectToDatabase();
     const items = await db
         .collection('nba')
@@ -17,10 +9,13 @@ export async function fetchStats(props) {
             {
                 $match: {
                     //eventId: 'MH3FeAUP',
+                    /*flashScoreCoefficients: {
+                        $exists: true,
+                        $ne: null
+                    },*/
                     realCoefficients: {
                         $exists: true,
-                        $ne: null,
-                        $in: [coefficient.toFixed(2)]
+                        $ne: null
                     }
                 }
             },
@@ -41,16 +36,13 @@ export async function fetchStats(props) {
     const initialItems = items.map((item) => ({
         ...item,
         _id: item._id.toString(),
-        createdAt: item.createdAt ? item.createdAt.toISOString() : null,
-        realCoefficients: item.realCoefficients || [],
-        flashScoreCoefficients: item.flashScoreCoefficients || []
+        createdAt: item.createdAt ? item.createdAt.toISOString() : null
     }));
 
     // 1. ОБЩАЯ статистика (для селекта)
     const generalCoefficientStats = initialItems.reduce((stats, item) => {
-        item.realCoefficients?.forEach((coeff, idx) => {
-            const normC = normalizeCoeff(coeff);
-            if (!normC) return;
+        item.realCoefficients.forEach((coeff, index) => {
+            const normC = Number(coeff);
 
             const key = normC.toFixed(2);
             if (!stats[key]) {
@@ -58,7 +50,7 @@ export async function fetchStats(props) {
             }
             stats[key].totalCount++;
 
-            if ((item.winner === 'home' && idx === 0) || (item.winner === 'away' && idx === 1)) {
+            if ((item.winner === 'home' && index === 0) || (item.winner === 'away' && index === 1)) {
                 stats[key].winCount++;
             }
         });
@@ -66,9 +58,9 @@ export async function fetchStats(props) {
     }, {});
 
     // 2. Статистика ПО КОМАНДАМ (для topCoefficients)
-    const teamCoefficientStats = initialItems.reduce((stats, item) => {
+    const preTeamCoefficientStats = initialItems.reduce((stats, item) => {
         item.realCoefficients?.forEach((coeff, idx) => {
-            const normC = normalizeCoeff(coeff);
+            const normC = Number(coeff);
             if (!normC) return;
 
             const teamType = idx === 0 ? 'home' : 'away';
@@ -90,5 +82,54 @@ export async function fetchStats(props) {
         });
         return stats;
     }, {});
-    return [initialItems, Object.values(generalCoefficientStats), teamCoefficientStats];
+    return [Object.values(generalCoefficientStats), preTeamCoefficientStats];
+}
+
+export async function fetchStats(props) {
+    const { coefficient, team } = (await props.searchParams) || {};
+    let realCoefficientsMatch;
+    if (team) {
+        realCoefficientsMatch = `realCoefficients.${team === 'home' ? 0 : 1}`;
+    } else {
+        realCoefficientsMatch = 'realCoefficients';
+    }
+    const { db } = await connectToDatabase();
+    //В realCoefficients всегда строки длины 4 или 5 "x.xx" или "xx.xx"
+    const findElementsArray = coefficient ? [coefficient.toFixed(2)] : [];
+    const items = await db
+        .collection('nba')
+        .aggregate([
+            {
+                $match: {
+                    //eventId: 'MH3FeAUP',
+                    flashScoreCoefficients: {
+                        $exists: true,
+                        $ne: null
+                    },
+                    [realCoefficientsMatch]: {
+                        $exists: true,
+                        $ne: null,
+                        $in: findElementsArray
+                    }
+                }
+            },
+            {
+                $match: {
+                    realCoefficients: {
+                        $elemMatch: {
+                            $type: 'string',
+                            $regex: /^.{4,5}$/ // проверка длины через regex
+                        }
+                    }
+                }
+            }
+        ])
+        .sort({ createdAt: -1 })
+        .toArray();
+
+    return items.map((item) => ({
+        ...item,
+        _id: item._id.toString(),
+        createdAt: item.createdAt ? item.createdAt.toISOString() : null
+    }));
 }

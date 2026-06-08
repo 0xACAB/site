@@ -1,14 +1,13 @@
 import FilterClient from './FilterClient';
-import { fetchStats } from './actions/stats';
+import { fetchStats, fetchAllStats } from './actions/stats';
 
 export default async function Page() {
-    const props = { searchParams: { coefficient: 5.15 } };
-    const [initialItems, allCoefficientStats, teamCoefficientStats] = await fetchStats(props);
+    const props = { searchParams: { coefficient: 1.59, team: undefined } };
+    const [preAllCoefficientStats, preTeamCoefficientStats] = await fetchAllStats(props);
     return (
         <FilterClient
-            preInitialItems={initialItems}
-            preAllCoefficientStats={allCoefficientStats}
-            preTeamCoefficientStats={teamCoefficientStats}
+            preAllCoefficientStats={preAllCoefficientStats}
+            preTeamCoefficientStats={preTeamCoefficientStats}
         />
     );
 }

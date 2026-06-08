@@ -8,53 +8,14 @@ import { MIN_COEFF_IN_TOP_COEFFS } from './globals';
 import TopCoefficients from './TopCoefficients';
 import ResultsSection from './ResultsSection';
 
-function SamplingControl({ uniqueCoeffs, handleTeamChange, coeffMap }) {
-    const { coefficient, team, setCoefficient } = useSampling();
-    return (
-        <div className="mt-4">
-            <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-4">
-                <div className="flex-1">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Фильтр по коэффициенту:</label>
-                    <div className="flex gap-2">
-                        <select
-                            value={coefficient}
-                            onChange={(e) => setCoefficient(e.target.value)}
-                            className="flex-1 p-2 border rounded-lg"
-                        >
-                            <option value="">Все кэфы выборки</option>
-                            {uniqueCoeffs.map((coeff) => {
-                                const stat = coeffMap.get((Number(coeff) || 0).toFixed(2));
-                                return (
-                                    <option key={coeff} value={coeff}>
-                                        {(Number(coeff) || 0).toFixed(2)}
-                                        {stat && ` (${stat.winCount}/${stat.totalCount})`}
-                                    </option>
-                                );
-                            })}
-                        </select>
-                    </div>
-                </div>
-
-                <div className="flex-1">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Для команды:</label>
-                    <select value={team} onChange={handleTeamChange} className="w-full p-2 border rounded-lg">
-                        <option value="">Любая команда</option>
-                        <option value="home">Домашняя</option>
-                        <option value="away">Гостевая</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    );
-}
-
-export default function FilterClient({ preInitialItems, preAllCoefficientStats, preTeamCoefficientStats }) {
+export default function FilterClient({ preAllCoefficientStats, preTeamCoefficientStats }) {
     const router = useRouter();
-    const { initialItems, initializeStore, coefficient, team } = useSampling();
+    const { initialItems, allCoefficientStats, teamCoefficientStats, initializeStore, coefficient, team } =
+        useSampling();
 
     useEffect(() => {
         console.log('render');
-        initializeStore(preInitialItems, preAllCoefficientStats, preTeamCoefficientStats);
+        initializeStore(preAllCoefficientStats, preTeamCoefficientStats);
     }, []);
 
     const filteredItems = useMemo(() => {
@@ -106,21 +67,27 @@ export default function FilterClient({ preInitialItems, preAllCoefficientStats, 
 
 function FilterPanel({ router, filteredItems }) {
     const { initialItems, allCoefficientStats, setTeam } = useSampling();
-
+    const totalRecords = useMemo(() => {
+        return allCoefficientStats.reduce((acc, { coefficient, totalCount }) => {
+            if (coefficient >= MIN_COEFF_IN_TOP_COEFFS) {
+                return acc + totalCount;
+            } else {
+                return acc;
+            }
+        }, 0);
+    }, [allCoefficientStats]);
     const uniqueCoeffs = useMemo(() => {
-        const allCoeffs = initialItems.flatMap((item) => item.realCoefficients || []);
+        const allCoeffs = allCoefficientStats.map((item) => item.coefficient);
 
         // Приводим к числам и фильтруем
-        const numericCoeffs = allCoeffs
-            .map((c) => Number(c))
-            .filter((c) => {
-                return !isNaN(c) && c > MIN_COEFF_IN_TOP_COEFFS;
-            })
-            .map((c) => parseFloat(c.toFixed(2))); // Нормализуем до 2 знаков
-
-        // Убираем дубли
+        const numericCoeffs = allCoeffs.reduce((acc, c) => {
+            if (!isNaN(c) && c >= MIN_COEFF_IN_TOP_COEFFS) {
+                acc.push(parseFloat(Number(c).toFixed(2)));
+            }
+            return acc;
+        }, []);
         return [...new Set(numericCoeffs)].sort((a, b) => a - b);
-    }, [initialItems]);
+    }, [allCoefficientStats]);
 
     const coeffMap = useMemo(
         () =>
@@ -146,7 +113,7 @@ function FilterPanel({ router, filteredItems }) {
     return (
         <div className="p-0">
             <div className="grid grid-cols-2 gap-4">
-                <StatBox label="Всего записей" value={initialItems.length} />
+                <StatBox label="Всего записей" value={totalRecords} />
                 <StatBox
                     label="Показано"
                     value={filteredItems.length}
@@ -158,6 +125,45 @@ function FilterPanel({ router, filteredItems }) {
     );
 }
 
+function SamplingControl({ uniqueCoeffs, handleTeamChange, coeffMap }) {
+    const { coefficient, team, setCoefficient } = useSampling();
+    return (
+        <div className="mt-4">
+            <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-4">
+                <div className="flex-1">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Фильтр по коэффициенту:</label>
+                    <div className="flex gap-2">
+                        <select
+                            value={coefficient}
+                            onChange={(e) => setCoefficient(e.target.value)}
+                            className="flex-1 p-2 border rounded-lg"
+                        >
+                            <option value="">Все кэфы выборки</option>
+                            {uniqueCoeffs.map((coeff) => {
+                                const stat = coeffMap.get((Number(coeff) || 0).toFixed(2));
+                                return (
+                                    <option key={coeff} value={coeff}>
+                                        {(Number(coeff) || 0).toFixed(2)}
+                                        {stat && ` (${stat.winCount}/${stat.totalCount})`}
+                                    </option>
+                                );
+                            })}
+                        </select>
+                    </div>
+                </div>
+
+                <div className="flex-1">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Для команды:</label>
+                    <select value={team} onChange={handleTeamChange} className="w-full p-2 border rounded-lg">
+                        <option value="">Любая команда</option>
+                        <option value="home">Домашняя</option>
+                        <option value="away">Гостевая</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    );
+}
 function StatBox({ label, value, highlight = false }) {
     return (
         <div className="text-center">
