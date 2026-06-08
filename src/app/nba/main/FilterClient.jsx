@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 
 import { useSampling } from './states';
 import { MIN_COEFF_IN_TOP_COEFFS } from './globals';
@@ -47,12 +48,13 @@ function SamplingControl({ uniqueCoeffs, handleTeamChange, coeffMap }) {
     );
 }
 
-export default function FilterClient() {
-    const { initialItems, initializeStore, coefficient, team, setCoefficient } = useSampling();
+export default function FilterClient({ preInitialItems, preAllCoefficientStats, preTeamCoefficientStats }) {
+    const router = useRouter();
+    const { initialItems, initializeStore, coefficient, team } = useSampling();
 
     useEffect(() => {
         console.log('render');
-        initializeStore();
+        initializeStore(preInitialItems, preAllCoefficientStats, preTeamCoefficientStats);
     }, []);
 
     const filteredItems = useMemo(() => {
@@ -82,18 +84,27 @@ export default function FilterClient() {
         });
     }, [initialItems, coefficient, team]);
 
+    const handleCoeffSelect = (value) => {
+        const params = new URLSearchParams();
+        if (value) {
+            params.set('coefficient', value);
+        } else {
+            params.delete('coefficient');
+        }
+        router.push(`/nba/main?${params.toString()}`);
+    };
     return (
         <div className="p-4 max-w-6xl mx-auto">
             <h1 className="text-2xl font-bold mb-6 text-center">Фильтр коэффициентов NBA</h1>
 
-            <FilterPanel filteredItems={filteredItems} />
+            <FilterPanel router={router} filteredItems={filteredItems} />
             <TopCoefficients />
             <ResultsSection filteredItems={filteredItems} />
         </div>
     );
 }
 
-function FilterPanel({ filteredItems }) {
+function FilterPanel({ router, filteredItems }) {
     const { initialItems, allCoefficientStats, setTeam } = useSampling();
 
     const uniqueCoeffs = useMemo(() => {
@@ -122,7 +133,14 @@ function FilterPanel({ filteredItems }) {
     );
 
     const handleTeamChange = (e) => {
-        setTeam(e.target.value);
+        const params = new URLSearchParams();
+        if (e.target.value) {
+            params.set('team', e.target.value);
+            setTeam(e.target.value);
+        } else {
+            params.delete('team');
+        }
+        router.push(`/nba/main?${params.toString()}`);
     };
 
     return (

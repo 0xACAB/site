@@ -1,7 +1,7 @@
 'use client';
 import { create } from 'zustand/index';
 import { devtools } from 'zustand/middleware';
-import { fetchStats } from './actions/stats';
+//import { fetchStats } from './actions/stats';
 
 const samplingReducer = (state, action) => {
     switch (action) {
@@ -56,19 +56,16 @@ const useSampling = create()(
         allCoefficientStats: [],
         teamCoefficientStats: {},
 
-        isLoading: true,
         initialized: false,
 
         testFilteredItems: [],
 
         // Один метод для инициализации всеми данными сразу
-        initializeStore: async () => {
-            const [initialItems, allCoefficientStats, teamCoefficientStats] = await fetchStats();
+        initializeStore: (preInitialItems, preAllCoefficientStats, preTeamCoefficientStats) => {
             set({
-                initialItems,
-                allCoefficientStats,
-                teamCoefficientStats,
-                isLoading: false,
+                initialItems: preInitialItems,
+                allCoefficientStats: preAllCoefficientStats,
+                teamCoefficientStats: preTeamCoefficientStats,
                 initialized: true
             });
         },

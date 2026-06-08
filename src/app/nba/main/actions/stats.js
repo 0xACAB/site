@@ -6,16 +6,35 @@ function normalizeCoeff(coeff) {
     const num = typeof coeff === 'string' ? parseFloat(coeff) : coeff;
     return isNaN(num) ? null : parseFloat(num.toFixed(2));
 }
-export async function fetchStats() {
+export async function fetchStats(props) {
+    const { coefficient } = (await props.searchParams) || {};
+
+    //В realCoefficients всегда строки длины 4 или 5 "x.xx" или "xx.xx"
     const { db } = await connectToDatabase();
     const items = await db
         .collection('nba')
-        .find({
-            realCoefficients: {
-                $exists: true,
-                $ne: null
+        .aggregate([
+            {
+                $match: {
+                    //eventId: 'MH3FeAUP',
+                    realCoefficients: {
+                        $exists: true,
+                        $ne: null,
+                        $in: [coefficient.toFixed(2)]
+                    }
+                }
+            },
+            {
+                $match: {
+                    realCoefficients: {
+                        $elemMatch: {
+                            $type: 'string',
+                            $regex: /^.{4,5}$/ // проверка длины через regex
+                        }
+                    }
+                }
             }
-        })
+        ])
         .sort({ createdAt: -1 })
         .toArray();
 
