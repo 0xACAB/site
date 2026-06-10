@@ -1,17 +1,19 @@
+import './styles.css'; // ← импортируем локальный CSS
+
+// app/nba/main/page.js
+import { Suspense } from 'react';
 import FilterClient from './FilterClient';
 import { fetchAllStats } from './actions/stats';
 
-export default async function Page({ searchParams }) {
-    // ← получаем searchParams из URL
+export default async function Page() {
     const [preAllCoefficientStats, preTeamCoefficientStats] = await fetchAllStats();
 
-    // (опционально) можно сразу передать начальные коэффициент и команду,
-    // но они уже будут прочитаны из URL в клиентском компоненте через useSearchParams
-
     return (
-        <FilterClient
-            preAllCoefficientStats={preAllCoefficientStats}
-            preTeamCoefficientStats={preTeamCoefficientStats}
-        />
+        <Suspense fallback={<div>Загрузка...</div>}>
+            <FilterClient
+                preAllCoefficientStats={preAllCoefficientStats}
+                preTeamCoefficientStats={preTeamCoefficientStats}
+            />
+        </Suspense>
     );
 }

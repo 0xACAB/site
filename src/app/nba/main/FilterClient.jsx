@@ -60,19 +60,21 @@ export default function FilterClient({ preAllCoefficientStats, preTeamCoefficien
     };
 
     return (
-        <div className="p-4 max-w-6xl mx-auto">
-            <h1 className="text-2xl font-bold mb-6 text-center">Фильтр коэффициентов NBA</h1>
+        <div className="scrollbar-aware-container">
+            <div className="p-4 max-w-6xl mx-auto">
+                <h1 className="text-2xl font-bold mb-6 text-center">Фильтр коэффициентов NBA</h1>
 
-            <FilterPanel
-                router={router}
-                filteredItems={items}
-                handleCoeffSelect={handleCoeffSelect}
-                handleTeamSelect={handleTeamSelect}
-            />
+                <FilterPanel
+                    router={router}
+                    filteredItems={items}
+                    handleCoeffSelect={handleCoeffSelect}
+                    handleTeamSelect={handleTeamSelect}
+                />
 
-            <TopCoefficients handleCoeffSelect={handleCoeffSelect} />
+                <TopCoefficients handleCoeffSelect={handleCoeffSelect} />
 
-            <ResultsSection filteredItems={items} loading={loading} />
+                <ResultsSection filteredItems={items} loading={loading} />
+            </div>
         </div>
     );
 }

@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
-a {
-    @apply text-red-700;
+/* app/nba/main/styles.css */
+html {
+    overflow-y: scroll;
 }
