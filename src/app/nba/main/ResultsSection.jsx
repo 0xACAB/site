@@ -7,8 +7,10 @@ const formatWinner = (winner) => (winner === 'home' ? '🏠 Хозяева' : wi
 const getWinnerColor = (winner) =>
     winner === 'home' ? 'text-blue-600' : winner === 'away' ? 'text-orange-600' : 'text-gray-600';
 
-export default function ResultsSection({ filteredItems }) {
+export default function ResultsSection({ filteredItems, loading }) {
     const { allCoefficientStats, teamCoefficientStats, coefficient, team, setCoefficient } = useSampling();
+
+    // coefficientStats можно убрать, если не используется в EventCard — а он используется (для отображения статистики по коэффициенту)
     const coefficientStats = useMemo(() => {
         if (!team) {
             return allCoefficientStats
@@ -16,15 +18,17 @@ export default function ResultsSection({ filteredItems }) {
                 .map((stat) => ({ ...stat, winRate: stat.winCount / stat.totalCount }))
                 .sort((a, b) => b.winRate - a.winRate || b.coefficient - a.coefficient);
         }
-
-        let stats = Object.values(teamCoefficientStats);
-        stats = stats.filter((stat) => stat.team === team);
-
+        const stats = Object.values(teamCoefficientStats).filter((stat) => stat.team === team);
         return stats
             .filter((stat) => stat.totalCount >= 4 && stat.coefficient >= 1.5)
             .map((stat) => ({ ...stat, winRate: stat.winCount / stat.totalCount }))
             .sort((a, b) => b.winRate - a.winRate || b.coefficient - a.coefficient);
     }, [teamCoefficientStats, allCoefficientStats, team]);
+
+    if (loading) {
+        return <div className="text-center py-12">Загрузка...</div>;
+    }
+
     if (filteredItems.length === 0) {
         return (
             <div className="text-center py-12 bg-gray-50 rounded-lg">
@@ -33,7 +37,13 @@ export default function ResultsSection({ filteredItems }) {
                 </div>
                 {coefficient && (
                     <button
-                        onClick={() => setCoefficient(undefined)}
+                        onClick={() => {
+                            // Сбросить коэффициент в сторе и в URL
+                            const url = new URL(window.location.href);
+                            url.searchParams.delete('coefficient');
+                            window.history.pushState({}, '', url.toString());
+                            setCoefficient(null);
+                        }}
                         className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
                     >
                         Показать все события
@@ -42,7 +52,6 @@ export default function ResultsSection({ filteredItems }) {
             </div>
         );
     }
-
     return (
         <div className="mb-6 p-4">
             <div className="flex justify-between items-center mb-4">

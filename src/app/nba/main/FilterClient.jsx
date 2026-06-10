@@ -1,75 +1,78 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
-
+import { useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useSampling } from './states';
-
 import TopCoefficients from './TopCoefficients';
 import ResultsSection from './ResultsSection';
 import FilterPanel from './FilterPanel';
 
 export default function FilterClient({ preAllCoefficientStats, preTeamCoefficientStats }) {
     const router = useRouter();
-    const {
-        initialItems,
-        allCoefficientStats,
-        teamCoefficientStats,
-        initializeStore,
-        coefficient,
-        team,
-        setCoefficient
-    } = useSampling();
+    const searchParams = useSearchParams();
 
+    const { items, loading, coefficient, team, initializeStore, setCoefficient, setTeam, loadItems } = useSampling();
+
+    // Инициализация статики (один раз)
     useEffect(() => {
-        console.log('render');
         initializeStore(preAllCoefficientStats, preTeamCoefficientStats);
-    }, []);
+    }, [initializeStore, preAllCoefficientStats, preTeamCoefficientStats]);
 
-    const filteredItems = useMemo(() => {
-        const selectedNum = coefficient ? parseFloat(coefficient) : null;
+    // Синхронизация стора с URL (при загрузке и при изменении URL)
+    useEffect(() => {
+        const urlCoeff = searchParams.get('coefficient');
+        const urlTeam = searchParams.get('team');
+        if (urlCoeff && urlCoeff !== coefficient) setCoefficient(urlCoeff);
+        if (urlTeam && urlTeam !== team) setTeam(urlTeam);
+        // Если параметр отсутствует в URL, но в сторе есть — сбросить? Решайте сами.
+        // Можно также сбрасывать при отсутствии, но тогда при переходе на главную без параметров нужно очистить.
+        if (!urlCoeff && coefficient) setCoefficient(null);
+        if (!urlTeam && team) setTeam(null);
+    }, [searchParams, coefficient, team, setCoefficient, setTeam]);
 
-        return initialItems.filter((item) => {
-            if (coefficient) {
-                const hasCoeff = item.realCoefficients?.some((c) => {
-                    const num = Number(c);
-                    return !isNaN(num) && num.toFixed(2) === selectedNum.toFixed(2);
-                });
-                if (!hasCoeff) return false;
-            }
-
-            if (team && selectedNum) {
-                if (team === 'home') {
-                    const homeCoeff = Number(item.realCoefficients?.[0]);
-                    return !isNaN(homeCoeff) && homeCoeff.toFixed(2) === selectedNum.toFixed(2);
-                }
-                if (team === 'away') {
-                    const awayCoeff = Number(item.realCoefficients?.[1]);
-                    return !isNaN(awayCoeff) && awayCoeff.toFixed(2) === selectedNum.toFixed(2);
-                }
-            }
-
-            return true;
-        });
-    }, [initialItems, coefficient, team]);
+    // Загрузка матчей при изменении фильтров
+    useEffect(() => {
+        if (coefficient !== undefined) {
+            // если стор уже инициализирован (хотя бы null)
+            loadItems();
+        }
+    }, [coefficient, team, loadItems]);
 
     const handleCoeffSelect = (value) => {
-        const params = new URLSearchParams();
+        const params = new URLSearchParams(searchParams.toString());
         if (value) {
             params.set('coefficient', value);
-            setCoefficient(value);
         } else {
             params.delete('coefficient');
         }
         router.push(`/nba/main?${params.toString()}`);
+        // setCoefficient(value) уже вызовется в useEffect выше благодаря изменению URL
     };
+
+    const handleTeamSelect = (value) => {
+        const params = new URLSearchParams(searchParams.toString());
+        if (value) {
+            params.set('team', value);
+        } else {
+            params.delete('team');
+        }
+        router.push(`/nba/main?${params.toString()}`);
+    };
+
     return (
         <div className="p-4 max-w-6xl mx-auto">
             <h1 className="text-2xl font-bold mb-6 text-center">Фильтр коэффициентов NBA</h1>
 
-            <FilterPanel router={router} filteredItems={filteredItems} handleCoeffSelect={handleCoeffSelect} />
+            <FilterPanel
+                router={router}
+                filteredItems={items}
+                handleCoeffSelect={handleCoeffSelect}
+                handleTeamSelect={handleTeamSelect}
+            />
+
             <TopCoefficients handleCoeffSelect={handleCoeffSelect} />
-            <ResultsSection filteredItems={filteredItems} />
+
+            <ResultsSection filteredItems={items} loading={loading} />
         </div>
     );
 }

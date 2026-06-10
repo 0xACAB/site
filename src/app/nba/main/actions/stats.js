@@ -95,7 +95,7 @@ export async function fetchStats(props) {
     }
     const { db } = await connectToDatabase();
     //В realCoefficients всегда строки длины 4 или 5 "x.xx" или "xx.xx"
-    const findElementsArray = coefficient ? [coefficient.toFixed(2)] : [];
+    const findElementsArray = coefficient ? [coefficient] : [];
     const items = await db
         .collection('nba')
         .aggregate([

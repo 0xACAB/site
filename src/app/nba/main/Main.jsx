@@ -1,9 +1,13 @@
 import FilterClient from './FilterClient';
-import { fetchStats, fetchAllStats } from './actions/stats';
+import { fetchAllStats } from './actions/stats';
 
-export default async function Page() {
-    const props = { searchParams: { coefficient: 1.59, team: undefined } };
-    const [preAllCoefficientStats, preTeamCoefficientStats] = await fetchAllStats(props);
+export default async function Page({ searchParams }) {
+    // ← получаем searchParams из URL
+    const [preAllCoefficientStats, preTeamCoefficientStats] = await fetchAllStats();
+
+    // (опционально) можно сразу передать начальные коэффициент и команду,
+    // но они уже будут прочитаны из URL в клиентском компоненте через useSearchParams
+
     return (
         <FilterClient
             preAllCoefficientStats={preAllCoefficientStats}

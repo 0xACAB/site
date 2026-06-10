@@ -1,7 +1,7 @@
 'use client';
 import { create } from 'zustand/index';
 import { devtools } from 'zustand/middleware';
-//import { fetchStats } from './actions/stats';
+import { fetchStats } from './actions/stats';
 
 const samplingReducer = (state, action) => {
     switch (action) {
@@ -48,21 +48,17 @@ const filteringReducer = (state, action) => {
 };
 // store/index.js
 const useSampling = create()(
-    devtools((set) => ({
-        coefficient: undefined,
-        team: undefined,
+    devtools((set, get) => ({
+        // Состояния
+        coefficient: null,
+        team: null,
         items: [], // ← отфильтрованные матчи
         loading: false,
-
-        initialItems: [],
         allCoefficientStats: [],
         teamCoefficientStats: {},
-
         initialized: false,
 
-        testFilteredItems: [],
-
-        // Один метод для инициализации всеми данными сразу
+        // Инициализация статической статистики (вызывается один раз)
         initializeStore: (preAllCoefficientStats, preTeamCoefficientStats) => {
             set({
                 allCoefficientStats: preAllCoefficientStats,

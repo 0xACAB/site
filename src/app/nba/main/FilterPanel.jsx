@@ -1,25 +1,25 @@
 'use client';
 
 import { useMemo } from 'react';
-
 import { useSampling } from './states';
 import { MIN_COEFF_IN_TOP_COEFFS } from './globals';
 
-export default function FilterPanel({ router, filteredItems }) {
-    const { initialItems, allCoefficientStats, setTeam } = useSampling();
+export default function FilterPanel({ filteredItems, handleCoeffSelect, onTeamChange }) {
+    const { allCoefficientStats, coefficient, team } = useSampling();
+
+    // Общее количество записей по всем коэффициентам (для статистики)
     const totalRecords = useMemo(() => {
         return allCoefficientStats.reduce((acc, { coefficient, totalCount }) => {
             if (coefficient >= MIN_COEFF_IN_TOP_COEFFS) {
                 return acc + totalCount;
-            } else {
-                return acc;
             }
+            return acc;
         }, 0);
     }, [allCoefficientStats]);
+
+    // Уникальные коэффициенты для выпадающего списка
     const uniqueCoeffs = useMemo(() => {
         const allCoeffs = allCoefficientStats.map((item) => item.coefficient);
-
-        // Приводим к числам и фильтруем
         const numericCoeffs = allCoeffs.reduce((acc, c) => {
             if (!isNaN(c) && c >= MIN_COEFF_IN_TOP_COEFFS) {
                 acc.push(parseFloat(Number(c).toFixed(2)));
@@ -29,26 +29,14 @@ export default function FilterPanel({ router, filteredItems }) {
         return [...new Set(numericCoeffs)].sort((a, b) => a - b);
     }, [allCoefficientStats]);
 
+    // Map для быстрого доступа к статистике по коэффициенту
     const coeffMap = useMemo(
-        () =>
-            new Map(
-                allCoefficientStats?.map((stat) => {
-                    return [stat.coefficient.toFixed(2), stat];
-                })
-            ),
+        () => new Map(allCoefficientStats.map((stat) => [stat.coefficient.toFixed(2), stat])),
         [allCoefficientStats]
     );
 
-    const handleTeamChange = (e) => {
-        const params = new URLSearchParams();
-        if (e.target.value) {
-            params.set('team', e.target.value);
-            setTeam(e.target.value);
-        } else {
-            params.delete('team');
-        }
-        router.push(`/nba/main?${params.toString()}`);
-    };
+    // Есть ли активный фильтр (для подсветки)
+    const hasActiveFilter = !!(coefficient || team);
 
     return (
         <div className="p-0">
@@ -57,53 +45,52 @@ export default function FilterPanel({ router, filteredItems }) {
                 <StatBox
                     label="Показано"
                     value={filteredItems.length}
-                    highlight={filteredItems.length < initialItems.length}
+                    highlight={hasActiveFilter && filteredItems.length < totalRecords}
                 />
             </div>
-            <SamplingControl uniqueCoeffs={uniqueCoeffs} handleTeamChange={handleTeamChange} coeffMap={coeffMap} />
-        </div>
-    );
-}
 
-function SamplingControl({ uniqueCoeffs, handleTeamChange, coeffMap }) {
-    const { coefficient, team, setCoefficient } = useSampling();
-    return (
-        <div className="mt-4">
-            <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-4">
-                <div className="flex-1">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Фильтр по коэффициенту:</label>
-                    <div className="flex gap-2">
+            <div className="mt-4">
+                <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-4">
+                    {/* Фильтр по коэффициенту */}
+                    <div className="flex-1">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Фильтр по коэффициенту:</label>
                         <select
-                            value={coefficient}
-                            onChange={(e) => setCoefficient(e.target.value)}
-                            className="flex-1 p-2 border rounded-lg"
+                            value={coefficient || ''}
+                            onChange={(e) => handleCoeffSelect(e.target.value || null)}
+                            className="w-full p-2 border rounded-lg"
                         >
                             <option value="">Все кэфы выборки</option>
                             {uniqueCoeffs.map((coeff) => {
-                                const stat = coeffMap.get((Number(coeff) || 0).toFixed(2));
+                                const stat = coeffMap.get(coeff.toFixed(2));
                                 return (
                                     <option key={coeff} value={coeff}>
-                                        {(Number(coeff) || 0).toFixed(2)}
+                                        {coeff.toFixed(2)}
                                         {stat && ` (${stat.winCount}/${stat.totalCount})`}
                                     </option>
                                 );
                             })}
                         </select>
                     </div>
-                </div>
 
-                <div className="flex-1">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Для команды:</label>
-                    <select value={team} onChange={handleTeamChange} className="w-full p-2 border rounded-lg">
-                        <option value="">Любая команда</option>
-                        <option value="home">Домашняя</option>
-                        <option value="away">Гостевая</option>
-                    </select>
+                    {/* Фильтр по команде */}
+                    <div className="flex-1">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">Для команды:</label>
+                        <select
+                            value={team || ''}
+                            onChange={(e) => onTeamChange(e.target.value || null)}
+                            className="w-full p-2 border rounded-lg"
+                        >
+                            <option value="">Любая команда</option>
+                            <option value="home">Домашняя</option>
+                            <option value="away">Гостевая</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
     );
 }
+
 function StatBox({ label, value, highlight = false }) {
     return (
         <div className="text-center">
