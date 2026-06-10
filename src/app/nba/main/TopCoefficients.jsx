@@ -25,7 +25,7 @@ function CoeffButton({ stat, isSelected, onClick }) {
     );
 }
 
-export default function TopCoefficients() {
+export default function TopCoefficients({ handleCoeffSelect }) {
     const { initialized, allCoefficientStats, teamCoefficientStats, coefficient, team, setCoefficient } = useSampling();
     const topCoefficients = useMemo(() => {
         if (!initialized) return [];
@@ -71,8 +71,7 @@ export default function TopCoefficients() {
                                 coefficient && formattedStatCoeff === coefficient && (!team || stat.team === team)
                             }
                             onClick={() => {
-                                //filterSampling();
-                                setCoefficient(formattedStatCoeff);
+                                handleCoeffSelect(stat.coefficient.toString());
                             }}
                         />
                     );

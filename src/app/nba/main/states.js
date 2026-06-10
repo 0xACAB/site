@@ -51,6 +51,8 @@ const useSampling = create()(
     devtools((set) => ({
         coefficient: undefined,
         team: undefined,
+        items: [], // ← отфильтрованные матчи
+        loading: false,
 
         initialItems: [],
         allCoefficientStats: [],
@@ -69,8 +71,26 @@ const useSampling = create()(
             });
         },
 
-        setCoefficient: (coefficient) => set({ coefficient }),
+        setCoefficient: (coefficient) => {
+            set({ coefficient });
+        },
+
         setTeam: (team) => set({ team }),
+
+        // Асинхронная загрузка матчей с сервера
+        loadItems: async () => {
+            const { coefficient, team } = get();
+            set({ loading: true });
+            try {
+                // Подготовка параметров для серверного экшена
+                const params = { searchParams: { coefficient, team } };
+                const fetchedItems = await fetchStats(params);
+                set({ items: fetchedItems, loading: false });
+            } catch (error) {
+                console.error('Failed to load items:', error);
+                set({ items: [], loading: false });
+            }
+        },
 
         filterSampling: () => set((state) => samplingReducer(state, 'odd')),
         filterCoefficient: async (coefficient) =>

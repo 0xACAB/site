@@ -50,6 +50,7 @@ const LogachevBig = [
     { original: 1.57, real: 1.57, result: 'lose', betSumRUR: 1000 }, //додумал опять какую-то фигню в лайве связанную с чужим прогнозом
     { original: 2.4, real: 2.63, result: 'lose', betSumRUR: 5000 }, //поставил на прогноз клаудио тб 3.5 вместо тб 3.
     // НА ОДНИ И ТЕ ЖЕ ГРАБЛИ. ДОСТАЛ УЖЕ. НОВЫЕ НАЙДИ ГРАБЛИ СЕБЕ
-    { original: 2.05, real: 2.05, result: 'win', betSumRUR: 2100 } //поставил на прогноз клаудио, но с лучшим тоталом
+    { original: 2.05, real: 2.05, result: 'win', betSumRUR: 2100 }, //поставил на прогноз клаудио, но с лучшим тоталом
+    { original: 1.85, real: 1.85, result: 'win', betSumRUR: 500 }
 ];
 export default LogachevBig;
