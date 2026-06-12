@@ -59,9 +59,8 @@ export async function fetchAllStats() {
 
     // 2. Статистика ПО КОМАНДАМ (для topCoefficients)
     const preTeamCoefficientStats = initialItems.reduce((stats, item) => {
-        item.realCoefficients?.forEach((coeff, idx) => {
+        item.realCoefficients.forEach((coeff, idx) => {
             const normC = Number(coeff);
-            if (!normC) return;
 
             const teamType = idx === 0 ? 'home' : 'away';
             const teamKey = `${normC.toFixed(2)}_${teamType}`;
@@ -82,7 +81,7 @@ export async function fetchAllStats() {
         });
         return stats;
     }, {});
-    return [Object.values(generalCoefficientStats), preTeamCoefficientStats];
+    return [Object.values(generalCoefficientStats), preTeamCoefficientStats, initialItems.length];
 }
 
 export async function fetchStats(props) {

@@ -52,6 +52,7 @@ const useSampling = create()(
         // Состояния
         coefficient: null,
         team: null,
+        totalRecords: 0,
         items: [], // ← отфильтрованные матчи
         loading: false,
         allCoefficientStats: [],
@@ -59,10 +60,11 @@ const useSampling = create()(
         initialized: false,
 
         // Инициализация статической статистики (вызывается один раз)
-        initializeStore: (preAllCoefficientStats, preTeamCoefficientStats) => {
+        initializeStore: (preAllCoefficientStats, preTeamCoefficientStats, preTotalRecords) => {
             set({
                 allCoefficientStats: preAllCoefficientStats,
                 teamCoefficientStats: preTeamCoefficientStats,
+                totalRecords: preTotalRecords,
                 initialized: true
             });
         },

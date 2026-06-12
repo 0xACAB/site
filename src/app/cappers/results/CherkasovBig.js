@@ -70,6 +70,7 @@ const CherkasovBig = [
     { original: 1.75, real: 1.74, result: 'return', betSumRUR: 7000 },
     { original: 1.7, real: 1.76, result: 'return', betSumRUR: 7000 },
     { original: 1.8, real: 1.78, result: 'win', betSumRUR: 7000 },
-    { original: 1.89, real: 1.89, result: 'lose', betSumRUR: 0 } //Был на терапии во время публикации. у бетсити видел 1.81. Не поставил на такую фору
+    { original: 1.89, real: 1.89, result: 'lose', betSumRUR: 0 }, //Был на терапии во время публикации. у бетсити видел 1.81. Не поставил на такую фору
+    { original: 1.9, real: 1.9, result: 'win', betSumRUR: 6500 }
 ];
 export default CherkasovBig;

@@ -4,19 +4,8 @@ import { useMemo } from 'react';
 import { useSampling } from './states';
 import { MIN_COEFF_IN_TOP_COEFFS } from './globals';
 
-export default function FilterPanel({ filteredItems, handleCoeffSelect, onTeamChange }) {
-    const { allCoefficientStats, coefficient, team } = useSampling();
-
-    // Общее количество записей по всем коэффициентам (для статистики)
-    const totalRecords = useMemo(() => {
-        return allCoefficientStats.reduce((acc, { coefficient, totalCount }) => {
-            if (coefficient >= MIN_COEFF_IN_TOP_COEFFS) {
-                return acc + totalCount;
-            }
-            return acc;
-        }, 0);
-    }, [allCoefficientStats]);
-
+export default function FilterPanel({ filteredItems, handleCoeffSelect, handleTeamSelect }) {
+    const { allCoefficientStats, totalRecords, coefficient, team } = useSampling();
     // Уникальные коэффициенты для выпадающего списка
     const uniqueCoeffs = useMemo(() => {
         const allCoeffs = allCoefficientStats.map((item) => item.coefficient);
@@ -77,7 +66,7 @@ export default function FilterPanel({ filteredItems, handleCoeffSelect, onTeamCh
                         <label className="block text-sm font-medium text-gray-700 mb-2">Для команды:</label>
                         <select
                             value={team || ''}
-                            onChange={(e) => onTeamChange(e.target.value || null)}
+                            onChange={(e) => handleTeamSelect(e.target.value || null)}
                             className="w-full p-2 border rounded-lg"
                         >
                             <option value="">Любая команда</option>

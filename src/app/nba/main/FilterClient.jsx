@@ -6,8 +6,9 @@ import { useSampling } from './states';
 import TopCoefficients from './TopCoefficients';
 import ResultsSection from './ResultsSection';
 import FilterPanel from './FilterPanel';
+import { fetchAllStats } from './actions/stats';
 
-export default function FilterClient({ preAllCoefficientStats, preTeamCoefficientStats }) {
+export default function FilterClient() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -15,14 +16,26 @@ export default function FilterClient({ preAllCoefficientStats, preTeamCoefficien
 
     // Инициализация статики (один раз)
     useEffect(() => {
-        initializeStore(preAllCoefficientStats, preTeamCoefficientStats);
-    }, [initializeStore, preAllCoefficientStats, preTeamCoefficientStats]);
+        let isMounted = true;
+        async function fetchData() {
+            try {
+                initializeStore(...(await fetchAllStats()));
+                console.log('fetched pre data');
+            } catch (error) {
+                console.error('Failed to fetch stats:', error);
+            }
+        }
+        fetchData();
+        return () => {
+            isMounted = false;
+        };
+    }, [initializeStore]);
 
     // Синхронизация стора с URL (при загрузке и при изменении URL)
     useEffect(() => {
         const urlCoeff = searchParams.get('coefficient');
         const urlTeam = searchParams.get('team');
-        if (urlCoeff && urlCoeff !== coefficient) setCoefficient(urlCoeff);
+        if (urlCoeff && urlCoeff !== coefficient) setCoefficient(Number(urlCoeff).toFixed(2));
         if (urlTeam && urlTeam !== team) setTeam(urlTeam);
         // Если параметр отсутствует в URL, но в сторе есть — сбросить? Решайте сами.
         // Можно также сбрасывать при отсутствии, но тогда при переходе на главную без параметров нужно очистить.
@@ -46,7 +59,6 @@ export default function FilterClient({ preAllCoefficientStats, preTeamCoefficien
             params.delete('coefficient');
         }
         router.push(`/nba/main?${params.toString()}`);
-        // setCoefficient(value) уже вызовется в useEffect выше благодаря изменению URL
     };
 
     const handleTeamSelect = (value) => {
