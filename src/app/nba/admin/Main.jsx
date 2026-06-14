@@ -3,7 +3,10 @@
 import { useState } from 'react';
 import { checkNewEventsAction } from './actions/events';
 import EventForm from './EventForm'; // или EventFormToggle, EventFormSimple
-
+const bookmakersIds = {
+    winline: 454,
+    fonbet: 547
+};
 export default function SimplePage() {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -11,8 +14,10 @@ export default function SimplePage() {
     const handleCheck = async () => {
         setLoading(true);
         try {
-            const result = await checkNewEventsAction();
-            setEvents(result.result || []);
+            const winlinePromise = await checkNewEventsAction(bookmakersIds.winline);
+            const fonbetPromise = await checkNewEventsAction(bookmakersIds.fonbet);
+            //TODO для кефов сверх текущих доделать
+            setEvents(winlinePromise.result || []);
         } catch (error) {
             console.error(error);
         } finally {

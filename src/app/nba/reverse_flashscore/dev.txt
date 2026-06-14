@@ -1,3 +1,6 @@
+547 - fonbet - там в html искать эти айди
+454 - winline
+
 //t.data.includes('fs/fs3_sys_1')
 //Выше какой conditional breakpoint
 //надо поставить на строке e.ep(t.data) в файле который на скрине reverse0
@@ -13,6 +16,7 @@ EventOddsOverviewItem
 
 findPrematchOddsForBookmaker
 
+Эти искать по network
 https://global.ds.lsapp.eu/odds/pq_graphql?_hash=ope2&eventId=Ch7qOuff&bookmakerId=454&betType=HOME_AWAY&betScope=FULL_TIME_OVER_TIME
 
 this._utilEnviroment.getInitialFeeds()

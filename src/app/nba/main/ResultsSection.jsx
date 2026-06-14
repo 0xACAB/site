@@ -174,42 +174,57 @@ function EventCard({ item, coefficient, coefficientStats, formatWinner, getWinne
                 </div>
 
                 {/* Flashscore коэффициенты */}
-                {item.flashScoreCoefficients?.length > 0 && (
+                {item.flashScoreCoefficients && (
                     <div>
                         <div className="text-xs font-medium text-gray-400 mb-1">Flashscore:</div>
-                        <div className="flex gap-1">
-                            {item.flashScoreCoefficients?.map((coeff, idx) => {
-                                const isHome = idx === 0;
-                                const isWinner =
-                                    (item.winner === 'home' && idx === 0) || (item.winner === 'away' && idx === 1);
-                                const isSelected =
-                                    coefficient &&
-                                    coeff !== null &&
-                                    selectedNum !== null &&
-                                    (Number(coeff) || 0).toFixed(2) === (Number(selectedNum) || 0).toFixed(2);
-
+                        <div>
+                            {Object.keys(item.flashScoreCoefficients).map((bookmaker, index) => {
                                 return (
-                                    <div
-                                        key={idx}
-                                        className={`flex-1 p-1 rounded text-center text-sm ${
-                                            isSelected
-                                                ? 'bg-yellow-100 border border-yellow-300'
-                                                : 'bg-gray-100 border border-gray-200'
-                                        }`}
-                                        title={`Flashscore ${isHome ? 'Дома' : 'Гости'}: ${(Number(coeff) || 0).toFixed(
-                                            2
-                                        )}`}
-                                    >
-                                        <div className="flex items-center justify-between">
-                                            <div className="text-xs text-gray-500">{isHome ? 'Д' : 'Г'}</div>
-                                            {isWinner && <span className="text-xs text-green-600">✓</span>}
-                                        </div>
-                                        <div
-                                            className={`font-medium ${
-                                                isSelected ? 'text-yellow-700' : 'text-gray-700'
-                                            }`}
-                                        >
-                                            {(Number(coeff) || 0).toFixed(2)}
+                                    <div key={bookmaker + index}>
+                                        {`${bookmaker}:`}
+                                        <div className="flex gap-1">
+                                            {item.flashScoreCoefficients[bookmaker].map((coeff, idx) => {
+                                                const isHome = idx === 0;
+                                                const isWinner =
+                                                    (item.winner === 'home' && idx === 0) ||
+                                                    (item.winner === 'away' && idx === 1);
+                                                const isSelected =
+                                                    coefficient &&
+                                                    coeff !== null &&
+                                                    selectedNum !== null &&
+                                                    (Number(coeff) || 0).toFixed(2) ===
+                                                        (Number(selectedNum) || 0).toFixed(2);
+
+                                                return (
+                                                    <div
+                                                        key={idx}
+                                                        className={`flex-1 p-1 rounded text-center text-sm ${
+                                                            isSelected
+                                                                ? 'bg-yellow-100 border border-yellow-300'
+                                                                : 'bg-gray-100 border border-gray-200'
+                                                        }`}
+                                                        title={`Flashscore ${isHome ? 'Дома' : 'Гости'}: ${(
+                                                            Number(coeff) || 0
+                                                        ).toFixed(2)}`}
+                                                    >
+                                                        <div className="flex items-center justify-between">
+                                                            <div className="text-xs text-gray-500">
+                                                                {isHome ? 'Д' : 'Г'}
+                                                            </div>
+                                                            {isWinner && (
+                                                                <span className="text-xs text-green-600">✓</span>
+                                                            )}
+                                                        </div>
+                                                        <div
+                                                            className={`font-medium ${
+                                                                isSelected ? 'text-yellow-700' : 'text-gray-700'
+                                                            }`}
+                                                        >
+                                                            {(Number(coeff) || 0).toFixed(2)}
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })}
                                         </div>
                                     </div>
                                 );

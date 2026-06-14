@@ -1,10 +1,13 @@
 'use server';
 import { connectToDatabase } from '@/lib/mongodb';
 import lastEvents from './events_nba.json' with { type: 'json' };
-
-async function fetchFlashScoreData(eventId) {
+const bookmakersIds = {
+    winline: 454,
+    fonbet: 547
+};
+async function fetchFlashScoreData(eventId, bookmakerId) {
     try {
-        const link = `https://global.ds.lsapp.eu/odds/pq_graphql?_hash=ope2&eventId=${eventId}&bookmakerId=454&betType=HOME_AWAY&betScope=FULL_TIME_OVER_TIME`;
+        const link = `https://global.ds.lsapp.eu/odds/pq_graphql?_hash=ope2&eventId=${eventId}&bookmakerId=${bookmakerId}&betType=HOME_AWAY&betScope=FULL_TIME_OVER_TIME`;
 
         const response = await fetch(link, {
             headers: {
@@ -78,7 +81,11 @@ export async function addItemAction(eventId, homeCoeff = null, awayCoeff = null,
         const { homeWin, processedScheme } = validateAndProcessScheme(scheme);
 
         // Параллельно получаем данные из FlashScore и подключаемся к базе
-        const [flashScoreData, { db }] = await Promise.all([fetchFlashScoreData(eventId), connectToDatabase()]);
+        const [flashScoreWinLineData, flashScoreFonBetData, { db }] = await Promise.all([
+            fetchFlashScoreData(eventId, bookmakersIds.winline),
+            fetchFlashScoreData(eventId, bookmakersIds.fonbet),
+            connectToDatabase()
+        ]);
 
         const collection = db.collection('nba');
 
@@ -87,7 +94,14 @@ export async function addItemAction(eventId, homeCoeff = null, awayCoeff = null,
             winner: homeWin ? 'home' : 'away',
             scheme: processedScheme,
             eventId,
-            flashScoreCoefficients: flashScoreData.home !== null ? [flashScoreData.home, flashScoreData.away] : null,
+            flashScoreCoefficients: {
+                winline:
+                    flashScoreWinLineData.home !== null
+                        ? [flashScoreWinLineData.home, flashScoreWinLineData.away]
+                        : null,
+                fonbet:
+                    flashScoreFonBetData.home !== null ? [flashScoreFonBetData.home, flashScoreFonBetData.away] : null
+            },
             homeAwayDefined: true
         };
         if (comment) {

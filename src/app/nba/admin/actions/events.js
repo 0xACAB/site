@@ -2,7 +2,7 @@
 import { connectToDatabase } from '@/lib/mongodb';
 import lastEvents from './events_nba.json' with { type: 'json' };
 
-export async function checkNewEventsAction() {
+export async function checkNewEventsAction(bookmakerId) {
     try {
         const { db } = await connectToDatabase();
         const collection = db.collection('nba');
@@ -42,7 +42,7 @@ export async function checkNewEventsAction() {
 
         // Создаем ссылки для новых событий
         const newEventsLinks = newEvents.map((key) => {
-            return `https://global.ds.lsapp.eu/odds/pq_graphql?_hash=ope2&eventId=${key}&bookmakerId=454&betType=HOME_AWAY&betScope=FULL_TIME_OVER_TIME`;
+            return `https://global.ds.lsapp.eu/odds/pq_graphql?_hash=ope2&eventId=${key}&bookmakerId=${bookmakerId}&betType=HOME_AWAY&betScope=FULL_TIME_OVER_TIME`;
         });
 
         const final = [];
