@@ -4,7 +4,8 @@ import { VictoryChart, VictoryAxis, VictoryLine, VictoryTheme, VictoryScatter } 
 import { useState, useEffect } from 'react';
 
 export default function Graph({ data }) {
-    const [originalDataState, setOriginalData] = useState();
+    const [isMounted, setIsMounted] = useState(false);
+
     let summaryOriginal = 0;
     const dataForOriginalGraph = [
         { x: 0, y: 0 },
@@ -22,19 +23,23 @@ export default function Graph({ data }) {
             };
         })
     ];
+
     useEffect(() => {
-        setOriginalData(data.coeffs);
+        setIsMounted(true);
     }, []);
+
+    if (!isMounted) {
+        return <div style={{ width: 200, height: 200 }}>Loading...</div>;
+    }
+
     return (
-        originalDataState && (
-            <div className="flex flex-col w-full justify-between items-center">
-                <VictoryChart theme={VictoryTheme.clean}>
-                    <VictoryAxis dependentAxis />
-                    <VictoryAxis />
-                    <VictoryLine data={dataForOriginalGraph} />
-                    <VictoryScatter size={2} data={dataForOriginalGraph} />
-                </VictoryChart>
-            </div>
-        )
+        <div className="flex flex-col w-full justify-between items-center">
+            <VictoryChart theme={VictoryTheme.clean}>
+                <VictoryAxis dependentAxis />
+                <VictoryAxis />
+                <VictoryLine data={dataForOriginalGraph} />
+                <VictoryScatter size={2} data={dataForOriginalGraph} />
+            </VictoryChart>
+        </div>
     );
 }

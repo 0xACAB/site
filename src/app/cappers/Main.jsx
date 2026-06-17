@@ -1,4 +1,5 @@
-'use server';
+'use client';
+
 import './styles.css';
 //import { VictoryChart, VictoryAxis, VictoryLine, VictoryTheme, VictoryPie, VictoryScatter } from 'victory';
 //import { useState, useEffect } from 'react';
@@ -9,6 +10,7 @@ import ClaudioBig from './results/ClaudioBig';
 import OblepihaBig from './results/OblepihaBig';
 import LogachevBig from './results/LogachevBig';
 import HockeyFather from './results/HockeyFather';
+import WinClubBig from './results/WinClubBig';
 import Graph from './Graph';
 
 let summary = {
@@ -37,6 +39,10 @@ const originalData = [
     {
         name: 'Хоккейный Батя Биг',
         coeffs: HockeyFather
+    },
+    {
+        name: 'WinClub углы/жк и Биг',
+        coeffs: WinClubBig
     },
     {
         name: 'Михаил Логачёв Биги',
@@ -120,7 +126,7 @@ const originalData = [
     return data;
 });
 
-export default async function Main() {
+export default function Main() {
     /*const [originalDataState, setOriginalData] = useState();
     useEffect(() => {
         setOriginalData(() => {
@@ -128,7 +134,7 @@ export default async function Main() {
         });
     }, []); /!*${originalData.length + 1 + ``}*!/*/
     //${originalData.length + 1} не работает, так как tailwind глючное говно так не умеет
-    const className = `grid grid-cols-7 w-full gap-4`;
+    const className = `grid grid-cols-8 w-full gap-4`;
     return (
         /*originalDataState && */ <div className="flex flex-col w-full justify-between items-center">
             <header className="flex flex-col w-full items-center">Стата по капперам</header>
@@ -136,139 +142,138 @@ export default async function Main() {
             <main className="flex flex-col w-full items-center">
                 <article className="flex flex-col items-center">
                     <div className={className}>
-                        {[
-                            <div key={'chanel'} className="flex flex-col items-center justify-self-center self-center">
-                                <div>Канал:</div>
-                            </div>,
-                            ...originalData.map((data) => (
-                                <div
-                                    key={data.name}
-                                    className="flex flex-col items-center justify-self-center self-center"
-                                >
-                                    <div>{data.name}</div>
-                                </div>
-                            ))
-                        ]}
-                        {[
-                            <div key={'value'} className="flex flex-col items-center justify-self-center self-center">
-                                <div>Средний оригинальный кеф:</div>
-                            </div>,
-                            ...originalData.map((data) => (
-                                <div
-                                    key={data.name}
-                                    className="flex flex-col items-center justify-self-center self-center"
-                                >
-                                    {(
-                                        data.coeffs.reduce((acc, cur) => {
-                                            return acc + cur.original;
-                                        }, 0) / data.coeffs.length
-                                    ).toFixed(2)}
-                                </div>
-                            ))
-                        ]}
-                        {[
-                            <div key={'value'} className="flex flex-row justify-self-stretch self-center">
-                                <div className="w-1/2 flex flex-col place-items-center">Максимальная просадка:</div>
-                                <div className="w-1/2 flex flex-col place-items-center justify-self-center self-center">
-                                    <div className="text-xs">Оригинальная:</div>
-                                    <div className="text-xs">Реальная:</div>
-                                </div>
-                            </div>,
-                            ...originalData.map((data) => (
-                                <div
-                                    key={data.name}
-                                    className="flex flex-col items-center justify-self-center self-center"
-                                >
-                                    <div>{data.maxdrawdown.original.toFixed(2)}</div>
-                                    <div>{data.maxdrawdown.real.toFixed(2)}</div>
-                                </div>
-                            ))
-                        ]}
-                        {[
-                            <div key={'value'} className="flex flex-row justify-self-stretch self-center">
-                                <div className="w-1/2 flex flex-col place-items-center">Результат:</div>
-                                <div className="w-1/2 flex flex-col place-items-center justify-self-center self-center">
-                                    <div className="text-xs">Оригинальный:</div>
-                                    <div className="text-xs">Реальный:</div>
-                                </div>
-                            </div>,
-                            ...originalData.map((data) => (
-                                <div
-                                    key={data.name}
-                                    className="flex flex-col items-center justify-self-center self-center"
-                                >
-                                    <div>{data.result.original.toFixed(2)}</div>
-                                    <div>{data.result.real.toFixed(2)}</div>
-                                </div>
-                            ))
-                        ]}
-                        {[
-                            <div key={'value'} className="flex flex-col items-center justify-self-center self-center">
-                                <div>Всего ставок:</div>
-                            </div>,
-                            ...originalData.map((data) => (
-                                <div
-                                    key={data.name}
-                                    className="flex flex-col items-center justify-self-center self-center"
-                                >
-                                    {data.coeffs.length}
-                                </div>
-                            ))
-                        ]}
-                        {[
-                            <div key={'value'} className="flex flex-col items-center justify-self-center self-center">
-                                <div>Результат в рублях:</div>
-                            </div>,
-                            ...originalData.map((data) => (
-                                <div
-                                    key={data.name}
-                                    className="flex flex-col items-center justify-self-center self-center"
-                                >
-                                    {data.result.realWinRUR.toFixed(2)}
-                                </div>
-                            ))
-                        ]}
-                        {[
-                            <div key={'value'} className="flex flex-row justify-self-stretch self-center">
-                                <div className="w-1/2 flex flex-col place-items-center">% ROI:</div>
-                                <div className="w-1/2 flex flex-col place-items-center">
-                                    <div className="text-xs">Оригинальный:</div>
-                                    <div className="text-xs">Реальный:</div>
-                                </div>
-                            </div>,
-                            ...originalData.map((data) => (
-                                <div
-                                    key={data.name}
-                                    className="flex flex-col items-center justify-self-center self-center"
-                                >
-                                    <div>{data.result.originalROI.toFixed(2)}</div>
-                                    <div>{data.result.realROI.toFixed(2)}</div>
-                                </div>
-                            ))
-                        ]}
-                        {[
-                            <div key={'value'} className="flex flex-col items-center justify-self-center self-center">
-                                <div>% ROI в рублях:</div>
-                            </div>,
-                            ...originalData.map((data) => (
-                                <div
-                                    key={data.name}
-                                    className="flex flex-col items-center justify-self-center self-center"
-                                >
-                                    {data.result.ROI.toFixed(2)}
-                                </div>
-                            ))
-                        ]}
-                        {[
-                            <div key={'value'} className="flex flex-col items-center justify-self-center self-center">
-                                <div>График:</div>
-                            </div>,
-                            ...originalData.map((data) => (
-                                <div key={data.name}>
-                                    <Graph data={data} />
-                                </div>
-                            ))
-                        ]}
+                        <div key="chanel-header" className="flex flex-col items-center justify-self-center self-center">
+                            <div>Канал:</div>
+                        </div>
+                        {originalData.map((data) => (
+                            <div key={data.name} className="flex flex-col items-center justify-self-center self-center">
+                                <div>{data.name}</div>
+                            </div>
+                        ))}
+
+                        <div
+                            key="avg-keff-header"
+                            className="flex flex-col items-center justify-self-center self-center"
+                        >
+                            <div>Средний оригинальный кеф:</div>
+                        </div>
+                        {originalData.map((data) => (
+                            <div
+                                key={data.name + '-avg'}
+                                className="flex flex-col items-center justify-self-center self-center"
+                            >
+                                {(
+                                    data.coeffs.reduce((acc, cur) => {
+                                        return acc + cur.original;
+                                    }, 0) / data.coeffs.length
+                                ).toFixed(2)}
+                            </div>
+                        ))}
+
+                        <div key="maxdrawdown-header" className="flex flex-row justify-self-stretch self-center">
+                            <div className="w-1/2 flex flex-col place-items-center">Максимальная просадка:</div>
+                            <div className="w-1/2 flex flex-col place-items-center justify-self-center self-center">
+                                <div className="text-xs">Оригинальная:</div>
+                                <div className="text-xs">Реальная:</div>
+                            </div>
+                        </div>
+                        {originalData.map((data) => (
+                            <div
+                                key={data.name + '-maxdrawdown'}
+                                className="flex flex-col items-center justify-self-center self-center"
+                            >
+                                <div>{data.maxdrawdown.original.toFixed(2)}</div>
+                                <div>{data.maxdrawdown.real.toFixed(2)}</div>
+                            </div>
+                        ))}
+
+                        <div key="result-header" className="flex flex-row justify-self-stretch self-center">
+                            <div className="w-1/2 flex flex-col place-items-center">Результат:</div>
+                            <div className="w-1/2 flex flex-col place-items-center justify-self-center self-center">
+                                <div className="text-xs">Оригинальный:</div>
+                                <div className="text-xs">Реальный:</div>
+                            </div>
+                        </div>
+                        {originalData.map((data) => (
+                            <div
+                                key={data.name + '-result'}
+                                className="flex flex-col items-center justify-self-center self-center"
+                            >
+                                <div>{data.result.original.toFixed(2)}</div>
+                                <div>{data.result.real.toFixed(2)}</div>
+                            </div>
+                        ))}
+
+                        <div
+                            key="total-bets-header"
+                            className="flex flex-col items-center justify-self-center self-center"
+                        >
+                            <div>Всего ставок:</div>
+                        </div>
+                        {originalData.map((data) => (
+                            <div
+                                key={data.name + '-total'}
+                                className="flex flex-col items-center justify-self-center self-center"
+                            >
+                                {data.coeffs.length}
+                            </div>
+                        ))}
+
+                        <div
+                            key="money-result-header"
+                            className="flex flex-col items-center justify-self-center self-center"
+                        >
+                            <div>Результат в рублях:</div>
+                        </div>
+                        {originalData.map((data) => (
+                            <div
+                                key={data.name + '-money'}
+                                className="flex flex-col items-center justify-self-center self-center"
+                            >
+                                {data.result.realWinRUR.toFixed(2)}
+                            </div>
+                        ))}
+
+                        <div key="roi-header" className="flex flex-row justify-self-stretch self-center">
+                            <div className="w-1/2 flex flex-col place-items-center">% ROI:</div>
+                            <div className="w-1/2 flex flex-col place-items-center">
+                                <div className="text-xs">Оригинальный:</div>
+                                <div className="text-xs">Реальный:</div>
+                            </div>
+                        </div>
+                        {originalData.map((data) => (
+                            <div
+                                key={data.name + '-roi'}
+                                className="flex flex-col items-center justify-self-center self-center"
+                            >
+                                <div>{data.result.originalROI.toFixed(2)}</div>
+                                <div>{data.result.realROI.toFixed(2)}</div>
+                            </div>
+                        ))}
+
+                        <div
+                            key="roi-money-header"
+                            className="flex flex-col items-center justify-self-center self-center"
+                        >
+                            <div>% ROI в рублях:</div>
+                        </div>
+                        {originalData.map((data) => (
+                            <div
+                                key={data.name + '-roi-money'}
+                                className="flex flex-col items-center justify-self-center self-center"
+                            >
+                                {data.result.ROI.toFixed(2)}
+                            </div>
+                        ))}
+
+                        <div key="graph-header" className="flex flex-col items-center justify-self-center self-center">
+                            <div>График:</div>
+                        </div>
+                        {originalData.map((data) => (
+                            <div key={data.name + '-graph'}>
+                                <Graph data={data} />
+                            </div>
+                        ))}
                     </div>
 
                     <div>

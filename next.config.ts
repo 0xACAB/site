@@ -1,8 +1,8 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-    reactStrictMode: false,
     allowedDevOrigins: ['xtranscendence.ru', 'localhost:3000', 'localhost:80', 'localhost', '192.168.1.*'],
+    reactStrictMode: false,
     experimental: {
         serverActions: {
             allowedOrigins: [

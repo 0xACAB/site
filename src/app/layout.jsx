@@ -8,8 +8,9 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
+    //suppressHydrationWarning for fix hydratation error in iOS chrome
     return (
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
             <body>
                 {/*<Suspense>
                     <YandexMetrika />
