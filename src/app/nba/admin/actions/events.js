@@ -2,7 +2,11 @@
 import { connectToDatabase } from '@/lib/mongodb';
 import lastEvents from './events_nba.json' with { type: 'json' };
 
-export async function checkNewEventsAction(bookmakerId) {
+const bookmakersIds = {
+    winline: 454,
+    fonbet: 547
+};
+export async function checkNewEventsAction() {
     try {
         const { db } = await connectToDatabase();
         const collection = db.collection('nba');
@@ -42,7 +46,10 @@ export async function checkNewEventsAction(bookmakerId) {
 
         // Создаем ссылки для новых событий
         const newEventsLinks = newEvents.map((key) => {
-            return `https://global.ds.lsapp.eu/odds/pq_graphql?_hash=ope2&eventId=${key}&bookmakerId=${bookmakerId}&betType=HOME_AWAY&betScope=FULL_TIME_OVER_TIME`;
+            return Object.keys(bookmakersIds).map(
+                (bookmakerId) =>
+                    `https://global.ds.lsapp.eu/odds/pq_graphql?_hash=ope2&eventId=${key}&bookmakerId=${bookmakersIds[bookmakerId]}&betType=HOME_AWAY&betScope=FULL_TIME_OVER_TIME`
+            );
         });
 
         const final = [];
@@ -54,38 +61,44 @@ export async function checkNewEventsAction(bookmakerId) {
             const batch = newEventsLinks.slice(i, i + BATCH_SIZE);
             const batchEvents = newEvents.slice(i, i + BATCH_SIZE);
 
-            const batchPromises = batch.map(async (link, batchIndex) => {
+            const batchPromises = batch.map(async (links, batchIndex) => {
                 try {
                     const controller = new AbortController();
                     const timeout = setTimeout(() => controller.abort(), 10000); // 10 секунд таймаут
 
-                    const response = await fetch(link, {
-                        signal: controller.signal,
-                        headers: {
-                            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-                        }
-                    });
-
+                    const responses = await Promise.all(
+                        links.map(async (url, index) => {
+                            const resp = await fetch(url, {
+                                signal: controller.signal,
+                                headers: {
+                                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+                                }
+                            });
+                            return { response: resp, bookmaker: Object.keys(bookmakersIds)[index] };
+                        })
+                    );
                     clearTimeout(timeout);
+                    return await Promise.all(
+                        responses.map(async ({ response, bookmaker }) => {
+                            if (!response.ok) {
+                                console.warn(`HTTP error ${response.status} для события ${batchEvents[batchIndex]}`);
+                                return {
+                                    eventId: batchEvents[batchIndex],
+                                    data: null,
+                                    bookmaker,
+                                    error: `HTTP ${response.status}`
+                                };
+                            }
 
-                    if (!response.ok) {
-                        console.warn(`HTTP error ${response.status} для события ${batchEvents[batchIndex]}`);
-                        return {
-                            eventId: batchEvents[batchIndex],
-                            data: null,
-                            error: `HTTP ${response.status}`
-                        };
-                    } else {
-                        console.log(link);
-                        console.log(response.status);
-                    }
-
-                    const data = await response.json();
-                    return {
-                        eventId: batchEvents[batchIndex],
-                        data,
-                        error: null
-                    };
+                            const data = await response.json();
+                            return {
+                                eventId: batchEvents[batchIndex],
+                                data,
+                                bookmaker,
+                                error: null
+                            };
+                        })
+                    );
                 } catch (error) {
                     console.warn(`Ошибка при получении события ${batchEvents[batchIndex]}:`, error.message);
                     return {

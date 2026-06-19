@@ -2,11 +2,7 @@
 //ХОЧЕШЬ МАСШТАБНО ПОПРАВИТЬ ЧТО-ТО В БАЗЕ - СНАЧАЛА БЭКАПНИ!
 import { useState } from 'react';
 import { checkNewEventsAction } from './actions/events';
-import EventForm from './EventForm'; // или EventFormToggle, EventFormSimple
-const bookmakersIds = {
-    winline: 454,
-    fonbet: 547
-};
+import EventFormToggle from './EventForm';
 export default function SimplePage() {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -14,10 +10,8 @@ export default function SimplePage() {
     const handleCheck = async () => {
         setLoading(true);
         try {
-            const winlinePromise = await checkNewEventsAction(bookmakersIds.winline);
-            const fonbetPromise = await checkNewEventsAction(bookmakersIds.fonbet);
-            //TODO для кефов сверх текущих доделать
-            setEvents(winlinePromise.result || []);
+            const newEventsDifferentBookmakers = await checkNewEventsAction();
+            setEvents(newEventsDifferentBookmakers.result || []);
         } catch (error) {
             console.error(error);
         } finally {
@@ -41,19 +35,37 @@ export default function SimplePage() {
 
             {events.length > 0 && (
                 <div className="space-y-4">
-                    {events.map((event) => (
-                        <div key={event.eventId} className="p-4 border rounded-lg">
-                            <div className="mb-4">
-                                <h3 className="font-bold">ID: {event.eventId}</h3>
-                                <p className="text-sm text-gray-600">
-                                    Текущие кэфы: {event.data?.data?.findPrematchOddsForBookmaker?.home?.value || 'N/A'}{' '}
-                                    | {event.data?.data?.findPrematchOddsForBookmaker?.away?.value || 'N/A'}
-                                </p>
-                            </div>
+                    {events.map((eventsForBooks) => {
+                        /*return eventsForBooks.map((event) => {
 
-                            <EventForm event={event} onSuccess={handleEventAdded} />
-                        </div>
-                    ))}
+                        });*/
+                        return (
+                            <div key={eventsForBooks[0].eventId} className="p-4 border rounded-lg">
+                                <div className="mb-4">
+                                    <h3 className="font-bold">ID: {eventsForBooks[0].eventId}</h3>
+                                    <div className="text-sm text-gray-600">
+                                        Текущие кэфы:{' '}
+                                        {eventsForBooks.map((eventForBook) => {
+                                            return (
+                                                <div key={eventForBook.bookmaker}>
+                                                    <div>{eventForBook.bookmaker}</div>
+                                                    <div>
+                                                        {(eventForBook.data?.data?.findPrematchOddsForBookmaker?.home
+                                                            ?.value || 'N/A') +
+                                                            ' | ' +
+                                                            (eventForBook.data?.data?.findPrematchOddsForBookmaker?.away
+                                                                ?.value || 'N/A')}
+                                                    </div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+
+                                <EventFormToggle event={eventsForBooks[0]} onSuccess={handleEventAdded} />
+                            </div>
+                        );
+                    })}
                 </div>
             )}
         </div>
