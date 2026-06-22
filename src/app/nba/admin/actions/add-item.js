@@ -63,7 +63,8 @@ function validateAndProcessScheme(scheme) {
     };
 }
 
-export async function addItemAction(eventId, homeCoeff = null, awayCoeff = null, comment) {
+export async function addItemAction(events, homeCoeff = null, awayCoeff = null, comment) {
+    const eventId = events[0].eventId;
     try {
         // Валидация входных данных
         if (!eventId || typeof eventId !== 'string') {

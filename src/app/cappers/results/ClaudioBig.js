@@ -19,7 +19,8 @@ const ClaudioBig = [
     { original: 2.05, real: 1.68, result: 'lose', betSumRUR: 5000 },
     { original: 1.95, real: 1.95, result: 'win', betSumRUR: 5000 },
     { original: 2.75, real: 2.78, result: 'win', betSumRUR: 5020 },
-    { original: 1.39, real: 1.39, result: 'lose', betSumRUR: 13300 }
+    { original: 1.39, real: 1.39, result: 'lose', betSumRUR: 13300 },
     //МАТЧ СВЕРХУ: Слишком поверил в клаудио пошел добирать почти на 3 флета(
+    { original: 1.7, real: 1.65, result: 'lose', betSumRUR: 5000 }
 ];
 export default ClaudioBig;

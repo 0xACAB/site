@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { addItemAction } from './actions/add-item';
 
-export default function EventFormToggle({ event, onSuccess }) {
+export default function EventFormToggle({ events, onSuccess }) {
     const [mode, setMode] = useState('withCoeff'); // 'withCoeff' или 'withoutCoeff'
     const [homeCoeff, setHomeCoeff] = useState('');
     const [awayCoeff, setAwayCoeff] = useState('');
@@ -16,7 +16,7 @@ export default function EventFormToggle({ event, onSuccess }) {
         setLoading(true);
         try {
             const result = await addItemAction(
-                event.eventId,
+                events,
                 mode === 'withCoeff' ? homeCoeff : null,
                 mode === 'withCoeff' ? awayCoeff : null,
                 comment !== '' ? comment : undefined
@@ -24,7 +24,8 @@ export default function EventFormToggle({ event, onSuccess }) {
 
             if (result.success) {
                 alert(`✅ ${result.message || 'Событие успешно обработано'}`);
-                if (onSuccess) onSuccess(event.eventId);
+                console.log(events[0].eventId);
+                if (onSuccess) onSuccess(events[0].eventId);
             } else {
                 alert(`❌ Ошибка: ${result.error}`);
             }

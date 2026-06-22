@@ -20,7 +20,7 @@ export default function SimplePage() {
     };
 
     const handleEventAdded = (eventId) => {
-        setEvents((prev) => prev.filter((event) => event.eventId !== eventId));
+        setEvents((prev) => prev.filter((booksArray) => booksArray.some((elm) => elm.eventId !== eventId)));
     };
 
     return (
@@ -36,9 +36,6 @@ export default function SimplePage() {
             {events.length > 0 && (
                 <div className="space-y-4">
                     {events.map((eventsForBooks) => {
-                        /*return eventsForBooks.map((event) => {
-
-                        });*/
                         return (
                             <div key={eventsForBooks[0].eventId} className="p-4 border rounded-lg">
                                 <div className="mb-4">
@@ -62,7 +59,7 @@ export default function SimplePage() {
                                     </div>
                                 </div>
 
-                                <EventFormToggle event={eventsForBooks[0]} onSuccess={handleEventAdded} />
+                                <EventFormToggle events={eventsForBooks} onSuccess={handleEventAdded} />
                             </div>
                         );
                     })}
