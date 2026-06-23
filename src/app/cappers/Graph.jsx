@@ -3,29 +3,14 @@ import './styles.css';
 import { VictoryChart, VictoryAxis, VictoryLine, VictoryTheme, VictoryScatter } from 'victory';
 import { useState, useEffect } from 'react';
 
-export default function Graph({ data }) {
+export default function Graph({ dataForOriginalGraph }) {
     const [isMounted, setIsMounted] = useState(false);
-
-    let summaryOriginal = 0;
-    const dataForOriginalGraph = [
-        { x: 0, y: 0 },
-        ...data.coeffs.map(({ original, real, result }, index) => {
-            if (result === 'lose') {
-                summaryOriginal -= 1;
-            } else if (result === 'win') {
-                summaryOriginal += original - 1;
-            } else if (result === 'return') {
-                summaryOriginal += 0;
-            }
-            return {
-                x: index + 1,
-                y: summaryOriginal
-            };
-        })
-    ];
 
     useEffect(() => {
         setIsMounted(true);
+        return () => {
+            setIsMounted(false);
+        };
     }, []);
 
     if (!isMounted) {

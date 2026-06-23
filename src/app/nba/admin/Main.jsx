@@ -20,7 +20,13 @@ export default function SimplePage() {
     };
 
     const handleEventAdded = (eventId) => {
-        setEvents((prev) => prev.filter((booksArray) => booksArray.some((elm) => elm.eventId !== eventId)));
+        setEvents((prev) => {
+            return prev.filter((booksObject) => {
+                return Object.keys(booksObject).some((bookmaker) => {
+                    return booksObject[bookmaker].eventId !== eventId;
+                });
+            });
+        });
     };
 
     return (
@@ -37,21 +43,21 @@ export default function SimplePage() {
                 <div className="space-y-4">
                     {events.map((eventsForBooks) => {
                         return (
-                            <div key={eventsForBooks[0].eventId} className="p-4 border rounded-lg">
+                            <div key={eventsForBooks.winline.eventId} className="p-4 border rounded-lg">
                                 <div className="mb-4">
-                                    <h3 className="font-bold">ID: {eventsForBooks[0].eventId}</h3>
+                                    <h3 className="font-bold">ID: {eventsForBooks.winline.eventId}</h3>
                                     <div className="text-sm text-gray-600">
                                         Текущие кэфы:{' '}
-                                        {eventsForBooks.map((eventForBook) => {
+                                        {Object.keys(eventsForBooks).map((bookmaker) => {
                                             return (
-                                                <div key={eventForBook.bookmaker}>
-                                                    <div>{eventForBook.bookmaker}</div>
+                                                <div key={bookmaker}>
+                                                    <div>{bookmaker}</div>
                                                     <div>
-                                                        {(eventForBook.data?.data?.findPrematchOddsForBookmaker?.home
-                                                            ?.value || 'N/A') +
+                                                        {(eventsForBooks[bookmaker].data?.data
+                                                            ?.findPrematchOddsForBookmaker?.home?.value || 'N/A') +
                                                             ' | ' +
-                                                            (eventForBook.data?.data?.findPrematchOddsForBookmaker?.away
-                                                                ?.value || 'N/A')}
+                                                            (eventsForBooks[bookmaker].data?.data
+                                                                ?.findPrematchOddsForBookmaker?.away?.value || 'N/A')}
                                                     </div>
                                                 </div>
                                             );

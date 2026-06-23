@@ -78,27 +78,34 @@ export async function checkNewEventsAction() {
                         })
                     );
                     clearTimeout(timeout);
-                    return await Promise.all(
-                        responses.map(async ({ response, bookmaker }) => {
-                            if (!response.ok) {
-                                console.warn(`HTTP error ${response.status} для события ${batchEvents[batchIndex]}`);
+                    return (
+                        await Promise.all(
+                            responses.map(async ({ response, bookmaker }) => {
+                                if (!response.ok) {
+                                    console.warn(
+                                        `HTTP error ${response.status} для события ${batchEvents[batchIndex]}`
+                                    );
+                                    return {
+                                        eventId: batchEvents[batchIndex],
+                                        data: null,
+                                        bookmaker,
+                                        error: `HTTP ${response.status}`
+                                    };
+                                }
+
+                                const data = await response.json();
                                 return {
                                     eventId: batchEvents[batchIndex],
-                                    data: null,
+                                    data,
                                     bookmaker,
-                                    error: `HTTP ${response.status}`
+                                    error: null
                                 };
-                            }
-
-                            const data = await response.json();
-                            return {
-                                eventId: batchEvents[batchIndex],
-                                data,
-                                bookmaker,
-                                error: null
-                            };
-                        })
-                    );
+                            })
+                        )
+                    ).reduce((acc, result) => {
+                        acc[result.bookmaker] = result;
+                        return acc;
+                    }, {});
                 } catch (error) {
                     console.warn(`Ошибка при получении события ${batchEvents[batchIndex]}:`, error.message);
                     return {

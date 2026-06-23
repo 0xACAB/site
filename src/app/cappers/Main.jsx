@@ -269,11 +269,31 @@ export default function Main() {
                         <div key="graph-header" className="flex flex-col items-center justify-self-center self-center">
                             <div>График:</div>
                         </div>
-                        {originalData.map((data) => (
-                            <div key={data.name + '-graph'}>
-                                <Graph data={data} />
-                            </div>
-                        ))}
+                        {originalData.map((data) => {
+                            let summaryOriginal = 0;
+                            const dataForOriginalGraph = [
+                                { x: 0, y: 0 },
+                                ...data.coeffs.map(({ original, real, result }, index) => {
+                                    if (result === 'lose') {
+                                        summaryOriginal -= 1;
+                                    } else if (result === 'win') {
+                                        summaryOriginal += original - 1;
+                                    } else if (result === 'return') {
+                                        summaryOriginal += 0;
+                                    }
+                                    return {
+                                        x: index + 1,
+                                        y: summaryOriginal
+                                    };
+                                })
+                            ];
+
+                            return (
+                                <div key={data.name + '-graph'}>
+                                    <Graph dataForOriginalGraph={dataForOriginalGraph} />
+                                </div>
+                            );
+                        })}
                     </div>
 
                     <div>

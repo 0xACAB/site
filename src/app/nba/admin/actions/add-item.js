@@ -1,34 +1,6 @@
 'use server';
 import { connectToDatabase } from '@/lib/mongodb';
 import lastEvents from './events_nba.json' with { type: 'json' };
-const bookmakersIds = {
-    winline: 454,
-    fonbet: 547
-};
-async function fetchFlashScoreData(eventId, bookmakerId) {
-    try {
-        const link = `https://global.ds.lsapp.eu/odds/pq_graphql?_hash=ope2&eventId=${eventId}&bookmakerId=${bookmakerId}&betType=HOME_AWAY&betScope=FULL_TIME_OVER_TIME`;
-
-        const response = await fetch(link, {
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        return {
-            home: data.data.findPrematchOddsForBookmaker.home.value,
-            away: data.data.findPrematchOddsForBookmaker.away.value
-        };
-    } catch (error) {
-        console.warn(`⚠️ Не удалось получить данные FlashScore для ${eventId}:`, error.message);
-        return { home: null, away: null };
-    }
-}
 
 function validateAndProcessScheme(scheme) {
     if (!scheme || typeof scheme !== 'object') {
@@ -64,7 +36,7 @@ function validateAndProcessScheme(scheme) {
 }
 
 export async function addItemAction(events, homeCoeff = null, awayCoeff = null, comment) {
-    const eventId = events[0].eventId;
+    const eventId = events.winline.eventId;
     try {
         // Валидация входных данных
         if (!eventId || typeof eventId !== 'string') {
@@ -82,12 +54,15 @@ export async function addItemAction(events, homeCoeff = null, awayCoeff = null, 
         const { homeWin, processedScheme } = validateAndProcessScheme(scheme);
 
         // Параллельно получаем данные из FlashScore и подключаемся к базе
-        const [flashScoreWinLineData, flashScoreFonBetData, { db }] = await Promise.all([
-            fetchFlashScoreData(eventId, bookmakersIds.winline),
-            fetchFlashScoreData(eventId, bookmakersIds.fonbet),
-            connectToDatabase()
-        ]);
-
+        const { db } = connectToDatabase();
+        const flashScoreWinLineData = {
+            home: events.winline.data.data.findPrematchOddsForBookmaker.home.value,
+            away: events.winline.data.data.findPrematchOddsForBookmaker.away.value
+        };
+        const flashScoreFonBetData = {
+            home: events.fonbet.data.data.findPrematchOddsForBookmaker.home.value,
+            away: events.fonbet.data.data.findPrematchOddsForBookmaker.away.value
+        };
         const collection = db.collection('nba');
 
         // Подготавливаем данные для обновления

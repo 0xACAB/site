@@ -24,8 +24,8 @@ export default function EventFormToggle({ events, onSuccess }) {
 
             if (result.success) {
                 alert(`✅ ${result.message || 'Событие успешно обработано'}`);
-                console.log(events[0].eventId);
-                if (onSuccess) onSuccess(events[0].eventId);
+                console.log(events.winline.eventId);
+                if (onSuccess) onSuccess(events.winline.eventId);
             } else {
                 alert(`❌ Ошибка: ${result.error}`);
             }
