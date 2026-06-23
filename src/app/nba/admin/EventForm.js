@@ -9,7 +9,6 @@ export default function EventFormToggle({ events, onSuccess }) {
     const [awayCoeff, setAwayCoeff] = useState('');
     const [comment, setComment] = useState('');
     const [loading, setLoading] = useState(false);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 

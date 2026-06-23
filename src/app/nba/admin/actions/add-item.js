@@ -1,7 +1,6 @@
 'use server';
 import { connectToDatabase } from '@/lib/mongodb';
 import lastEvents from './events_nba.json' with { type: 'json' };
-
 function validateAndProcessScheme(scheme) {
     if (!scheme || typeof scheme !== 'object') {
         throw new Error('Scheme must be an object');
@@ -54,7 +53,7 @@ export async function addItemAction(events, homeCoeff = null, awayCoeff = null, 
         const { homeWin, processedScheme } = validateAndProcessScheme(scheme);
 
         // Параллельно получаем данные из FlashScore и подключаемся к базе
-        const { db } = connectToDatabase();
+        const [{ db }] = await Promise.all([connectToDatabase()]);
         const flashScoreWinLineData = {
             home: events.winline.data.data.findPrematchOddsForBookmaker.home.value,
             away: events.winline.data.data.findPrematchOddsForBookmaker.away.value

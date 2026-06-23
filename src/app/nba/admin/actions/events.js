@@ -45,14 +45,14 @@ export async function checkNewEventsAction() {
         }
 
         // Создаем ссылки для новых событий
-        const newEventsLinks = newEvents.map((key) => {
+        const newEventsLinks = newEvents.map((eventId) => {
             return Object.keys(bookmakersIds).map(
                 (bookmakerId) =>
-                    `https://global.ds.lsapp.eu/odds/pq_graphql?_hash=ope2&eventId=${key}&bookmakerId=${bookmakersIds[bookmakerId]}&betType=HOME_AWAY&betScope=FULL_TIME_OVER_TIME`
+                    `https://global.ds.lsapp.eu/odds/pq_graphql?_hash=ope2&eventId=${eventId}&bookmakerId=${bookmakersIds[bookmakerId]}&betType=HOME_AWAY&betScope=FULL_TIME_OVER_TIME`
             );
         });
 
-        const final = [];
+        const final = {};
 
         // Используем Promise.all для параллельных запросов с ограничением
         const BATCH_SIZE = 5; // Ограничиваем количество одновременных запросов
@@ -94,12 +94,18 @@ export async function checkNewEventsAction() {
                                 }
 
                                 const data = await response.json();
-                                return {
+                                const result = {
                                     eventId: batchEvents[batchIndex],
                                     data,
                                     bookmaker,
                                     error: null
                                 };
+                                if (final[batchEvents[batchIndex]]) {
+                                    final[batchEvents[batchIndex]][bookmaker] = result;
+                                } else {
+                                    final[batchEvents[batchIndex]] = { [bookmaker]: result };
+                                }
+                                return result;
                             })
                         )
                     ).reduce((acc, result) => {
@@ -116,9 +122,8 @@ export async function checkNewEventsAction() {
                 }
             });
 
-            const batchResults = await Promise.all(batchPromises);
-            final.push(...batchResults);
-
+            await Promise.all(batchPromises);
+            console.log(final);
             // Небольшая пауза между батчами чтобы не перегружать API
             if (i + BATCH_SIZE < newEventsLinks.length) {
                 await new Promise((resolve) => setTimeout(resolve, 500));
@@ -126,23 +131,34 @@ export async function checkNewEventsAction() {
         }
 
         // Фильтруем успешные результаты
-        const successfulResults = final.filter((item) => item.data !== null);
-        const failedResults = final.filter((item) => item.data === null);
-
+        const failedResults = [];
+        const objectResults = Object.keys(final).reduce((acc, eventId) => {
+            if (
+                Object.keys(bookmakersIds).every((bookId) => {
+                    return final[eventId][bookId].data !== null;
+                })
+            ) {
+                acc[eventId] = final[eventId];
+            } else {
+                failedResults.push(final[eventId]);
+            }
+            return acc;
+        }, {});
+        const successfulResultsCount = Object.keys(objectResults).length;
         return {
             success: true,
-            result: successfulResults,
+            result: final,
             failed: failedResults,
             stats: {
                 totalInJson: eventsKeys.length,
                 alreadyInDb: existingEvents.length,
                 newFound: newEvents.length,
-                successfullyFetched: successfulResults.length,
+                successfullyFetched: successfulResultsCount,
                 failedToFetch: failedResults.length
             },
             message:
-                successfulResults.length > 0
-                    ? `Найдено ${successfulResults.length} новых событий`
+                successfulResultsCount > 0
+                    ? `Найдено ${successfulResultsCount} новых событий`
                     : `Найдено ${newEvents.length} новых событий, но не удалось получить данные`
         };
     } catch (error) {

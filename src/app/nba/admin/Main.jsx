@@ -21,11 +21,12 @@ export default function SimplePage() {
 
     const handleEventAdded = (eventId) => {
         setEvents((prev) => {
-            return prev.filter((booksObject) => {
-                return Object.keys(booksObject).some((bookmaker) => {
-                    return booksObject[bookmaker].eventId !== eventId;
-                });
-            });
+            return Object.keys(prev).reduce((acc, prevEventId) => {
+                if (prevEventId !== eventId) {
+                    acc[prevEventId] = prev[prevEventId];
+                }
+                return acc;
+            }, {});
         });
     };
 
@@ -39,16 +40,17 @@ export default function SimplePage() {
                 {loading ? 'Проверяем...' : 'Проверить новые события'}
             </button>
 
-            {events.length > 0 && (
+            {Object.keys(events).length > 0 && (
                 <div className="space-y-4">
-                    {events.map((eventsForBooks) => {
+                    {Object.keys(events).map((eventId) => {
+                        const eventsForBooks = events[eventId];
                         return (
-                            <div key={eventsForBooks.winline.eventId} className="p-4 border rounded-lg">
+                            <div key={eventId} className="p-4 border rounded-lg">
                                 <div className="mb-4">
-                                    <h3 className="font-bold">ID: {eventsForBooks.winline.eventId}</h3>
+                                    <h3 className="font-bold">ID: {eventId}</h3>
                                     <div className="text-sm text-gray-600">
                                         Текущие кэфы:{' '}
-                                        {Object.keys(eventsForBooks).map((bookmaker) => {
+                                        {Object.keys(events[eventId]).map((bookmaker) => {
                                             return (
                                                 <div key={bookmaker}>
                                                     <div>{bookmaker}</div>
