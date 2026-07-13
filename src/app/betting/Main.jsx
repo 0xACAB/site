@@ -1,5 +1,5 @@
 import React from 'react';
-import data from './monthsData/06.2026.json';
+import data from './monthsData/07.2026.json';
 
 const UltraThinTable = () => {
     const tableData = Object.entries(data).map(([date, values]) => {

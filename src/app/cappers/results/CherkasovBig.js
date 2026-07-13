@@ -78,6 +78,18 @@ const CherkasovBig = [
     { original: 1.95, real: 2.0, result: 'win', betSumRUR: 10000 },
     { original: 1.95, real: 1.95, result: 'win', betSumRUR: 10000 },
     { original: 2.68, real: 2.68, result: 'win', betSumRUR: 7000 },
-    { original: 2.0, real: 2.0, result: undefined, betSumRUR: 7000 }
+    { original: 2.0, real: 2.0, result: 'win', betSumRUR: 7000 },
+    { original: 1.8, real: 1.77, result: 'win', betSumRUR: 7000 },
+    { original: 1.8, real: 1.81, result: 'win', betSumRUR: 4000 },
+    { original: 1.93, real: 1.93, result: 'return', betSumRUR: 4000 },
+    { original: 1.68, real: 1.69, result: 'win', betSumRUR: 7000 },
+    { original: 1.63, real: 1.64, result: 'win', betSumRUR: 7000 },
+    { original: 1.8, real: 1.82, result: 'win', betSumRUR: 7000 },
+    { original: 1.7, real: 1.76, result: 'win', betSumRUR: 6500 },
+    { original: 1.75, real: 1.71, result: 'win', betSumRUR: 0 }, //из-за кф не проставил
+    { original: 1.65, real: 1.65, result: 'win', betSumRUR: 7000 },
+    { original: 1.8, real: 1.8, result: 'win', betSumRUR: 7000 },
+    { original: 1.63, real: 1.63, result: 'lose', betSumRUR: -10000 },
+    { original: 1.55, real: 1.55, result: 'win', betSumRUR: 10000 }
 ];
 export default CherkasovBig;

@@ -11,6 +11,7 @@ import OblepihaBig from './results/OblepihaBig';
 import LogachevBig from './results/LogachevBig';
 import HockeyFather from './results/HockeyFather';
 import WinClubBig from './results/WinClubBig';
+import LudkaBetBig from './results/LudkaBetBig';
 import Graph from './Graph';
 
 let summary = {
@@ -43,6 +44,10 @@ const originalData = [
     {
         name: 'WinClub углы/жк и Биг',
         coeffs: WinClubBig
+    },
+    {
+        name: 'Лудкабет Биг',
+        coeffs: LudkaBetBig
     },
     {
         name: 'Михаил Логачёв Биги',
@@ -134,7 +139,7 @@ export default function Main() {
         });
     }, []); /!*${originalData.length + 1 + ``}*!/*/
     //${originalData.length + 1} не работает, так как tailwind глючное говно так не умеет
-    const className = `grid grid-cols-8 w-full gap-4`;
+    const className = `grid grid-cols-9 w-full gap-4`;
     return (
         /*originalDataState && */ <div className="flex flex-col w-full justify-between items-center">
             <header className="flex flex-col w-full items-center">Стата по капперам</header>

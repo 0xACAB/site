@@ -52,9 +52,16 @@ const LogachevBig = [
     // НА ОДНИ И ТЕ ЖЕ ГРАБЛИ. ДОСТАЛ УЖЕ. НОВЫЕ НАЙДИ ГРАБЛИ СЕБЕ
     { original: 2.05, real: 2.05, result: 'win', betSumRUR: 2100 }, //поставил на прогноз клаудио, но с лучшим тоталом
     { original: 1.85, real: 1.85, result: 'win', betSumRUR: 500 },
-    { original: 1.39, real: 1.39, result: 'lose', betSumRUR: 13300 }
+    { original: 1.39, real: 1.39, result: 'lose', betSumRUR: 13300 },
     //МАТЧ СВЕРХУ: Снова куда-то полез не по прогнозу клаудио еще и почти 3 флета грузанул.
     //1 РАЗ ТОЛЬКО МОЖНО В ЛАЙВЕ ДОБИРАТЬ ЕСЛИ СУПЕР УВЕРЕН! И ТО НА 500р
     //СЛИШКОМ ПОВЕРИЛ В КАППЕРА
+    { original: 1.9, real: 1.9, result: 'lose', betSumRUR: 1000 }, //Полез ставить на рекламный неверифицированный канал. Еще и много так
+    { original: 2.0, real: 2.0, result: 'lose', betSumRUR: 4000 }, //Полез отыгрываться по рекламному неверифицированному канал. Еще и много так
+    { original: 1.44, real: 1.44, result: 'win', betSumRUR: 10000 }, //Два быстрых гола забили при прогнозе на ТМ. Лудканул
+    { original: 100, real: 100, result: 'lose', betSumRUR: 100 }, //Куда-то полез думая что уже проиграю основкую хоть кешбек будет метлкий
+    { original: 1.34, real: 1.34, result: 'win', betSumRUR: 10000 }, //быстрый гол забили при прогнозе на ТМ. Лудканул
+    { original: 3.41, real: 3.41, result: 'lode', betSumRUR: 500 }, //по наркодурости куда-то на баскет зарядил,
+    { original: 4.4, real: 4.4, result: 'lode', betSumRUR: 500 } //по старой дурости куда-то на WNBA баскет зарядил
 ];
 export default LogachevBig;

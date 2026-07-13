@@ -1,0 +1,5 @@
+@import "tailwindcss";
+/* app/wnba/main/styles.css */
+html {
+    overflow-y: scroll;
+}
