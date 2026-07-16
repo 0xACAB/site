@@ -20,6 +20,7 @@ const OblepihaBig = [
     { original: 1.67, real: 1.67, result: 'win', betSumRUR: 500 },
     { original: 1.78, real: 1.77, result: 'lose', betSumRUR: 335 },
     { original: 1.71, real: 1.73, result: 'win', betSumRUR: 500 },
-    { original: 1.64, real: 1.64, result: 'win', betSumRUR: 500 }
+    { original: 1.64, real: 1.64, result: 'win', betSumRUR: 500 },
+    { original: 1.62, real: 1.6, result: 'win', betSumRUR: 0 }
 ];
 export default OblepihaBig;

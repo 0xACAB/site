@@ -61,7 +61,10 @@ const LogachevBig = [
     { original: 1.44, real: 1.44, result: 'win', betSumRUR: 10000 }, //Два быстрых гола забили при прогнозе на ТМ. Лудканул
     { original: 100, real: 100, result: 'lose', betSumRUR: 100 }, //Куда-то полез думая что уже проиграю основкую хоть кешбек будет метлкий
     { original: 1.34, real: 1.34, result: 'win', betSumRUR: 10000 }, //быстрый гол забили при прогнозе на ТМ. Лудканул
-    { original: 3.41, real: 3.41, result: 'lode', betSumRUR: 500 }, //по наркодурости куда-то на баскет зарядил,
-    { original: 4.4, real: 4.4, result: 'lode', betSumRUR: 500 } //по старой дурости куда-то на WNBA баскет зарядил
+    { original: 3.41, real: 3.41, result: 'lose', betSumRUR: 500 }, //по наркодурости куда-то на баскет зарядил,
+    { original: 4.4, real: 4.4, result: 'lose', betSumRUR: 500 }, //по старой дурости куда-то на WNBA баскет зарядил
+    { original: 1.84, real: 1.84, result: 'lose', betSumRUR: 10000 }, //Расстроился из-за лудки в казике. Бахнул на баскет еще по лудке. СТОП ЛУДКЕ!
+    { original: 1.23, real: 1.23, result: 'win', betSumRUR: 10000 }, //СТОП ЛУДКЕ!
+    { original: 1.5, real: 1.5, result: 'lose', betSumRUR: 33000 } //СТОП ЛУДКЕ!
 ];
 export default LogachevBig;

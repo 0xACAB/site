@@ -11,6 +11,6 @@ const WinClubBig = [
     { original: 1.92, real: 1.95, result: 'win', betSumRUR: 500 },
     { original: 1.85, real: 1.81, result: 'lose', betSumRUR: 0 },
     { original: 1.65, real: 1.69, result: 'win', betSumRUR: 500 },
-    { original: 1.65, real: 1.69, result: undefined, betSumRUR: 1000 }
+    { original: 1.55, real: 1.52, result: 'win', betSumRUR: 0 }
 ];
 export default WinClubBig;

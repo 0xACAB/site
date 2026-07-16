@@ -90,6 +90,8 @@ const CherkasovBig = [
     { original: 1.65, real: 1.65, result: 'win', betSumRUR: 7000 },
     { original: 1.8, real: 1.8, result: 'win', betSumRUR: 7000 },
     { original: 1.63, real: 1.63, result: 'lose', betSumRUR: -10000 },
-    { original: 1.55, real: 1.55, result: 'win', betSumRUR: 10000 }
+    { original: 1.55, real: 1.55, result: 'win', betSumRUR: 10000 },
+    { original: 1.82, real: 1.86, result: 'lose', betSumRUR: 10000 },
+    { original: 4.1, real: 4.1, result: 'win', betSumRUR: 3225 }
 ];
 export default CherkasovBig;
