@@ -1,42 +1,56 @@
-## Это сайт xtranscendence.ru
+# xTranscendence
 
+Сайт-проект на Next.js. В тестовом Docker-сценарии Nginx проксирует запросы к приложению по HTTPS.
 
-### Запустить можно локально по https:
+## Демо
 
-0. Добавляем в hosts строку:
-127.0.0.1 xtranscendence.local
+[Frontend Lab](https://site-eight-sigma-90.vercel.app/) — лендинг.
 
-1. Добавляем свои серты(pem) разраба в .data/ssl/live/xtranscendence.local
+## Локальный запуск
 
-2. Потом сделаем докер сборку. В этом проекте нет базы данных. Всё достаточно просто.
+```bash
+npm install
+npm run dev
+```
 
+Откройте [http://localhost:3000](http://localhost:3000).
 
-### Кратко по докеру:
+## Запуск по HTTPS через Docker
 
-docker compose -f docker-compose.test.yml up -d
-По умолчанию Docker ищет файлы: docker-compose.yml или compose.yaml.
-Флаг -f позволяет указать другой файл (например, тестовый, продакшен, dev).
+Для этого сценария нужны Docker и локальный сертификат.
 
--v (--volumes)
-Удаляет volumes (тома) вместе с контейнерами.
+1. Добавьте в файл `hosts` запись:
 
-bash
-docker compose -f docker-compose.test.yml down -v
-down — остановить и удалить контейнеры
+   ```text
+   127.0.0.1 xtranscendence.local
+   ```
 
--v — дополнительно удалить volumes, которые были созданы для хранения данных
+   В Windows файл находится в `%SystemRoot%\System32\drivers\etc\hosts`; в macOS и Linux — `/etc/hosts`.
 
-Без -v — данные (базы, файлы, загрузки) сохраняются.
-С -v — всё удаляется, и при следующем запуске данные создаются заново.
+2. Создайте сертификаты. Например, в Git Bash на Windows:
 
-Пример
-bash
-### Запуск с тестовым compose-файлом
-docker compose -f docker-compose.test.yml up -d
+   ```bash
+   bash scripts/init-certs.sh
+   ```
 
-### Остановка и удаление всего (включая данные)
-docker compose -f docker-compose.test.yml down -v
-Кратко
-Флаг	Что делает
--f	Указывает файл конфигурации
--v	Удаляет тома (данные) при остановке
+   Скрипт создаёт файлы в `data/ssl/live/xtranscendence.local/`. Сертификат самоподписанный, поэтому браузер может показать предупреждение.
+
+3. Соберите и запустите тестовую Docker-конфигурацию:
+
+   ```bash
+   docker compose -f docker-compose.test.yml up -d --build
+   ```
+
+4. Откройте [https://xtranscendence.local](https://xtranscendence.local).
+
+Остановить контейнеры:
+
+```bash
+docker compose -f docker-compose.test.yml down
+```
+
+> В тестовой конфигурации `data/ssl` подключена как bind mount. Команда `down -v` не удалит сертификаты из этой папки.
+
+## Примечание
+
+Тестовая Docker-конфигурация запускает Next.js и Nginx; отдельный контейнер базы данных в ней не настроен.
