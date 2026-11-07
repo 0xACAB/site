@@ -2,9 +2,9 @@
 
 Сайт-проект на Next.js. В тестовом Docker-сценарии Nginx проксирует запросы к приложению по HTTPS.
 
-## Демо
+## Сам лендинг
 
-[Frontend Lab](https://site-eight-sigma-90.vercel.app/) — лендинг.
+[Frontend Lab](https://xtranscendence.vercel.app/) — лендинг.
 
 ## Локальный запуск
 
