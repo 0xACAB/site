@@ -19,7 +19,7 @@ export default function About({ ref }) {
                 <div className="flex items-center gap-x-8 mt-2 h-8">
                     <a aria-label="github" href={socialMedia.github} target="_blank" rel="noreferrer">
                         <svg
-                            className="fill-current text-gray-800 dark:text-white hover:text-primary"
+                            className="fill-current text-gray-800 hover:text-primary"
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
                             height="24"
@@ -30,7 +30,7 @@ export default function About({ ref }) {
                     </a>
                     <a aria-label="linkedin" href={socialMedia.linkedin} target="_blank" rel="noreferrer">
                         <svg
-                            className="fill-current text-gray-800 dark:text-white hover:text-primary"
+                            className="fill-current text-gray-800 hover:text-primary"
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
                             height="24"
@@ -67,7 +67,7 @@ export default function About({ ref }) {
                                 cy="120"
                                 r="120"
                                 fill="url(#linear-gradient)"
-                                className="fill-current text-gray-800 dark:text-white hover:text-primary"
+                                className="fill-current text-gray-800 hover:text-primary"
                             />
                             <path
                                 d="M81.229,128.772l14.237,39.406s1.78,3.687,3.686,3.687,30.255-29.492,30.255-29.492l31.525-60.89L81.737,118.6Z"
